@@ -1,19 +1,23 @@
 const Discord = require('discord.js');
-const prefix = "!";
+const fs = require('fs');
+const config = require('../config.json');
 
-module.exports = async(client, message) => {
+module.exports = (client, message) => {
 
-    if(message.author.bot) return;
-    if(message.channel.type === "dm") return;
+    if (message.author.bot || message.channel.type === 'dm') { return; }
+    if (!message.channel.permissionsFor(client.user).has('VIEW_CHANNEL')) { return; }
 
-    if(!message.content.startsWith(prefix)) return;
+    if (!message.content.startsWith(config.prefix)) { return; }
 
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const commande = args.shift();
-
-    const cmd = client.commands.get(commande);
-
-    if(!cmd) return;
-
-    cmd.run(client, message, args);
-};
+        let args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+        let commande = args.shift();
+        
+        let cmd;
+        if(client.commands.has(commande)){
+            cmd = client.commands.get(commande);
+        } else{
+            cmd = client.commands.get(client.aliases.get(commande));
+        }
+        if (!cmd) { return; }
+        cmd.run(client, message, args);
+};   
