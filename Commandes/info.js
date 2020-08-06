@@ -14,6 +14,8 @@ exports.run = (client, message, args) => {
 module.exports.help = {
     name: "info",
     description: "",
-    category: "",
+    category: "infos",
+    usage:"",
+    accessableby: "Members",
     aliases: []
 }
