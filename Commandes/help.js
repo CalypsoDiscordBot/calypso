@@ -13,12 +13,12 @@ module.exports.run = (client, message, args) => {
            color: config.color,
            timestamp: new Date(),
            footer: {
-                icon_url: client.user.displayAvatarURL,
+                icon_url: client.user.displayAvatarURL(),
                 text: "Calypso Bot"
            },
            author: {
              name: `${client.user.username} Help`,
-             icon_url: client.user.displayAvatarURL
+             icon_url: client.user.displayAvatarURL()
            },
            fields: [
              {
@@ -42,9 +42,9 @@ module.exports.run = (client, message, args) => {
       });
     }
     else{
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setColor(config.color)
-        .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL)
+        .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL())
       let command = client.commands.get(client.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase())
       if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${config.prefix}help\` for the list of the commands.`))
       command = command.help
