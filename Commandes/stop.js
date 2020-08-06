@@ -10,5 +10,7 @@ module.exports.run = (client, message, args) => {
 
 module.exports.help = {
     name: 'stop',
+    description: "",
+    category: "",
     aliases: []
 };

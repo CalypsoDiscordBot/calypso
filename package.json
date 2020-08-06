@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.5.1",
-    "fs": "^0.0.1-security",
+    "discord.js": "^11.6.4",
+    "fs": "0.0.1-security",
     "mathjs": "^6.6.4",
     "moment": "^2.24.0",
     "ms": "^2.1.2",
