@@ -12,7 +12,7 @@ module.exports.run = (client, message, args) => {
         const embed = new Discord.MessageEmbed()
         .setColor(config.color)
         .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL())
-      let command = client.commands.get(client.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase())
+      let command = client.commands.get("accessrole")
       if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${config.prefix}help\` for the list of the commands.`))
       command = command.help
       embed.setDescription(`The bot's prefix is: \`${config.prefix}\`\n
