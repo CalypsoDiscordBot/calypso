@@ -17,7 +17,7 @@ module.exports.run = (client, message, args) => {
       command = command.help
       embed.setTitle(`${config.prefix}${command.name}`)
       .setDescription(`${command.description || "No Description provided."}`)
-      .addField("Usage", `${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : `${config.prefix}${command.name}`}`, true)
+      .addField("Usage", `${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : `\`${config.prefix}${command.name}\``}`, true)
       .addField("Aliases", `${(command.aliases && command.aliases.length !== 0) ? command.aliases.join(", ") : "None."}`, true)
       return message.channel.send(embed)
     }
