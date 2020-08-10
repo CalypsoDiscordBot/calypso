@@ -18,7 +18,7 @@ module.exports.run = (client, message, args) => {
       embed.setTitle(`${config.prefix}${command.name}`)
       .setDescription(`${command.description || "No Description provided."}`)
       .addField("Usage", `${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : "No Usage"}`, true)
-      .addField("Aliases", `${command.aliases ? command.aliases.join(", ") : "None."}`, true)
+      .addField("Aliases", `${(command.aliases && command.aliases.length !== 0) ? command.aliases.join(", ") : "None."}`, true)
       return message.channel.send(embed)
     }
     else if (args[0] === "disable"){
@@ -40,5 +40,6 @@ module.exports.help = {
     description: "Sets a role that people have to have to use the bot. Use `!accessrole disable` to disable",
     category: "settings",
     usage:"<role>",
-    accessableby: "Admin"
+    accessableby: "Admin",
+    aliases: []
 };
