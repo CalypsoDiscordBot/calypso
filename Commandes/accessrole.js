@@ -27,7 +27,7 @@ module.exports.run = (client, message, args) => {
     }
     
     if (role){
-        db.fetch(`accessrole_${message.guild.id}`, role.id);
+        db.set(`accessrole_${message.guild.id}`, role.id);
         return message.channel.send("Successfully set the access role.")
     }
     else{
