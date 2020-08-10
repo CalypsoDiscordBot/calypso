@@ -40,6 +40,5 @@ module.exports.help = {
     description: "Sets a role that people have to have to use the bot. Use `!accessrole disable` to disable",
     category: "settings",
     usage:"<role>",
-    accessableby: "Admin",
-    aliases: []
+    accessableby: "Admin"
 };
