@@ -20,7 +20,7 @@ module.exports.run = (client, message, args) => {
           fields: [
            {
              name: ":wrench: Settings",
-             value: "."
+             value: "`!accessrole`"
            },
            {
              name: ":hammer: Admin",
