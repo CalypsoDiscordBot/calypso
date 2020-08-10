@@ -15,12 +15,10 @@ module.exports.run = (client, message, args) => {
       let command = client.commands.get("accessrole")
       if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${config.prefix}help\` for the list of the commands.`))
       command = command.help
-      embed.setDescription(`The bot's prefix is: \`${config.prefix}\`\n
-      **Command:** ${command.name.slice(0, 1).toUpperCase() + command.name.slice(1)}
-      **Description:** ${command.description || "No Description provided."}
-      **Usage:** ${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : "No Usage"}
-      **Accessible by:** ${command.accessableby || "Members"}
-      **Aliases:** ${command.aliases ? command.aliases.join(", ") : "None."}`)
+      embed.setTitle(`${config.prefix}${command.name}`)
+      .setDescription(`${command.description || "No Description provided."}`)
+      .addField("Usage", `${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : "No Usage"}`, true)
+      .addField("Aliases", `${command.aliases ? command.aliases.join(", ") : "None."}`, true)
       return message.channel.send(embed)
     }
     else if (args[0] === "disable"){
@@ -41,7 +39,7 @@ module.exports.help = {
     name: 'accessrole',
     description: "Sets a role that people have to have to use the bot. Use `!accessrole disable` to disable",
     category: "settings",
-    usage:"`!accessrole <role>`",
+    usage:"<role>",
     accessableby: "Admin",
     aliases: []
 };

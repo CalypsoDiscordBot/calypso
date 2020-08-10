@@ -49,12 +49,10 @@ module.exports.run = (client, message, args) => {
       let command = client.commands.get(client.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase())
       if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${config.prefix}help\` for the list of the commands.`))
       command = command.help
-      embed.setDescription(`The bot's prefix is: \`${config.prefix}\`\n
-      **Command:** ${command.name.slice(0, 1).toUpperCase() + command.name.slice(1)}
-      **Description:** ${command.description || "No Description provided."}
-      **Usage:** ${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : "No Usage"}
-      **Accessible by:** ${command.accessableby || "Members"}
-      **Aliases:** ${command.aliases ? command.aliases.join(", ") : "None."}`)
+      embed.setTitle(`${config.prefix}${command.name}`)
+      .setDescription(`${command.description || "No Description provided."}`)
+      .addField("Usage", `${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : "No Usage"}`, true)
+      .addField("Aliases", `${command.aliases ? command.aliases.join(", ") : "None."}`, true)
       return message.channel.send(embed)
     }
 };
