@@ -1,44 +1,45 @@
 const Discord = require('discord.js');
 const config = require('../config.json');
-const { readdirSync } = require("fs")
 
 module.exports.run = (client, message, args) => {
-
-    if(!message.member.hasPermission("ADMINISTRATOR")) {return;}
 
     if(!args[0]){
       message.channel.send({
         embed: {
-           description: "I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. \nDo `!help <command>` for extended information on a command.",
-           color: config.color,
-           timestamp: new Date(),
-           footer: {
-                icon_url: client.user.displayAvatarURL(),
-                text: "Calypso Bot"
+          description: "I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. \nDo `!help <command>` for extended information on a command.",
+          color: config.color,
+          timestamp: new Date(),
+          footer: {
+               icon_url: client.user.displayAvatarURL(),
+               text: "Calypso Bot"
+          },
+          author: {
+            name: `${client.user.username} Help`,
+            icon_url: client.user.displayAvatarURL()
+          },
+          fields: [
+           {
+             name: ":wrench: Settings",
+             value: "."
            },
-           author: {
-             name: `${client.user.username} Help`,
-             icon_url: client.user.displayAvatarURL()
+           {
+             name: ":hammer: Admin",
+             value: "."
            },
-           fields: [
-             {
-               name: ":hammer: Admin",
-               value: "."
-             },
-             {
-               name: ":notes: Music",
-               value: "`!play`, `!stop`"
-             },
-             {
-               name: ":100: Meme",
-               value: "."
-             },
-             {
-               name: ":tada: Fun",
-               value: "."
-             }
-           ]
-         }
+           {
+             name: ":notes: Music",
+             value: "`!play`, `!stop`, `!skip`, `!queue`, `!volume`"
+           },
+           {
+             name: ":100: Meme",
+             value: "."
+           },
+           {
+             name: ":information_source: Info",
+             value: "`!help`, `!stats`"
+           }
+          ]
+        }
       });
     }
     else{
@@ -61,7 +62,7 @@ module.exports.run = (client, message, args) => {
 module.exports.help = {
     name: 'help',
     description: "",
-    category: "infos",
+    category: "info",
     usage:"",
     accessableby: "Members",
     aliases: []

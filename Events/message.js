@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const db = require('quick.db');
 const config = require('../config.json');
 
 module.exports = (client, message) => {
@@ -9,15 +10,23 @@ module.exports = (client, message) => {
 
     if (!message.content.startsWith(config.prefix)) { return; }
 
-        let args = message.content.slice(config.prefix.length).trim().split(/ +/g);
-        let commande = args.shift();
-        
-        let cmd;
-        if(client.commands.has(commande)){
-            cmd = client.commands.get(commande);
-        } else{
-            cmd = client.commands.get(client.aliases.get(commande));
+    const accessrole_id = db.fetch(`accessrole_${message.guild.id}`);
+    if (accessrole_id){
+        const accessrole = message.guild.roles.cache.find((c) => c.id === accessrole_id);
+        if (accessrole){
+            if (!message.member.roles.cache.has(accessrole_id)) { return; }
         }
-        if (!cmd) { return; }
-        cmd.run(client, message, args);
+    }
+
+    let args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    let commande = args.shift();
+    
+    let cmd;
+    if(client.commands.has(commande)){
+        cmd = client.commands.get(commande);
+    } else{
+        cmd = client.commands.get(client.aliases.get(commande));
+    }
+    if (!cmd) { return; }
+    cmd.run(client, message, args);
 };   
