@@ -16,7 +16,21 @@ module.exports = (client, message) => {
         if (accessrole){
             if (!message.member.roles.cache.has(accessrole_id)) { return; }
         }
+        else {
+            db.delete(`accessrole_${message.guild.id}`);
+        }
     }
+    const channeltoggle_id = db.fetch(`channeltoggle_${message.guild.id}_${message.channel.id}`);
+    if (channeltoggle_id){
+        const channeltoggle = message.guild.channels.cache.find((c) => c.id === channeltoggle_id);
+        if (channeltoggle) { 
+            if(channeltoggle === "Disable") { return; }
+        }
+        else {
+            db.delete(`channeltoggle_${message.guild.id}_${message.channel.id}`);
+        }
+    }
+
 
     let args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     let commande = args.shift();
