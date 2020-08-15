@@ -5,18 +5,18 @@ module.exports.run = (client, message, args) => {
 
     let server = client.servers[message.guild.id];
 
-    if(!server || !server.queue[0]) {return message.channel.send("Aucune file d'attente n'a été créée.");}
+    if(!server || !server.queue[0]) {return message.channel.send("I'm currently not playing music!");}
 
     let queue = server.queue;
     let nowPlaying = queue[0];
 
-    let resp = `__Lecture en cours :__\n[${nowPlaying.title}](${nowPlaying.url}) | ${nowPlaying.time} - Demandé par : *${nowPlaying.requester}*\n`;
+    let resp = `__Now Playing :__\n[${nowPlaying.title}](${nowPlaying.url}) | ${nowPlaying.time} - Requested By : *${nowPlaying.requester}*\n`;
 
     if(queue[1]){
-        resp += `\n__File d'attente :__\n`
+        resp += `\n__Up Next :__\n`
     }
     for(var i = 1; i < queue.length; i++){
-        resp += `${i}. [${queue[i].title}](${queue[i].url}) | ${queue[i].time} - Demandé par : *${queue[i].requester}*\n`;
+        resp += `${i}. [${queue[i].title}](${queue[i].url}) | ${queue[i].time} - Requested By : *${queue[i].requester}*\n`;
     }
 
     message.channel.send({
@@ -28,7 +28,7 @@ module.exports.run = (client, message, args) => {
 
 module.exports.help = {
     name: 'queue',
-    description: "",
+    description: "Shows the current track queue.",
     category: "music",
     usage:"",
     accessableby: "Members",

@@ -19,10 +19,10 @@ module.exports.run = (client, message, args) => {
 };
 
 module.exports.help = {
-    name: 'stop',
-    description: "",
+    name: 'leave',
+    description: "Leaves the voice channel.",
     category: "music",
     usage:"",
     accessableby: "Members",
-    aliases: ['leave']
+    aliases: ['stop']
 };

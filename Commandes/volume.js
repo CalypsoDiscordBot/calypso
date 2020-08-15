@@ -5,10 +5,10 @@ module.exports.run = (client, message, args) => {
 
     let server = client.servers[message.guild.id];
 
-    if(!server) {return message.channel.send("Actuellement aucune musique en lecture...");}
-    if(message.member.voice.channel !== message.guild.me.voice.channel){return message.channel.send("Vous n'êtes pas dans le même channel vocal !")}
+    if(!server) {return message.channel.send("I'm currently not playing music!");}
+    if(message.member.voice.channel !== message.guild.me.voice.channel){return message.channel.send("You are not in a voice channel!")}
 
-    if(isNaN(args[0]) || args[0] > 200 || args[0] <0) return message.channel.send("Vous devez entrez un nombre entre 0 et 200.");
+    if(isNaN(args[0]) || args[0] > 200 || args[0] <0) return message.channel.send("You must enter a number between 0 and 200.");
 
     server.dispatcher.setVolume(args[0]/100);
 
@@ -17,9 +17,9 @@ module.exports.run = (client, message, args) => {
 
 module.exports.help = {
     name: 'volume',
-    description: "",
+    description: "Sets the volume of the music playing.",
     category: "music",
-    usage:"",
+    usage:"<volume>",
     accessableby: "Members",
     aliases: ['v','vol']
 };

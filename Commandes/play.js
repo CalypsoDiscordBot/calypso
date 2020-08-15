@@ -31,8 +31,20 @@ module.exports.run = async (client, message, args) => {
         })
     }
 
-    if(!args[0]){return message.channel.send("Vous n'avez pas spécifié de lien !")}
-    if(!message.member.voice.channel){return message.channel.send("Vous devez être dans un channel vocal !")}
+    if(!args[0]){
+        const embed = new Discord.MessageEmbed()
+        .setColor(config.color)
+        .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL())
+      let command = client.commands.get("play")
+      if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${config.prefix}help\` for the list of the commands.`))
+      command = command.help
+      embed.setTitle(`${config.prefix}${command.name}`)
+      .setDescription(`${command.description || "No Description provided."}`)
+      .addField("Usage", `${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : `\`${config.prefix}${command.name}\``}`, true)
+      .addField("Aliases", `${(command.aliases && command.aliases.length !== 0) ? command.aliases.join(", ") : "None."}`, true)
+      return message.channel.send(embed)
+    }
+    if(!message.member.voice.channel){return message.channel.send("You are not in a voice channel!")}
 
     if(!client.servers[message.guild.id]) {
         client.servers[message.guild.id] = {
@@ -57,8 +69,8 @@ module.exports.run = async (client, message, args) => {
     }
     else {
         search(args.join(" "), async function (err, res) {
-            if(err){return message.channel.send("Erreur lors de la recherche...")}
-            if(!res || !res.videos || !res.videos[0]){return message.channel.send("Aucune vidéo correspondante")}
+            if(err){return message.channel.send("Search error...")}
+            if(!res || !res.videos || !res.videos[0]){return message.channel.send("No video found")}
 
             let video = res.videos[0].url;
             console.log('nope')
@@ -87,12 +99,12 @@ module.exports.run = async (client, message, args) => {
                         },
                         fields: [
                             {
-                                name: 'Durée',
+                                name: 'Duration',
                                 value: server.queue[0].time,
                                 inline: true
                             },
                             {
-                                name: 'Demandé par',
+                                name: 'Requested By',
                                 value:  server.queue[0].requester,
                                 inline: true
                             }]
@@ -101,7 +113,7 @@ module.exports.run = async (client, message, args) => {
             })
         }
         else {
-            message.channel.send("Ajouté à la file d'attente : ")
+            message.channel.send("Added to queue : ")
             message.channel.send({embed: {
                 color: config.color,
                 author: info.videoDetails.author,
@@ -112,12 +124,12 @@ module.exports.run = async (client, message, args) => {
                 },
                 fields: [
                     {
-                        name: 'Durée',
+                        name: 'Duration',
                         value: sec2time(info.videoDetails.lengthSeconds),
                         inline: true
                     },
                     {
-                        name: 'Demandé par',
+                        name: 'Requested By',
                         value: message.author.tag,
                         inline: true
                     }]
@@ -128,9 +140,9 @@ module.exports.run = async (client, message, args) => {
 
 module.exports.help = {
     name: 'play',
-    description: "",
+    description: "Plays a track. A range of sites are supported. \n\nExamples: \n`!play pnl blanka` - Searches youtube for 'pnl blanka' \n`!play https://youtu.be/u8bHjdljyLw` - Plays a youtube video, using the direct URL",
     category: "music",
-    usage:"",
+    usage:"<track>",
     accessableby: "Members",
     aliases: ['p']
 };
