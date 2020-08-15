@@ -32,7 +32,7 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: ":100: Meme",
-             value: "."
+             value: "`!meme`"
            },
            {
              name: ":information_source: Info",
