@@ -7,17 +7,9 @@ module.exports.run = (client, message, args) => {
     if(!message.member.hasPermission("ADMINISTRATOR")) {return;}
 
     if(!args[0]){
-        const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
-        .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL())
-      let command = client.commands.get("prefix")
-      if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${client.prefix}help\` for the list of the commands.`))
-      command = command.help;
-      embed.setTitle(`${client.prefix}${command.name}`)
-      .setDescription(`${command.description || "No Description provided."}`)
-      .addField("Usage", `${command.usage ? `\`${client.prefix}${command.name} ${command.usage}\`` : `\`${client.prefix}${command.name}\``}`, true)
-      .addField("Aliases", `${(command.aliases && command.aliases.length !== 0) ? command.aliases.join(", ") : "None."}`, true)
-      return message.channel.send(embed);
+        let msg = `${prefix}help prefix`;
+        let content = msg.slice(prefix.length).trim().split(/ +/g);
+        client.commands.get("help").run(client, message, content);
     }
 
     if(args[0] === "disable"){
@@ -34,7 +26,7 @@ module.exports.run = (client, message, args) => {
 
 module.exports.help = {
     name: 'prefix',
-    description: "Sets the command prefix. \n\nExamples: \n+prefix ! - Sets the prefix to ! \n+prefix disable - Disables the custom command prefix.",
+    description: `Sets the command prefix. \n\nExamples: \n${prefix}prefix ! - Sets the prefix to ! \n${prefix}prefix disable - Disables the custom command prefix.`,
     category: "settings",
     usage:"<prefix>",
     accessableby: "Admin",

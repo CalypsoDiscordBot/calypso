@@ -32,18 +32,11 @@ module.exports.run = async (client, message, args) => {
     }
 
     if(!args[0]){
-        const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
-        .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL())
-      let command = client.commands.get("play")
-      if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${config.prefix}help\` for the list of the commands.`))
-      command = command.help
-      embed.setTitle(`${config.prefix}${command.name}`)
-      .setDescription(`${command.description || "No Description provided."}`)
-      .addField("Usage", `${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : `\`${config.prefix}${command.name}\``}`, true)
-      .addField("Aliases", `${(command.aliases && command.aliases.length !== 0) ? command.aliases.join(", ") : "None."}`, true)
-      return message.channel.send(embed)
+        let msg = `${prefix}help play`;
+        let content = msg.slice(prefix.length).trim().split(/ +/g);
+        client.commands.get("help").run(client, message, content);
     }
+
     if(!message.member.voice.channel){return message.channel.send("You are not in a voice channel!")}
 
     if(!client.servers[message.guild.id]) {
