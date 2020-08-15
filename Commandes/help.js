@@ -36,7 +36,7 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: ":information_source: Info",
-             value: `\`${client.prefix}help\`, \`${client.prefix}stats\``
+             value: `\`${client.prefix}help\`, \`${client.prefix}whois\``
            }
           ]
         }
