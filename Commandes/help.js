@@ -20,7 +20,7 @@ module.exports.run = (client, message, args) => {
           fields: [
            {
              name: ":wrench: Settings",
-             value: "`!accessrole`, `!channeltoggle`"
+             value: `\`${client.prefix}accessrole\`, \`${client.prefix}channeltoggle\``
            },
            {
              name: ":hammer: Admin",
@@ -28,15 +28,15 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: ":notes: Music",
-             value: "`!play`, `!stop`, `!skip`, `!queue`, `!volume`"
+             value: `\`${client.prefix}play\`, \`${client.prefix}stop\`, \`${client.prefix}skip\`, \`${client.prefix}queue\`, \`${client.prefix}volume\``
            },
            {
              name: ":100: Meme",
-             value: "`!meme`"
+             value: `\`${client.prefix}meme\``
            },
            {
              name: ":information_source: Info",
-             value: "`!help`, `!stats`"
+             value: `\`${client.prefix}help\`, \`${client.prefix}stats\``
            }
           ]
         }
@@ -47,11 +47,11 @@ module.exports.run = (client, message, args) => {
         .setColor(config.color)
         .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL())
       let command = client.commands.get(client.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase())
-      if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${config.prefix}help\` for the list of the commands.`))
+      if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${client.prefix}help\` for the list of the commands.`))
       command = command.help
-      embed.setTitle(`${config.prefix}${command.name}`)
-      .setDescription(`${command.description || "No Description provided."}`)
-      .addField("Usage", `${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : `\`${config.prefix}${command.name}\``}`, true)
+      embed.setTitle(`${client.prefix}${command.name}`)
+      .setDescription(`${command.description.replace(/%prefix%/g, client.prefix) || "No Description provided."}`)
+      .addField("Usage", `${command.usage ? `\`${client.prefix}${command.name} ${command.usage}\`` : `\`${client.prefix}${command.name}\``}`, true)
       .addField("Aliases", `${(command.aliases && command.aliases.length !== 0) ? command.aliases.join(", ") : "None."}`, true)
       return message.channel.send(embed)
     }
@@ -70,7 +70,7 @@ module.exports.help = {
 //         .setColor(config.color)
 //         .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL)
 
-//       embed.setDescription(`These are the avaliable commands for ${message.guild.me.displayName}\nThe bot prefix is: **${config.prefix}**`)
+//       embed.setDescription(`These are the avaliable commands for ${message.guild.me.displayName}\nThe bot prefix is: **${client.prefix}**`)
 //       embed.setFooter(`© ${message.guild.me.displayName} | Total Commands: ${client.commands.size}`, client.user.displayAvatarURL);
 
 //       console.log(client.commands)

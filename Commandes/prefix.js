@@ -7,20 +7,25 @@ module.exports.run = (client, message, args) => {
     if(!message.member.hasPermission("ADMINISTRATOR")) {return;}
 
     if(!args[0]){
-        let msg = `${prefix}help prefix`;
-        let content = msg.slice(prefix.length).trim().split(/ +/g);
+        let content = ["prefix"];
         client.commands.get("help").run(client, message, content);
     }
-
-    if(args[0] === "disable"){
-        db.delete(`prefix_${message.guild.id}`);
+    else {
+        if(args[0] === "disable"){
+            db.delete(`prefix_${message.guild.id}`);
+            message.channel.send(`Successfully disabled the prefix. All commands should now be used like: \`${config.prefix}ping\` `);
+        }
+        else {
+            db.set(`prefix_${message.guild.id}`, args[0]);
+            var prefix = config.prefix;
+            let prefixdb = db.fetch(`prefix_${message.guild.id}`);
+            if(prefixdb){
+                var prefix = prefixdb;
+            }
+            client.prefix = prefix;
+            message.channel.send(`Successfully set the prefix. All commands should now be used like: \`${client.prefix}ping\` `);
+        }
     }
-    db.set(`prefix_${message.guild.id}`, args[0]);
-    let prefix = db.fetch(`prefix_${message.guild.id}`);
-    if(!prefix){
-        let prefix = config.prefix;
-    }
-    message.channel.send(`Successfully disabled the prefix. All commands should now be used like: \`${client.prefix}ping\` `);
 }
 
 

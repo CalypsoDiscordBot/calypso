@@ -12,7 +12,6 @@ module.exports = (client, message) => {
         var prefix = prefixdb;
     }
     client.prefix = prefix;
-    console.log(prefix);
 
     if (message.author.bot || message.channel.type === 'dm') { return; }
     if (!message.channel.permissionsFor(client.user).has('VIEW_CHANNEL')) { return; }

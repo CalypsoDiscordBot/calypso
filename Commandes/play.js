@@ -133,7 +133,7 @@ module.exports.run = async (client, message, args) => {
 
 module.exports.help = {
     name: 'play',
-    description: "Plays a track. A range of sites are supported. \n\nExamples: \n`!play pnl blanka` - Searches youtube for 'pnl blanka' \n`!play https://youtu.be/u8bHjdljyLw` - Plays a youtube video, using the direct URL",
+    description: "Plays a track. A range of sites are supported. \n\nExamples: \n`%prefix%play pnl blanka` - Searches youtube for 'pnl blanka' \n`%prefix%play https://youtu.be/u8bHjdljyLw` - Plays a youtube video, using the direct URL",
     category: "music",
     usage:"<track>",
     accessableby: "Members",
