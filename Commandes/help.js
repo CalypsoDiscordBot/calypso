@@ -24,7 +24,7 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: ":hammer: Admin",
-             value: "."
+             value: `\`${client.prefix}clean\``
            },
            {
              name: ":notes: Music",
