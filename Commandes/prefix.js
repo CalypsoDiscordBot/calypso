@@ -26,7 +26,7 @@ module.exports.run = (client, message, args) => {
 
 module.exports.help = {
     name: 'prefix',
-    description: `Sets the command prefix. \n\nExamples: \n\`${client.prefix}prefix !\` - Sets the prefix to ! \n\`${client.prefix}prefix disable\` - Disables the custom command prefix.`,
+    description: `Sets the command prefix. \n\nExamples: \n\`%prefix%prefix !\` - Sets the prefix to ! \n\`%prefix%prefix disable\` - Disables the custom command prefix.`,
     category: "settings",
     usage:"<prefix>",
     accessableby: "Admin",
