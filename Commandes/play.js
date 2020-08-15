@@ -32,8 +32,8 @@ module.exports.run = async (client, message, args) => {
     }
 
     if(!args[0]){
-        let msg = `${prefix}help play`;
-        let content = msg.slice(prefix.length).trim().split(/ +/g);
+        let msg = `${client.prefix}help play`;
+        let content = msg.slice(client.prefix.length).trim().split(/ +/g);
         client.commands.get("help").run(client, message, content);
     }
 
