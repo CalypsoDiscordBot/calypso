@@ -12,13 +12,13 @@ module.exports = (client, message) => {
         let prefix = config.prefix;
     }
     client.prefix = prefix;
-
+    console.log(client.prefix);
     if (message.author.bot || message.channel.type === 'dm') { return; }
     if (!message.channel.permissionsFor(client.user).has('VIEW_CHANNEL')) { return; }
 
-    if (!message.content.startsWith(prefix)) { return; }
+    if (!message.content.startsWith(client.prefix)) { return; }
 
-    let args = message.content.slice(prefix.length).trim().split(/ +/g);
+    let args = message.content.slice(client.prefix.length).trim().split(/ +/g);
     let commande = args.shift();
     
     let cmd;
