@@ -5,12 +5,20 @@ const config = require('../config.json');
 
 module.exports = (client, message) => {
 
+    // PREFIX 
+    
+    let prefix = db.fetch(`prefix_${message.guild.id}`);
+    if(!prefix){
+        let prefix = config.prefix;
+    }
+    client.prefix = prefix;
+
     if (message.author.bot || message.channel.type === 'dm') { return; }
     if (!message.channel.permissionsFor(client.user).has('VIEW_CHANNEL')) { return; }
 
-    if (!message.content.startsWith(config.prefix)) { return; }
+    if (!message.content.startsWith(prefix)) { return; }
 
-    let args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let commande = args.shift();
     
     let cmd;

@@ -4,14 +4,13 @@ module.exports = async(client) => {
     status: 'online'
   })
   
-  console.log(`${client.users.cache.size} Membres ${client.channels.cache.size} Channels ${client.guilds.cache.size} Serveurs.`);
-  client.user.setActivity("Démarrage du bot")
+  console.log(`${client.users.cache.size} Membres ${client.channels.cache.size} Channels ${client.guilds.cache.size} Servers.`);
+  client.user.setActivity("Starting...")
   
   //Status bot
   const activities_list = [
     "", 
-    "Calypso Bot",
-    "En développement",
+    "Calypso Bot | !help"
   ];
 
   setInterval(() => {
