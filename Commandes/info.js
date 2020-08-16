@@ -3,9 +3,9 @@ const Discord = require('discord.js');
 exports.run = (client, message, args) => {
     var info = new Discord.MessageEmbed()
         .setColor('#ffce00')
-        .setTitle('Informations de Calypso')
-        .setDescription("> `Calypso est un bot discord qui fais pas mal de truc` \n > `Comme de la musique de la modération et bien plus`")
-        .setFooter(`Calypso BOT`)
+        .setTitle('Calypso')
+        .setDescription("I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. \n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot)")
+        .setFooter(`Calypso`)
         .setImage("")
         .setTimestamp()
     message.channel.send(info)

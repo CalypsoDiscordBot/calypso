@@ -14,7 +14,7 @@ module.exports.run = (client, message, args) => {
     }    
         nb = parseInt(args[0])+1;                             
         message.channel.bulkDelete(nb).then((messages) => {
-                message.channel.send({embed: {description: `✅ **${messages.size-1}** messages have been deleted!`}}).then(msg => msg.delete({ timeout: 5000 }));
+                message.channel.send({embed: {description: `✅ **${messages.size-1}** messages have been deleted!`}});
             });
 };
 
