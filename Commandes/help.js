@@ -6,7 +6,7 @@ module.exports.run = (client, message, args) => {
     if(!args[0]){
       message.channel.send({
         embed: {
-          description: "I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. \nDo `!help <command>` for extended information on a command.\n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot)",
+          description: `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. \nDo \`${client.prefix}help <command>\` for extended information on a command.\n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot)`,
           color: config.color,
           timestamp: new Date(),
           footer: {
@@ -20,7 +20,7 @@ module.exports.run = (client, message, args) => {
           fields: [
            {
              name: ":wrench: Settings",
-             value: `\`${client.prefix}accessrole\`, \`${client.prefix}channeltoggle\`, \`${client.prefix}prefix\``
+             value: `\`${client.prefix}accessrole\`, \`${client.prefix}channeltoggle\`, \`${client.prefix}prefix\`, \`${client.prefix}greeting\`, \`${client.prefix}farewell\`,`
            },
            {
              name: ":hammer: Admin",
@@ -36,7 +36,7 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: ":information_source: Info",
-             value: `\`${client.prefix}help\`, \`${client.prefix}whois\``
+             value: `\`${client.prefix}help\`, \`${client.prefix}info\`, \`${client.prefix}whois\``
            }
           ]
         }

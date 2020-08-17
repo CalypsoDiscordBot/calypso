@@ -15,14 +15,14 @@ module.exports = (client, guild) => {
 			`${count} Members`,
     	];
 		console.log(`${count} Members ${client.channels.cache.size} Channels ${client.guilds.cache.size} Servers.`);
+		client.membercount = count;
 		let i = 0;
-		setInterval(() => {
-			const statut = statuts[i++ % statuts.length];
-			client.user.setActivity(statut, { type: 'WATCHING' });
-		}, 10000);
+		const statut = statuts[i++ % statuts.length];
+
  	});
 
-	const moi = client.users.cache.get('334786552964186123');
+	const Alex = client.users.cache.get('334786552964186123');
+	const Itek = client.users.cache.get('216607323035009025');
 
 	const embed = new Discord.MessageEmbed()
 		.setTitle('Nouveau Serveur Discord !')
@@ -31,5 +31,6 @@ module.exports = (client, guild) => {
 		.addField('Propriétaire : ', guild.owner.user.username)
 		.addField('Users : ', guild.members.cache.size);
 
-	moi.send(embed);
+	Alex.send(embed);
+	Itek.send(embed);
 };

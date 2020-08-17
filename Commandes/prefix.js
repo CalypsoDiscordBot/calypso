@@ -17,6 +17,7 @@ module.exports.run = (client, message, args) => {
         }
         else {
             db.set(`prefix_${message.guild.id}`, args[0]);
+
             var prefix = config.prefix;
             let prefixdb = db.fetch(`prefix_${message.guild.id}`);
             if(prefixdb){
