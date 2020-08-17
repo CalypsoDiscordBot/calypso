@@ -5,6 +5,8 @@ const config = require('../config.json');
 
 module.exports = (client, message) => {
 
+    if (message.author.bot || message.channel.type === 'dm') { return; }
+    
     // PREFIX 
     var prefix = config.prefix;
     let prefixdb = db.fetch(`prefix_${message.guild.id}`);
@@ -13,7 +15,6 @@ module.exports = (client, message) => {
     }
     client.prefix = prefix;
 
-    if (message.author.bot || message.channel.type === 'dm') { return; }
     if (!message.channel.permissionsFor(client.user).has('VIEW_CHANNEL')) { return; }
 
     if (!message.content.startsWith(client.prefix)) { return; }

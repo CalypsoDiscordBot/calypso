@@ -13,7 +13,7 @@ module.exports.run = (client, message, args) => {
     else {
         if(args[0] === "disable"){
             db.delete(`prefix_${message.guild.id}`);
-            message.channel.send(`Successfully disabled the prefix. All commands should now be used like: \`${config.prefix}ping\` `);
+            message.channel.send(`Successfully disabled the prefix. All commands should now be used like: \`${config.prefix}help\` `);
         }
         else {
             db.set(`prefix_${message.guild.id}`, args[0]);
@@ -24,7 +24,7 @@ module.exports.run = (client, message, args) => {
                 var prefix = prefixdb;
             }
             client.prefix = prefix;
-            message.channel.send(`Successfully set the prefix. All commands should now be used like: \`${client.prefix}ping\` `);
+            message.channel.send(`Successfully set the prefix. All commands should now be used like: \`${client.prefix}help\` `);
         }
     }
 }
