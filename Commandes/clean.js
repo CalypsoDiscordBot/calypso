@@ -21,7 +21,7 @@ module.exports.run = (client, message, args) => {
 module.exports.help = {
     name: 'clean',
     description: "Cleans messages from a channel.",
-    category: "admin",
+    category: "moderation",
     usage:"[amount<100]",
     accessableby: "Admin",
     aliases: []

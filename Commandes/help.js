@@ -6,7 +6,9 @@ module.exports.run = (client, message, args) => {
     if(!args[0]){
       message.channel.send({
         embed: {
-          description: `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. \nDo \`${client.prefix}help <command>\` for extended information on a command.\n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot)`,
+          description: `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. 
+          \nDo \`${client.prefix}help <command>\` for extended information on a command.
+          \n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
           color: config.color,
           timestamp: new Date(),
           footer: {
@@ -20,23 +22,23 @@ module.exports.run = (client, message, args) => {
           fields: [
            {
              name: ":wrench: Settings",
-             value: `\`${client.prefix}accessrole\`, \`${client.prefix}channeltoggle\`, \`${client.prefix}prefix\`, \`${client.prefix}greeting\`, \`${client.prefix}farewell\`,`
+             value: `\`${client.prefix}accessrole\`, \`${client.prefix}channeltoggle\`, \`${client.prefix}prefix\`, \`${client.prefix}greeting\`, \`${client.prefix}farewell\``
            },
            {
-             name: ":hammer: Admin",
-             value: `\`${client.prefix}clean\``
+             name: ":hammer: Moderation",
+             value: `\`${client.prefix}clean\`, \`${client.prefix}poll\`, \`${client.prefix}giveaway\`, \`${client.prefix}reroll\``
            },
            {
              name: ":notes: Music",
              value: `\`${client.prefix}play\`, \`${client.prefix}stop\`, \`${client.prefix}skip\`, \`${client.prefix}queue\`, \`${client.prefix}volume\``
            },
            {
-             name: ":100: Meme",
-             value: `\`${client.prefix}meme\``
+             name: ":100: Fun",
+             value: `\`${client.prefix}meme\`, \`${client.prefix}dog\`, \`${client.prefix}coinflip\``
            },
            {
              name: ":information_source: Info",
-             value: `\`${client.prefix}help\`, \`${client.prefix}info\`, \`${client.prefix}whois\`, \`${client.prefix}ping\``
+             value: `\`${client.prefix}help\`, \`${client.prefix}info\`, \`${client.prefix}whois\`, \`${client.prefix}serverinfo\`, \`${client.prefix}ping\``
            }
           ]
         }

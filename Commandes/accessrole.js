@@ -9,17 +9,8 @@ module.exports.run = (client, message, args) => {
     let role = message.mentions.roles.first() || message.guild.roles.cache.find((c) => c.name === args[0]);
 
     if(!args[0]){
-        const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
-        .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL())
-      let command = client.commands.get("accessrole")
-      if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${config.prefix}help\` for the list of the commands.`))
-      command = command.help
-      embed.setTitle(`${config.prefix}${command.name}`)
-      .setDescription(`${command.description || "No Description provided."}`)
-      .addField("Usage", `${command.usage ? `\`${config.prefix}${command.name} ${command.usage}\`` : `\`${config.prefix}${command.name}\``}`, true)
-      .addField("Aliases", `${(command.aliases && command.aliases.length !== 0) ? command.aliases.join(", ") : "None."}`, true)
-      return message.channel.send(embed)
+        let content = ["accessrole"];
+        client.commands.get("help").run(client, message, content);
     }
     else if (args[0] === "disable"){
         db.delete(`accessrole_${message.guild.id}`);

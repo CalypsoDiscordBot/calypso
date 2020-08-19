@@ -47,7 +47,6 @@ module.exports.run = async (client, message, args) => {
     var server = client.servers[message.guild.id]
     if(args.join(" ").includes("https://youtu")){
         let video = args[0];
-        console.log('lien')
         let info = await ytdl.getInfo(video);
         await server.queue.push({
             title: info.videoDetails.title,
@@ -65,7 +64,6 @@ module.exports.run = async (client, message, args) => {
             if(!res || !res.videos || !res.videos[0]){return message.channel.send("No video found")}
 
             let video = res.videos[0].url;
-            console.log('nope')
             let info = await ytdl.getInfo(video);
             await server.queue.push({
                 title: info.videoDetails.title,
