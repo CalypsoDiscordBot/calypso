@@ -35,7 +35,7 @@ module.exports = (client, guild) => {
 		.setTitle('Nouveau Serveur Discord !')
 		.setColor('#dc322f')
 		.addField('Serveur : ', guild.name)
-		.addField('Propriétaire : ', guild.owner.user.username)
+		.addField('Propriétaire : ', guild.owner.user.tag)
 		.addField('Users : ', guild.members.cache.size);
 
 	Alex.send(embed);
