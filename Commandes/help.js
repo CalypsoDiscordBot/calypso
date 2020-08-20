@@ -7,8 +7,8 @@ module.exports.run = (client, message, args) => {
       message.channel.send({
         embed: {
           description: `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. 
-          \nDo \`${client.prefix}help <command>\` for extended information on a command.
-          \n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
+          Do \`${client.prefix}help <command>\` for extended information on a command.
+          \n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
           color: config.color,
           timestamp: new Date(),
           footer: {
