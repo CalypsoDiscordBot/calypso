@@ -38,6 +38,20 @@ module.exports.run = async (client, message, args) => {
 
     if(!message.member.voice.channel){return message.channel.send("You are not in a voice channel!")}
 
+    const permissions = message.member.voice.channel.permissionsFor(client.user);
+    if (!permissions.has('CONNECT')) {
+        const embed = new Discord.MessageEmbed()
+            .setColor(config.color)
+            .setDescription("❌ I do not have permission to join your voice channel.")
+        return message.channel.send(embed);
+    }
+    if (!permissions.has('SPEAK')) {
+        const embed = new Discord.MessageEmbed()
+            .setColor(config.color)
+            .setDescription("❌ I do not have permission to speak in your voice channel.")
+        return message.channel.send(embed);
+    }
+
     if(!client.servers[message.guild.id]) {
         client.servers[message.guild.id] = {
             queue : []
@@ -47,16 +61,20 @@ module.exports.run = async (client, message, args) => {
     var server = client.servers[message.guild.id]
     if(args.join(" ").includes("https://youtu")){
         let video = args[0];
-        let info = await ytdl.getInfo(video);
-        await server.queue.push({
-            title: info.videoDetails.title,
-            author: info.videoDetails.author,
-            url: video,
-            time: sec2time(info.videoDetails.lengthSeconds),
-            requester: message.author.tag,
-            thumbnail: info.videoDetails.thumbnail.thumbnails[0].url
-        });
-        disp(message, server, info);
+        try{
+            let info = await ytdl.getInfo(video)
+            await server.queue.push({
+                title: info.videoDetails.title,
+                author: info.videoDetails.author || "None.",
+                url: video,
+                time: sec2time(info.videoDetails.lengthSeconds),
+                requester: message.author.tag,
+                thumbnail: info.videoDetails.thumbnail.thumbnails[0].url
+            });
+            disp(message, server, info);
+        } catch (e) {
+            return message.channel.send(":x: An unknown error occurred.");
+        }
     }
     else {
         search(args.join(" "), async function (err, res) {
@@ -64,16 +82,20 @@ module.exports.run = async (client, message, args) => {
             if(!res || !res.videos || !res.videos[0]){return message.channel.send("No video found")}
 
             let video = res.videos[0].url;
-            let info = await ytdl.getInfo(video);
-            await server.queue.push({
-                title: info.videoDetails.title,
-                author: info.videoDetails.author,
-                url: video,
-                time: sec2time(info.videoDetails.lengthSeconds),
-                requester: message.author.tag,
-                thumbnail: info.videoDetails.thumbnail.thumbnails[0].url
-            });
-            disp(message, server, info);
+            try{
+                let info = await ytdl.getInfo(video)
+                await server.queue.push({
+                    title: info.videoDetails.title,
+                    author: info.videoDetails.author || "None.",
+                    url: video,
+                    time: sec2time(info.videoDetails.lengthSeconds),
+                    requester: message.author.tag,
+                    thumbnail: info.videoDetails.thumbnail.thumbnails[0].url
+                });
+                disp(message, server, info);
+            } catch (e) {
+                return message.channel.send(":x: An unknown error occurred.");
+            }
         });
     }
     async function disp(message, server, info){
