@@ -6,8 +6,17 @@ module.exports.run = (client, message, args) => {
 
     if(!message.member.hasPermission("ADMINISTRATOR")) {return;}
 
-	let greetingmessage = db.fetch(`greeting_message_${member.guild.id}`);
+	let greetingchannel = db.fetch(`greeting_channel_${message.member.guild.id}`);
+	let greetingmessage = db.fetch(`greeting_message_${message.member.guild.id}`);
 
+    if(!greetingchannel){
+        var embed = new Discord.MessageEmbed()
+            .setTitle(':x: Error')
+            .setDescription("You didn't configured the welcome messages.")
+            .setFooter(`Calypso`, client.user.displayAvatarURL())
+            .setTimestamp()
+        return message.channel.send(embed)
+    }
     var mapObj = {
 		"%mention%": message.member.user,
 		"%username%": message.member.user.username,

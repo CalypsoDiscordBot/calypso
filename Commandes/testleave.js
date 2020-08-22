@@ -6,8 +6,17 @@ module.exports.run = (client, message, args) => {
 
     if(!message.member.hasPermission("ADMINISTRATOR")) {return;}
 
-	let farewellmessage = db.fetch(`farewell_message_${member.guild.id}`);
-
+	let farewellchannel = db.fetch(`farewell_channel_${message.member.guild.id}`);
+    let farewellmessage = db.fetch(`farewell_message_${message.member.guild.id}`);
+    
+    if(!farewellchannel){
+        var embed = new Discord.MessageEmbed()
+            .setTitle(':x: Error')
+            .setDescription("You didn't configured the leave messages.")
+            .setFooter(`Calypso`, client.user.displayAvatarURL())
+            .setTimestamp()
+        return message.channel.send(embed)
+    }
     var mapObj = {
 		"%mention%": message.member.user,
 		"%username%": message.member.user.username,
