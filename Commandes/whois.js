@@ -2,13 +2,16 @@ const Discord = require('discord.js');
 const config = require('../config.json');
 const db = require('quick.db');
 const formatDate = require('dateformat');
-const { stripIndents } = require("common-tags");
 
 module.exports.run = (client, message, args) => {
 
     const member = message.mentions.members.first() || message.member;
     // if (!membre) { return message.channel.send('Veuillez mentionner un utilisateur !'); }
 
+    if(!member && args[0]){
+        member = message.guild.members.cache.find(m => m.user.tag.toLowerCase() == args[0].toLowerCase() || m.displayName.toLowerCase() == args[0].toLowerCase() || m.id == args[0].replace(/([<@]|[>])/g, ''));
+    }
+    
     const joined = formatDate(member.joinedAt, "m/d/yy");
         const roles = member.roles.cache
             .filter(r => r.id !== message.guild.id)
