@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const config = require('../config.json');
 const db = require('quick.db');
 
-module.exports.run = (client, message, args) => {
+module.exports.run = async (client, message, args) => {
 
     if(!message.member.hasPermission("ADMINISTRATOR")) {return;}
 
@@ -17,25 +17,30 @@ module.exports.run = (client, message, args) => {
             .setTimestamp()
         return message.channel.send(embed)
     }
-    var mapObj = {
-		"%mention%": message.member.user,
-		"%username%": message.member.user.username,
-		"%tag%": message.member.user.tag,
-		"%server%": message.member.guild.name
-	  
-	 };
-	 var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
-	 farewellmessage = farewellmessage.replace(re, function(matched){
-	   return mapObj[matched.toLowerCase()];
-     });
-     
-     var embed = new Discord.MessageEmbed()
-         .setTitle('Test leave messages.')
-         .setDescription(greetingmessage)
-         .setFooter(`Calypso`, client.user.displayAvatarURL())
-         .setTimestamp()
-     message.channel.send(embed)
+    let memberCount;
+	await message.member.guild.members.fetch().then((g) => {
+		memberCount = g.filter((member) => !member.user.bot).size;
+    });
 
+	var mapObj = {
+		"%member%": message.member.user,
+		"%member_name%": message.member.user.username,
+		"%member_tag%": message.member.user.tag,
+		"%membercount%": memberCount,
+		"%server%": message.member.guild.name
+	
+	};
+	var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
+	farewellmessage = farewellmessage.replace(re, function(matched){
+	  return mapObj[matched.toLowerCase()];
+    });
+    
+    var embed = new Discord.MessageEmbed()
+        .setTitle('Test leave messages.')
+        .setDescription(greetingmessage)
+        .setFooter(`Calypso`, client.user.displayAvatarURL())
+        .setTimestamp()
+    message.channel.send(embed)
 };
 
 module.exports.help = {
