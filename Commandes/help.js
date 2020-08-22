@@ -34,11 +34,11 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: ":100: Fun",
-             value: `\`${client.prefix}meme\`, \`${client.prefix}dog\`, \`${client.prefix}coinflip\``
+             value: `\`${client.prefix}meme\`, \`${client.prefix}dog\`, \`${client.prefix}coinflip\`, \`${client.prefix}rolldice\``
            },
            {
              name: ":information_source: Info",
-             value: `\`${client.prefix}help\`, \`${client.prefix}info\`, \`${client.prefix}whois\`, \`${client.prefix}serverinfo\`, \`${client.prefix}ping\``
+             value: `\`${client.prefix}help\`, \`${client.prefix}info\`, \`${client.prefix}whois\`, \`${client.prefix}serverinfo\`, \`${client.prefix}ping\`, \`${client.prefix}vote\``
            }
           ]
         }
