@@ -26,7 +26,7 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: ":hammer: Moderation",
-             value: `\`${client.prefix}clean\`, \`${client.prefix}poll\`, \`${client.prefix}giveaway\`, \`${client.prefix}reroll\`, \`${client.prefix}say\`, \`${client.prefix}embedsay\``
+             value: `\`${client.prefix}clean\`, \`${client.prefix}ban\`, \`${client.prefix}unban\`, \`${client.prefix}kick\`, \`${client.prefix}poll\`, \`${client.prefix}giveaway\`, \`${client.prefix}reroll\`, \`${client.prefix}say\`, \`${client.prefix}embedsay\``
            },
            {
              name: ":notes: Music",
