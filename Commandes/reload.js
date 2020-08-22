@@ -7,8 +7,11 @@ module.exports.run = (client, message, args) => {
         try{
             delete require.cache[require.resolve(`./${commandName}.js`)];
             client.commands.delete(commandName);
-            const pull = require(`./${commandName}.js`);
-            client.commands.set(commandName, pull);
+            const commande = require(`./${commandName}.js`);
+            client.commands.set(commandName, commande);
+            commande.help.aliases.forEach(alias => {
+                client.aliases.set(alias, commande.help.name);
+            })
             message.author.send(`Reload du fichier : ./${commandName}.js`)
         } catch (e) {
             message.author.send(`Echec du reload : ./${commandName}.js`)

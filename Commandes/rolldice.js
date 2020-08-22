@@ -23,7 +23,7 @@ const Discord = require("discord.js")
                 msg.embeds[0].description = "**__Result__:**"
                 msg.embeds[0].image["url"] = replies[result]
                 msg.edit(new Discord.MessageEmbed(msg.embeds[0]))
-            }, 3000)
+            }, 2000)
         })
  }
  module.exports.help = {
