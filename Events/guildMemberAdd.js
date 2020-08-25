@@ -2,16 +2,27 @@ const db = require('quick.db');
 const config = require('../config.json');
 
 module.exports = async (client, member) => {
+
+	// AUTOROLE
+	db.all().forEach((element) => {
+		const autoroledb = element.ID.startsWith(`autorole_${member.guild.id}`);
+		// ${mentionedUser.id}
+		if (!autoroledb) {return;}
+		if(element.data.toLowerCase() !== '"join"'){
+            return db.delete(element.ID);
+		}
+		const role_id = element.ID.split('_')[2];
+		const role = member.guild.roles.cache.find((c) => c.id === role_id);
+		member.roles.add(role);
+	});
+
+	// GREETING
 	let greetingchannel = db.fetch(`greeting_channel_${member.guild.id}`);
 	// const greetingrole = db.fetch(`greeting_role_${member.guild.id}`);
 	let greetingmessage = db.fetch(`greeting_message_${member.guild.id}`);
 
 	if (!greetingchannel) { return; }
 
-	// if (greetingrole) {
-	// 	const role = member.guild.roles.cache.find((c) => c.id === greetingrole);
-	// 	member.roles.add(role);
-	// }
 	let memberCount;
 	await member.guild.members.fetch().then((g) => {
 		memberCount = g.filter((member) => !member.user.bot).size;
