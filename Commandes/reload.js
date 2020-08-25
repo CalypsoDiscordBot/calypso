@@ -12,9 +12,9 @@ module.exports.run = (client, message, args) => {
             commande.help.aliases.forEach(alias => {
                 client.aliases.set(alias, commande.help.name);
             })
-            message.author.send(`Reload du fichier : ./${commandName}.js`)
+            message.channel.send(`Reload du fichier : ./${commandName}.js`)
         } catch (e) {
-            message.author.send(`Echec du reload : ./${commandName}.js`)
+            message.channel.send(`Echec du reload : ./${commandName}.js`)
         }
     }
 };

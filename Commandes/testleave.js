@@ -23,7 +23,6 @@ module.exports.run = async (client, message, args) => {
     });
 
 	var mapObj = {
-		"%member%": message.member.user,
 		"%member_name%": message.member.user.username,
 		"%member_tag%": message.member.user.tag,
 		"%membercount%": memberCount,
@@ -37,7 +36,7 @@ module.exports.run = async (client, message, args) => {
     
     var embed = new Discord.MessageEmbed()
         .setTitle('Test leave messages.')
-        .setDescription(greetingmessage)
+        .setDescription(farewellmessage)
         .setFooter(`Calypso`, client.user.displayAvatarURL())
         .setTimestamp()
     message.channel.send(embed)

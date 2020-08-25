@@ -14,7 +14,6 @@ module.exports = async (client, member) => {
 	});
 
 	var mapObj = {
-		"%member%":member.user,
 		"%member_name%":member.user.username,
 		"%member_tag%":member.user.tag,
 		"%membercount%":memberCount,

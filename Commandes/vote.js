@@ -14,7 +14,7 @@ exports.run = (client, message, args) => {
 }
 
 module.exports.help = {
-    name: "info",
+    name: "vote",
     description: "",
     category: "info",
     usage:"",
