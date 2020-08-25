@@ -22,11 +22,11 @@ module.exports.run = (client, message, args) => {
           fields: [
            {
              name: ":wrench: Settings",
-             value: `\`${client.prefix}accessrole\`, \`${client.prefix}channeltoggle\`, \`${client.prefix}prefix\`, \`${client.prefix}configjoin\`, \`${client.prefix}configleave\`, \`${client.prefix}testjoin\`, \`${client.prefix}testleave\``
+             value: `\`${client.prefix}prefix\`, \`${client.prefix}configjoin\`, \`${client.prefix}configleave\`, \`${client.prefix}testjoin\`, \`${client.prefix}testleave\`, \`${client.prefix}autorole\`, \`${client.prefix}membercount\`, \`${client.prefix}accessrole\`, \`${client.prefix}channeltoggle\``
            },
            {
              name: ":hammer: Moderation",
-             value: `\`${client.prefix}clean\`, \`${client.prefix}ban\`, \`${client.prefix}unban\`, \`${client.prefix}kick\`, \`${client.prefix}poll\`, \`${client.prefix}giveaway\`, \`${client.prefix}reroll\`, \`${client.prefix}say\`, \`${client.prefix}embedsay\``
+             value: `\`${client.prefix}clean\`, \`${client.prefix}poll\`, \`${client.prefix}giveaway\`, \`${client.prefix}reroll\`, \`${client.prefix}say\`, \`${client.prefix}embedsay\``
            },
            {
              name: ":notes: Music",
