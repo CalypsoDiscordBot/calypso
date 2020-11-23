@@ -1,12 +1,16 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const config = require('./config.json');
+const util = require("util");
+const fs = require("fs");
+const readdir = util.promisify(fs.readdir);
+const { GiveawaysManager } = require('discord-giveaways');
+
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.servers = new Map();
-const config = require('./config.json');
-const fs = require('fs');
-const { GiveawaysManager } = require('discord-giveaways');
 
+const init = async () => {
 //
 // GIVEAWAYS
 //
@@ -32,18 +36,21 @@ const manager = new GiveawayManagerWithShardSupport(client, {
 // eslint-disable-next-line no-const-assign
 client.giveawaysManager = manager;
 
-fs.readdir('./Commandes/', (error, f) => {
-    if (error) { return console.error(error); }
-    let commandes = f.filter(f => f.split('.').pop() === 'js');
-    if (commandes.length <= 0) { return console.log('Aucune commande trouvée !'); }
-
-    commandes.forEach((f) => {
-        let commande = require(`./Commandes/${f}`);- 
-        console.log(`${f} commande chargée !`);
-        client.commands.set(commande.help.name, commande);
-        commande.help.aliases.forEach(alias => {
-            client.aliases.set(alias, commande.help.name);
-        })
+let directories = await readdir("./Commandes/");
+directories.forEach(async (dir) => {
+    let commands = await readdir("./Commandes/"+dir+"/");
+    commands.filter(f => f.split('.').pop() === 'js').forEach((f) => {
+        try {
+            let commande = require(`./Commandes/${dir}/${f}`);
+            console.log(`${f} commande chargée !`);
+            client.commands.set(commande.help.name, commande);
+            commande.help.aliases.forEach(alias => {
+                client.aliases.set(alias, commande.help.name);
+            })
+            return false;
+        } catch (e) {
+            return `Unable to load command ${f}: ${e}`;
+        }
     });
 });
 
@@ -58,4 +65,9 @@ fs.readdir('./Events/', (error, f) => {
     });
 });
 
+client.setMaxListeners(0);
 client.login(config.token);
+
+};
+
+init();

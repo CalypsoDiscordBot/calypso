@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-module.exports = (client, guild) => {
+module.exports = async (client, guild) => {
 	let count = 0;
 	client.guilds.cache.forEach(async (guild) => {
 		let users = 0;
@@ -25,18 +25,27 @@ module.exports = (client, guild) => {
 	const Itek = client.users.cache.get('216607323035009025');
 	const Haz = client.users.cache.get('278608007535919115');
 
-	let icon = guild.iconURL({ format: 'png', dynamic: true, size: 1024 });
-    if(guild.iconURL().includes("gif")){
-        icon = guild.iconURL({ format: 'gif', dynamic: true, size: 1024 });
+	let icon = null;
+
+	if(guild.iconURL()){
+		let icon = guild.iconURL({ format: 'png', dynamic: true, size: 1024 });
+		if(guild.iconURL().includes("gif")){
+			icon = guild.iconURL({ format: 'gif', dynamic: true, size: 1024 });
+		}
 	}
-	
+
+	let guildusers = 0;
+	await guild.members.fetch().then((g) => {
+		guildusers = g.filter((member) => !member.user.bot).size;
+	});
+
 	const embed = new Discord.MessageEmbed()
 		.setThumbnail(icon)
 		.setTitle('Nouveau Serveur Discord !')
 		.setColor('#dc322f')
 		.addField('Serveur : ', guild.name)
 		.addField('Propriétaire : ', guild.owner.user.tag)
-		.addField('Users : ', guild.members.cache.size);
+		.addField('Users : ', guildusers || guild.members.cache.size);
 
 	Alex.send(embed);
 	Itek.send(embed);

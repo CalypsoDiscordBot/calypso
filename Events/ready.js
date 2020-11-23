@@ -25,7 +25,7 @@ module.exports = async(client) => {
 
  	});
   	setInterval(() => {
-		const activity = `${client.membercount} Members  ${client.guilds.cache.size} Servers.`;
+		const activity = `!help | ${client.guilds.cache.size} Servers.`; // ${client.membercount} Members  
 		client.user.setActivity(activity, { type: 'WATCHING' });
 	}, 10000);
 
@@ -63,27 +63,90 @@ module.exports = async(client) => {
 		});
 	}, 120000);
 
+	// UNMUTE
+
+	setInterval(() => {
+		db.all().forEach((element) => {
+			const sanctionsdb = element.ID.startsWith(`mute`);
+			// ${mentionedUser.id}
+			if (!sanctionsdb) {return;}
+
+			let time = new Date().getTime();
+			if(parseInt(element.data) <= time){
+				const guild = client.guilds.cache.get(element.ID.split('_')[1]);
+				const user_id = element.ID.split('_')[2];
+
+				mentionedUser = guild.members.resolve(user_id);
+
+				db.delete(element.ID);
+				let muted_role = db.fetch(`mutedrole_${guild.id}`);
+
+				// CREER LE ROLE MUTE 
+				// if(!muted_role){
+				// 	console.log("create")
+				// 	muted_role = guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"))
+				// 	if(!muted_role) {
+				// 		try {
+				// 			muted_role = guild.roles.create({
+				// 				data: {
+				// 					name: "Muted",
+				// 					color: "#000000",
+				// 					permissions:[]
+				// 				}
+				// 			}).then(role =>{
+				// 				db.set(`mutedrole_${guild.id}`, role.id)
+				// 			})
+				// 		} catch (error) {return;}
+				// 	} else {
+				// 		db.set(`mutedrole_${guild.id}`, muted_role.id)
+				// 	}
+				// 	guild.channels.cache.forEach((channel) => {
+				// 		channel.updateOverwrite(muted_role.id, {
+				// 			SEND_MESSAGES: false,
+				// 			ADD_REACTIONS: false,
+				// 			CONNECT: false
+				// 		}).catch((error) => {return;});
+				// 	});	
+				// }
+				mentionedUser.roles.remove(muted_role).catch((err) => {return;});
+
+				let count = 0;
+				db.all().forEach((element) => {
+					const sanctionsdb = element.ID.startsWith(`sanctions_${guild.id}_${user_id}`);
+					if (!sanctionsdb) {
+						return;
+					}
+					count++;
+				});
+				const now = new Date();
+				db.set(`sanctions_${guild.id}_${user_id}_${count+1}`, `Unmuted [Mute Expired] | Time: ${formatDate(now, "mm/dd/yy HH:MM:ss")}`)
+			}
+		});
+	}, 1200);
+
 	// MemberCount
 
 	setInterval(() => {
 		db.all().forEach((element) => {
-			const membercount = element.ID.startsWith('memberCountChannel');
+			const membercount = element.ID.startsWith('membercount');
 			if (!membercount) {
 				return;
 			}
 			const guild = client.guilds.cache.get(element.ID.split('_')[1]);
-			const channelId = db.fetch(`memberCountChannel_${guild.id}`);
-			const channelName = db.fetch(`memberCountName_${guild.id}`);
-			const channel = client.channels.cache.get(channelId);
-			if(!channel || !channelName){
-				db.delete(`memberCountName_${guild.id}`);
-				db.delete(`memberCountChannel_${guild.id}`);
+			const channel = client.channels.cache.get(element.ID.split('_')[2]);
+			if(!channel){
+				db.delete(element.ID); 
+				return;
+			}
+			const channelName = db.fetch(`membercount_${guild.id}_${channel.id}`);
+			if(!channelName){
+				channel.delete();
 				return;
 			}
 			guild.members.fetch().then((g) => {
 				const count = g.filter((member) => !member.user.bot).size;
+				channel.setName(channelName.replace(/%count%/g, count));
 			});
-			channel.setName(channelName.replace(/%count%/g, count));
 		});
 	}, 60000);
 
