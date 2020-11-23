@@ -1,5 +1,7 @@
 const db = require('quick.db');
 const config = require('../config.json');
+const formatDate = require('dateformat');
+const Discord = require("discord.js");
 
 module.exports = async (client, member) => {
 
@@ -16,12 +18,56 @@ module.exports = async (client, member) => {
 		member.roles.add(role);
 	});
 
+	// CHECK MUTED ROLE
+	db.all().forEach((element) => {
+		const sanctionsdb = element.ID.startsWith(`mute_${member.guild.id}`);
+		if (!sanctionsdb) {return;}
+
+		let time = new Date().getTime();
+		if(parseInt(element.data) > time){
+			const user_id = element.ID.split('_')[2];
+			if(member.id != user_id) {return;}
+
+			let muted_role = db.fetch(`mutedrole_${member.guild.id}`);
+
+			// CREER LE ROLE MUTE 
+			if(!muted_role){
+				console.log("create")
+				muted_role = member.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"))
+				if(!muted_role) {
+					try {
+						muted_role = member.guild.roles.create({
+							data: {
+								name: "Muted",
+								color: "#000000",
+								permissions:[]
+							}
+						}).then(role =>{
+							db.set(`mutedrole_${member.guild.id}`, role.id)
+						})
+					} catch (error) {return;}
+				} else {
+					db.set(`mutedrole_${member.guild.id}`, muted_role.id)
+				}
+				guild.channels.cache.forEach((channel) => {
+					channel.updateOverwrite(muted_role.id, {
+						SEND_MESSAGES: false,
+						ADD_REACTIONS: false,
+						CONNECT: false
+					}).catch((error) => {return;});
+				});	
+			}
+			member.roles.add(muted_role);
+		}
+	});
+
 	// GREETING
 	let greetingchannel = db.fetch(`greeting_channel_${member.guild.id}`);
 	// const greetingrole = db.fetch(`greeting_role_${member.guild.id}`);
 	let greetingmessage = db.fetch(`greeting_message_${member.guild.id}`);
+	let greetingtype = db.fetch(`greeting_type_${member.guild.id}`);
 
-	if (!greetingchannel) { return; }
+	if (!greetingchannel || !greetingmessage) { return; }
 
 	let memberCount;
 	await member.guild.members.fetch().then((g) => {
@@ -44,5 +90,17 @@ module.exports = async (client, member) => {
 	if(greetingchannel.toLowerCase() === "dm"){
 		member.user.send(greetingmessage);
 	}
-	member.guild.channels.cache.get(greetingchannel).send(greetingmessage);
+	if(!greetingtype || greetingtype == "message"){
+		return member.guild.channels.cache.get(greetingchannel).send(greetingmessage);
+	}
+	else if(greetingtype == "embed"){
+		const embed = new Discord.MessageEmbed()
+			.setColor(config.color)
+            .setThumbnail(member.user.displayAvatarURL())
+			.setTitle(`• ${member.guild.name}`)
+			.setDescription(greetingmessage)
+			.setFooter(member.guild.name)
+			.setTimestamp()
+		return member.guild.channels.cache.get(greetingchannel).send(embed);
+	}
 };

@@ -66,6 +66,12 @@ module.exports = {
             },
             whois: {
                 description: (prefix) => "Donne toutes les informations à propos d'un utilisateur."
+            },
+            iplocate: {
+                description: (prefix) => "Localise une ip ou un nom de domaine."
+            },
+            avatar: {
+                description: (prefix) => "Renvoi l'avatar de l'utilisateur."
             }
         },
 
@@ -92,7 +98,7 @@ module.exports = {
                 description: (prefix) => "Rend muet un utilisateur du serveur sur tous les channels."
             },
             poll: {
-                description: (prefix) => `Créez un sondage de réaction en tapant \`${prefix}poll "votre message"\`. Le bot ajoutera automatiquement les réactions :thumbsup :, :thumbsdown :, et :person_shrugging :.\nCréer un sondage de réaction avec plusieurs options en tapant \`${prefix}poll {title} [Option1] [Option2] [Option3].`
+                description: (prefix) => `Créez un sondage de réaction en tapant \`${prefix}poll "votre message"\`. Le bot ajoutera automatiquement les réactions :thumbsup:, :thumbsdown:, et :person_shrugging:.\nCréer un sondage de réaction avec plusieurs options en tapant \`${prefix}poll "title" "Option1" "Option2" "Option3".\``
             },
             reroll: {
                 description: (prefix) => "Relance un tirage de concours."
@@ -113,7 +119,9 @@ module.exports = {
                 description: (prefix) => "Arrête la musique."
             },
             play:{
-                description: (prefix) => `Joue une musique. \n{\n- Exemples} : \n\n\n{prefix}play pnl blanka - Recherche sur youtube de "pnl blanka" \n\n\n\n{{prefix}play https://youtu.be/u8bHjdljyLw - Lecture d'une vidéo youtube, en utilisant l'URL.`
+                description: (prefix) => `Joue une musique. \n
+                - Exemples : \n\`${prefix}play pnl blanka\` - Recherche sur youtube de "pnl blanka" 
+                \`${prefix}play https://youtu.be/u8bHjdljyLw\` - Lecture d'une vidéo youtube, en utilisant l'URL.`
             },
             queue:{
                 description: (prefix) => "Affiche la liste d'attente."
@@ -138,14 +146,14 @@ module.exports = {
             },
             configjoin:{
                 description: (prefix) => `Définit un message de bienvenue pour le serveur 
-                \nExemples : \n\`${prefix}configjoin #general Bienvenue %member% sur %server%!\` - Envoie \`Bienvenue @alex sur <votre nom de serveur>!\` dans le channel #general quand Alex rejoint votre serveur. 
+                \nExemples : \n\`${prefix}configjoin message #general Bienvenue %member% sur %server%!\` - Envoie \`Bienvenue @alex sur <votre nom de serveur>!\` dans le channel #general quand Alex rejoint votre serveur. 
                 \`${prefix}configjoin dm Bienvenue %username% !\` - Accueille un utilisateur sur votre serveur en messages privés. 
                 \`${prefix}configjoin disable\` - Désactive les messages de bienvenue. 
                 \nVariables : \n- \`%member%\`\n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
             },
             configleave:{
                 description: (prefix) => `Définit un message d'adieu pour le serveur. 
-                \nExemples : \n\`${prefix}configleave #general %username% a quitté %server%... bye bye %username%...\` - Envoie \`alex a quitté <votre serveur>... bye bye alex...\` dans le channel #general quand alex quitte votre serveur. 
+                \nExemples : \n\`${prefix}configleave message #general %member_name% a quitté %server%... bye bye %member_name%...\` - Envoie \`alex a quitté <votre serveur>... bye bye alex...\` dans le channel #general quand alex quitte votre serveur. 
                 \`${prefix}configleave disable\` - Désactive le message d'adieu.
                 \nVariables : \n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
             },
@@ -163,6 +171,13 @@ module.exports = {
             },
             testleave:{
                 description: (prefix) => "Test des messages d'adieu."
+            },
+            ticket:{
+                description: (prefix) => `Créer un panel permettant aux utilisateurs d'ouvrir un ticket en un seul clic.
+                Nécessite de créer un role pour les membres du support.
+                
+                Exemple : 
+                \`!ticket @Support\` - Seul le role \`@Support\` et l'utilisateur concerné auront accès au ticket.`
             }
 
         }
@@ -175,50 +190,69 @@ module.exports = {
     info: {
         description: (prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles. 
         Faites \`${prefix}help <command>\` pour obtenir des informations détaillées sur une commande.
-        \n[Ajouter le bot à votre serveur](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Rejoignez notre serveur Discord](https://discord.gg/3y2ByKq)`
+        \n[Ajouter le bot à votre serveur](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Rejoignez notre serveur Discord](https://discord.gg/3y2ByKq)`,
+        
+        infos:{
+            title: () =>"Informations :",
+            content: (days, hours, minutes, seconds, date) => `
+            **${emojis.arrow} Développeur Principal : ** Alexmdz77#0001
+            **${emojis.arrow} Développeurs : ** IteK#0001, Haz226#4212
+            **${emojis.arrow} Librairie :** [discord.js 12.4.1](https://github.com/discordjs/discord.js)
+            **${emojis.arrow} Uptime :** ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes
+            **${emojis.arrow} Créé le :** ${date}`
+        },
+        stats:{
+            title: () => "Statistiques :",
+            content: (servers, memberCount, channels, memory, latency) => `
+            **${emojis.arrow} Serveurs :** ${servers}
+            **${emojis.arrow} Membres :** ${memberCount}
+            **${emojis.arrow} Channels :** ${channels}
+            **${emojis.arrow} RAM :** ${memory} MB
+            **${emojis.arrow} Latence de l'API :** ${latency}ms`
+        }
     },
     
     serverinfo: {
         infos:{
             title: () =>"Informations du serveur :",
             content: (name, id, owner, date) => `
-            **▫️ Nom : ** ${name}
-            **▫️ ID : ** ${id}
-            **▫️ Propriétaire :** ${owner}
-            **▫️ Créé le :** ${date}`
+            **${emojis.arrow} Nom : ** ${name}
+            **${emojis.arrow} ID : ** ${id}
+            **${emojis.arrow} Propriétaire :** ${owner}
+            **${emojis.arrow} Créé le :** ${date}`
         },
         settings:{
             title: () => "Paramètres du serveur :",
             content: (region, verlvl) => `
-            **▫️ Region :** ${region}
-            **▫️ Niveau de vérification :** ${verlvl}`
+            **${emojis.arrow} Region :** ${region}
+            **${emojis.arrow} Niveau de vérification :** ${verlvl}`
         },
         stats:{
             title: () => "Statistiques du serveur :",
             content: (memberCount, channels, roles) => `
-            **▫️ Membres :** ${memberCount}
-            **▫️ Channels :** ${channels}
-            **▫️ Roles :** ${roles}`
+            **${emojis.arrow} Membres :** ${memberCount}
+            **${emojis.arrow} Channels :** ${channels}
+            **${emojis.arrow} Roles :** ${roles}`
         }
     },
 
     whois: {
         member:{
             title: () =>"Informations de membre :",
-            content: (displayName, joined, roles) => `**▫️ Pseudo :** ${displayName}
-            **▫️ A rejoins le :** ${joined}
-            **▫️ Roles :** ${roles}`
+            content: (displayName, joined, roles) => `**${emojis.arrow} Pseudo :** ${displayName}
+            **${emojis.arrow} A rejoins le :** ${joined}
+            **${emojis.arrow} Roles :** ${roles}`
         },
         user:{
             title: () => "Informations d'utilisateur :",
-            content: (userid, username, usertag, created) => `**▫️ ID :** ${userid}
-            **▫️ Username :** ${username}
-            **▫️ Tag :** ${usertag}
-            **▫️ Créé le :** ${created}`
+            content: (userid, username, usertag, created) => `**${emojis.arrow} ID :** ${userid}
+            **${emojis.arrow} Username :** ${username}
+            **${emojis.arrow} Tag :** ${usertag}
+            **${emojis.arrow} Créé le :** ${created}`
         },
         game:{
             title: () => "Joue à",
-            content: (game) => `**▫️ Nom :** ${game}`
+            content: (game) => `**${emojis.arrow} Nom :** ${game}`
         }
     },
 
@@ -355,6 +389,16 @@ module.exports = {
         error_volume: () => `**${emojis.error} Vous devez saisir un nombre compris entre 0 et 200.**`
     },
 
+    pause: {
+        already_paused: () => `**${emojis.error} Cette musique est déjà en pause.**`,
+        success: (title) => `**${emojis.success} Musique mise en pause : __${title}__**`
+    },
+
+    resume: {
+        isnt_paused: () => `**${emojis.error} Cette musique n'est pas en pause.**`,
+        success: (title) => `**${emojis.success} Musique reprise : __${title}__**`
+    },
+
     giveaway: {
         giveawayStarted: () => "🎉🎉 **CONCOURS** 🎉🎉",
         giveawayEnded: () => "🎉🎉 **CONCOURS TERMINÉ** 🎉🎉",
@@ -380,6 +424,53 @@ module.exports = {
             error: () => "Participations non valides, aucun gagnant(s) !"
         },
         error: (args) => `${emojis.error} Aucun concours trouvé pour ${args}, vérifiez et réessayez.`
+    },
+
+    iplocate:{
+        error_getinfos: (query, message) => `**${emojis.error} Désolé mais je ne peux pas obtenir d'informations pour : ${query} ; Error message: ${message}**`,
+        title: (args, query) => `Informations pour ${args} (${query})`,
+        owner:{
+            title: () => ":bust_in_silhouette: Propriétaire :",
+            content: (org, isp, as) => `**${emojis.arrow} Organisation:** ${org} 
+            **${emojis.arrow} Fournisseur :** ${isp} (${as})`
+        },
+        location:{
+            title: () => ":earth_africa: Emplacement :",
+            content: (country, city) => `**${emojis.arrow} Pays :** ${country}
+            **${emojis.arrow} Ville :** ${city}`
+        },
+        other:{
+            title: () => ":zap: Autres :",
+            content: (mobile, proxy, hosting) => `**${emojis.arrow} Mobile :** ${mobile} 
+            **${emojis.arrow} Proxy :** ${proxy}
+            **${emojis.arrow} Hébergement :** ${hosting}`
+        }
+    },
+
+    avatar:{
+        title: (name) => `Avatar de ${name}`,
+        description: () => `Lien en`
+    },
+
+    ticket:{
+        error_role: () => `**${emojis.error} Vous devez mentionner un role support **`,
+        role:{
+            description: (rolename) => `**${emojis.success} Le role ${rolename} est maintenant le role support !**`
+        },
+        message:{
+            title: () => `**Créer un ticket**`,
+            description: () => `Pour ouvrir un ticket, il vous suffit d'ajouter une réaction \"📝\" ci-dessous, vous serez notifié dedans.`
+        },
+        raw:{
+            active: () => `Vous possédez déjà un ticket actif !`,
+            creation: (name, id, servername) => `**${emojis.success} ${name}, votre ticket sur le serveur __${servername}__ vient d'être créé : <#${id}>.**`,
+            control:{
+                title: () => `**__Contrôle de votre ticket__**`,
+                description: () => `Vous pouvez clôturer votre ticket en cours en cliquant sur la réaction \"🔒\".`,
+                title_confirm: () => `**__Contrôle de votre ticket__**`,
+                description_confirm: () => `Voulez-vous vraiment supprimer votre ticket ?`
+            }
+        }
     }
 
 };

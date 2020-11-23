@@ -62,10 +62,16 @@ module.exports = {
                 description: (prefix) => "Pong!"
             },
             info: {
-                description: (prefix) => ""
+                description: (prefix) => "Gives all the informations about the bot."
             },
             whois: {
                 description: (prefix) => "Returns user informations"
+            },
+            iplocate: {
+                description: (prefix) => "Localise an ip or domain name."
+            },
+            avatar: {
+                description: (prefix) => "Returns user's avatar"
             }
         },
 
@@ -92,7 +98,7 @@ module.exports = {
                 description: (prefix) => "Mutes a user."
             },
             poll: {
-                description: (prefix) => `Create a reaction poll by typing \`${prefix}poll "your message"\`. The bot will automatically add the reactions :thumbsup:, :thumbsdown:, and :person_shrugging:.\nCreate a reaction poll with multiple options by typing \`${prefix}poll {title} [Option1] [Option2] [Option3]\`.`
+                description: (prefix) => `Create a reaction poll by typing \`${prefix}poll "your message"\`. The bot will automatically add the reactions :thumbsup:, :thumbsdown:, and :person_shrugging:.\nCreate a reaction poll with multiple options by typing \`${prefix}poll "title" "Option1" "Option2" "Option3".\`.`
             },
             reroll: {
                 description: (prefix) => "Randomly picks a member that reacted to the giveaway message."
@@ -137,10 +143,19 @@ module.exports = {
                 description: (prefix) => "Disables commands in a channel."
             },
             configjoin:{
-                description: (prefix) => `Sets a welcome message for the server.\n\n Examples: \n\`${prefix}configjoin #general Welcome %member% to %server%!\` - Sends \`Welcome @alex to <your server name>!\` to #general when alex joins your server. \n\`${prefix}greeting dm Welcome %username%!\` - Welcomes a user to your server in direct messages. \n\`${prefix}greeting disable\` - Disables the greeting.`
+                description: (prefix) => `Sets a welcome message for the server.\n
+                Examples: 
+                \`${prefix}configjoin message #general Welcome %member% to %server%!\` - Sends \`Welcome @alex to <your server name>!\` to #general when alex joins your server. 
+                \`${prefix}greeting dm Welcome %username%!\` - Welcomes a user to your server in direct messages. 
+                \`${prefix}greeting disable\` - Disables the greeting.
+                \nVariables : \n- \`%member%\`\n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
             },
             configleave:{
-                description: (prefix) => `Sets a message for when a user leaves the server. \n\nExamples: \n\`${prefix}configleave #general %username% left %server%... bye bye %username%...\` - Sends \`alex left <your server>... bye bye alex...\` to #general when alex leaves your server. \n\`${prefix}configleave disable\` - Disables the farewell`
+                description: (prefix) => `Sets a message for when a user leaves the server. 
+                \nExamples: 
+                \`${prefix}configleave message #general %member_name% left %server%... bye bye %member_name%...\` - Sends \`alex left <your server>... bye bye alex...\` to #general when alex leaves your server. 
+                \`${prefix}configleave disable\` - Disables the farewell
+                \nVariables : \n- \`%member%\`\n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
             },
             membercount:{
                 description: (prefix) => `Display the number of members in a channel.\n\nExemples:\n\`${prefix}membercount %count% Members\` - Display \`142 Members\`\n\`${prefix}membercount disable\` - Disable the membercount.`
@@ -156,6 +171,13 @@ module.exports = {
             },
             testleave:{
                 description: (prefix) => "Test leave messages."
+            },
+            ticket:{
+                description: (prefix) => `Creates a panel to enable users to open a ticket with 1 click.
+                Need to create a role for support members.
+                
+                Exemple:
+                \`!ticket @Support\` - Only the role \`@Support\` and the concerned user will have access to the ticket.`
             }
 
         }
@@ -167,50 +189,69 @@ module.exports = {
 
     info: {
         description: () => `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. 
-        [Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot | [Join our Discord server](https://discord.gg/3y2ByKq)`
+        [Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
+        
+        infos:{
+            title: () =>"Informations:",
+            content: (days, hours, minutes, seconds, date) => `
+            **${emojis.arrow} Lead Developer: ** Alexmdz77#0001
+            **${emojis.arrow} Developers: ** IteK#0001, Haz226#4212
+            **${emojis.arrow} Library:** [discord.js 12.4.1](https://github.com/discordjs/discord.js)
+            **${emojis.arrow} Uptime:** ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds
+            **${emojis.arrow} Creation date:** ${date}`
+        },
+        stats:{
+            title: () => "Statistics:",
+            content: (servers, memberCount, channels, memory, latency) => `
+            **${emojis.arrow} Servers:** ${servers}
+            **${emojis.arrow} Members:** ${memberCount}
+            **${emojis.arrow} Channels:** ${channels}
+            **${emojis.arrow} RAM:** ${memory} MB
+            **${emojis.arrow} API Latency:** ${latency}ms`
+        }
     },
     
     serverinfo: {
         infos:{
             title: () =>"Server Informations:",
             content: (name, id, owner, date) => `
-            **▫️ Name: ** ${name}
-            **▫️ ID: ** ${id}
-            **▫️ Owner:** ${owner}
-            **▫️ Created on:** ${date}`
+            **${emojis.arrow} Name: ** ${name}
+            **${emojis.arrow} ID: ** ${id}
+            **${emojis.arrow} Owner:** ${owner}
+            **${emojis.arrow} Created on:** ${date}`
         },
         settings:{
             title: () => "Server Settings test:",
             content: (region, verlvl) => `
-            **▫️ Region:** ${region}
-            **▫️ Verification level:** ${verlvl}`
+            **${emojis.arrow} Region:** ${region}
+            **${emojis.arrow} Verification level:** ${verlvl}`
         },
         stats:{
             title: () => "Server Stats:",
             content: (memberCount, channels, roles) => `
-            **▫️ Members:** ${memberCount}
-            **▫️ Channels:** ${channels}
-            **▫️ Roles :** ${roles}`
+            **${emojis.arrow} Members:** ${memberCount}
+            **${emojis.arrow} Channels:** ${channels}
+            **${emojis.arrow} Roles :** ${roles}`
         }
     },
 
     whois: {
         member:{
             title: () =>"Member Informations:",
-            content: (displayName, joined, roles) => `**▫️ Display name:** ${displayName}
-            **▫️ Joined at:** ${joined}
-            **▫️ Roles:** ${roles}`
+            content: (displayName, joined, roles) => `**${emojis.arrow} Display name:** ${displayName}
+            **${emojis.arrow} Joined at:** ${joined}
+            **${emojis.arrow} Roles:** ${roles}`
         },
         user:{
             title: () => "User Informations:",
-            content: (userid, username, usertag, created) => `**▫️ ID:** ${userid}
-            **▫️ Username**: ${username}
-            **▫️ Tag**: ${usertag}
-            **▫️ Created at**: ${created}`
+            content: (userid, username, usertag, created) => `**${emojis.arrow} ID:** ${userid}
+            **${emojis.arrow} Username**: ${username}
+            **${emojis.arrow} Tag**: ${usertag}
+            **${emojis.arrow} Created at**: ${created}`
         },
         game:{
             title: () => "Currently Playing",
-            content: (game) => `**▫️ Name:** ${game}`
+            content: (game) => `**${emojis.arrow} Name:** ${game}`
         }
     },
 
@@ -347,6 +388,16 @@ module.exports = {
         error_volume: () => `**${emojis.error} You must enter a number between 0 and 200.**`
     },
 
+    pause: {
+        already_paused: () => `**${emojis.error} This music is already paused.**`,
+        success: (title) => `**${emojis.success} Successfully paused __${title}__**`
+    },
+
+    resume: {
+        isnt_paused: () => `**${emojis.error} This music isn't paused.**`,
+        success: (title) => `**${emojis.success} Successfully resumed __${title}__**`
+    },
+
     giveaway: {
         giveawayStarted: () => "🎉🎉 **GIVEAWAY** 🎉🎉",
         giveawayEnded: () => "🎉🎉 **GIVEAWAY ENDED** 🎉🎉",
@@ -372,6 +423,53 @@ module.exports = {
             error: () => "No valid participations, no winners can be chosen!"
         },
         error: (args) => `${emojis.error} No giveaway found for ${args}, please check and try again.`
+    },
+
+    iplocate:{
+        error_getinfos: (query, message) => `**${emojis.error} Sorry but i can't get infos for: ${query} ; Error message: ${message}**`,
+        title: (args, query) => `Informations for ${args} (${query})`,
+        owner:{
+            title: () => ":bust_in_silhouette: Owner:",
+            content: (org, isp, as) => `**${emojis.arrow} Organisation:** ${org} 
+            **${emojis.arrow} Internet Service Provider:** ${isp} (${as})`
+        },
+        location:{
+            title: () => ":earth_africa: Location:",
+            content: (country, city) => `**${emojis.arrow} Country:** ${country}
+            **${emojis.arrow} City:** ${city}`
+        },
+        other:{
+            title: () => ":zap: Other:",
+            content: (mobile, proxy, hosting) => `**${emojis.arrow} Mobile:** ${mobile} 
+            **${emojis.arrow} Proxy:** ${proxy}
+            **${emojis.arrow} Hosting:** ${hosting}`
+        }
+    },
+
+    avatar:{
+        title: (name) => `Avatar for ${name}`,
+        description: () => `Link as`
+    },
+
+    ticket:{
+        error_role: () => `**${emojis.error} You must mention a support role!**`,
+        role:{
+            description: (rolename) => `**${emojis.success} The role ${rolename} is now the support role!**`
+        },
+        message:{
+            title: () => `**Create a ticket**`,
+            description: () => `To open a ticket, just add a reaction \"📝\" below, you will be notified in it.`
+        },
+        raw:{
+            active: () => `You already have an active ticket!`,
+            creation: (name, id, servername) => `**${emojis.success} ${name}, your ticket on the server __${servername}__ has just been created: <#${id}>.**`,
+            control:{
+                title: () => `**__Control of your ticket__**`,
+                description: () => `You can close your current ticket by clicking on the reaction \"🔒\".`,
+                title_confirm: () => `**__Control of your ticket__**`,
+                description_confirm: () => `Do you really want to delete your ticket?`
+            }
+        }
     }
 
 
