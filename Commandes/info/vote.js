@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-exports.run = (client, message, args) => {
+module.exports.run = (client, message, args) => {
     var info = new Discord.MessageEmbed()
         .setTitle('Calypso | Vote')
         .setDescription(`[Vote on discordbotlist.com !](https://discordbotlist.com/bots/calypso-3856/upvote)

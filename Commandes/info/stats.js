@@ -1,12 +1,18 @@
 const Discord = require('discord.js');
+const config = require('../../config.json');
+const db = require('quick.db');
 
-exports.run = (client, message, args) => {
+module.exports.run = (client, message, args) => {
 
-    totaltickets = db.fetch('stats_ticketcreate').length;
-    playurl = db.fetch('stats_playurl').length;
-    playsearch = db.fetch('stats_playsearch').length;
-
-    var stats = new Discord.MessageEmbed()
+    console.log(db.fetch('stats_ticketcreate'));
+    let dbtotaltickets = db.fetch('stats_ticketcreate');
+    let totaltickets = ((dbtotaltickets === null) ? 0 : dbtotaltickets.length);
+    let dbplayurl = db.fetch('stats_playurl');
+    let playurl = ((dbplayurl === null) ? 0 : dbplayurl.length);
+    let dbplaysearch = db.fetch('stats_playsearch');
+    let playsearch = ((dbplaysearch === null) ? 0 : dbplaysearch.length);
+    
+    const stats = new Discord.MessageEmbed()
         .setTitle('Calypso | Statistiques')
         .setDescription(`Statistiques d'utilisation du bot :
         - Tickets : ${totaltickets}
@@ -14,10 +20,10 @@ exports.run = (client, message, args) => {
         - Play Search : ${playsearch}
         `)
         .setFooter(`Calypso`)
-        .setImage("")
+        .setColor(config.color)
         .setTimestamp()
-    message.channel.send(stats)
-}
+    return message.channel.send(stats);
+};
 
 module.exports.help = {
     name: "stats",
@@ -26,4 +32,7 @@ module.exports.help = {
     usage:"",
     accessableby: "Members",
     aliases: []
-}
+};
+//
+//
+//

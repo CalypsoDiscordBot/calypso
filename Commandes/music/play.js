@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const config = require('../../config.json');
 const ytdl = require('ytdl-core');
 const search = require('yt-search');
+const db = require('quick.db');
 
 module.exports.run = async (client, message, args) => {
 
