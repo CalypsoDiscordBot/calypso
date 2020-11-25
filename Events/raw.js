@@ -51,8 +51,10 @@ client.once('raw', payload => {
                 //  Création du ticket
                 //  let category = client.channels.cache.find(c => c.id === categorie && c.type == "category")
                 //  let role1 = reaction.message.guild.roles.cache.find(c => c.id === rolesupport); // id support tickets
+                // Statistiques de création d'un ticket
+                db.push(`stats_ticketcreate`,new Date());
 
-                 reaction.message.guild.channels.create("📝-"+name, {
+                reaction.message.guild.channels.create("📝-"+name, {
                     type: 'text',
                     topic: 'Ticket n°' + user.id + ' - User : ' + user.tag,
                     parent: categorie,
@@ -74,7 +76,7 @@ client.once('raw', payload => {
                         allow: ['VIEW_CHANNEL','SEND_MESSAGES'],
                       }
                     ]
-                 }).then(c => {
+                }).then(c => {
                                 
                     const embed1 = new Discord.MessageEmbed()
                         .setColor(config.color)
