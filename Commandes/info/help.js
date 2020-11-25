@@ -28,7 +28,7 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: message.language.help.fields.music(),
-             value: `\`${client.prefix}play\`, \`${client.prefix}stop\`, \`${client.prefix}skip\`, \`${client.prefix}queue\`, \`${client.prefix}volume\``
+             value: `\`${client.prefix}play\`, \`${client.prefix}leave\`, \`${client.prefix}resume\`, \`${client.prefix}pause\`, \`${client.prefix}skip\`, \`${client.prefix}queue\`, \`${client.prefix}volume\``
            },
            {
              name: message.language.help.fields.fun(),
