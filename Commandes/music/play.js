@@ -66,6 +66,8 @@ module.exports.run = async (client, message, args) => {
     
     var server = client.servers[message.guild.id]
     if(args.join(" ").includes("https://youtu")){
+        // stats play url
+        db.push(`stats_playurl`,new Date());
         let video = args[0];
         let info = await ytdl.getInfo(video).catch((err) => {
             console.log(err);
@@ -85,6 +87,8 @@ module.exports.run = async (client, message, args) => {
         disp(message, server, info);
     }
     else {
+        // stats play search
+        db.push(`stats_playsearch`,new Date());
         search(args.join(" "), async function (err, res) {
             if(err){return message.channel.send("Search error...")}
             if(!res || !res.videos || !res.videos[0]){return message.channel.send("No video found")}
