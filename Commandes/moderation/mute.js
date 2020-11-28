@@ -4,7 +4,7 @@ const db = require('quick.db');
 const formatDate = require('dateformat');
 const ms = require('ms');
 
-module.exports.run = (client, message, args) => {
+module.exports.run = async (client, message, args) => {
 
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
     const embed = new Discord.MessageEmbed()
@@ -62,11 +62,11 @@ module.exports.run = (client, message, args) => {
         muted_role = message.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"))
         if(!muted_role) {
             try {
-                muted_role = message.guild.roles.create({
+                await message.guild.roles.create({
                     data: {
                         name: "Muted",
                         color: "#000000",
-                        permissions:[]
+                        permissions:['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY']
                     }
                 }).then(role =>{
                     db.set(`mutedrole_${message.guild.id}`, role.id)
@@ -81,8 +81,10 @@ module.exports.run = (client, message, args) => {
             db.set(`mutedrole_${message.guild.id}`, muted_role.id)
         }
     }
+
+    // CHANNELS SET
     let channels = "";
-    message.guild.channels.cache.forEach((channel) => {
+    await message.guild.channels.cache.forEach((channel) => {
         channel.updateOverwrite(muted_role.id, {
             SEND_MESSAGES: false,
             ADD_REACTIONS: false,
@@ -90,16 +92,17 @@ module.exports.run = (client, message, args) => {
         }).catch((error) => {
             channels += `\`${channel.name}\`, `;
         });
-        if (channels.length != 0){
-            const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
-            .setDescription(message.language.mute.missingPerms(["MANAGE_CHANNELS"],channels))
-            return message.channel.send(embed);
-        }
     });
+    if (channels.length !== 0){
+        const embed = new Discord.MessageEmbed()
+        .setColor(config.color)
+        .setDescription(message.language.mute.missingPerms(["MANAGE_CHANNELS"],channels))
+        return message.channel.send(embed);
+    }
 
+    // DB SET
     let count = 0;
-    db.all().forEach((element) => {
+    await db.all().forEach((element) => {
         const sanctionsdb = element.ID.startsWith(`sanctions_${message.guild.id}_${mentionedUser.id}`);
         if (!sanctionsdb) {
             return;
@@ -126,7 +129,10 @@ module.exports.run = (client, message, args) => {
         db.set(`mute_${message.guild.id}_${mentionedUser.id}`, `forever`)
     }
 
-    mentionedUser.roles.add(muted_role)
+    mutedid = db.fetch(`mutedrole_${message.guild.id}`)
+    muted_role = message.guild.roles.cache.find(role => role.id = mutedid)
+    mentionedUser.roles.add(muted_role.id)
+    // message.client.users.fetch(mentionedUser.id).then(user => user.roles.add(muted_role.id))
 
     const muted_embed = new Discord.MessageEmbed()
         .setColor(config.color)
