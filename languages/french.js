@@ -335,6 +335,7 @@ module.exports = {
     },
 
     mute: {
+        missingPerms: (neededPermissions, channels) => `__**${emojis.error} Permissions manquantes**__\n\nJ'ai besoin des autorisations suivantes pour que cette commande fonctionne correctement : ${neededPermissions.map((p) => "`"+p+"`").join(", ")}\nDans les channels suivants : ${channels}`,
         error_user: () => `**${emojis.error} Vous ne pouvez pas mute cet utilisateur.**`,
         error_time: () => `**${emojis.error} L'argument \`time\` doit être compris entre 2 minutes et 2 ans. (2m et 2y)**`,
         title: (mentionedUser, authortag) => `<a:Banned:745761570537341029> ${mentionedUser.user.tag} (id: ${mentionedUser.id}) a été mute par ${authortag}`,

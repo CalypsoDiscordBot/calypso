@@ -81,17 +81,21 @@ module.exports.run = (client, message, args) => {
             db.set(`mutedrole_${message.guild.id}`, muted_role.id)
         }
     }
+    let channels = "";
     message.guild.channels.cache.forEach((channel) => {
         channel.updateOverwrite(muted_role.id, {
             SEND_MESSAGES: false,
             ADD_REACTIONS: false,
             CONNECT: false
         }).catch((error) => {
+            channels += `\`${channel.name}\`, `;
+        });
+        if (channels.length != 0){
             const embed = new Discord.MessageEmbed()
             .setColor(config.color)
-            .setDescription(message.language.errors.missingPerms(["MANAGE_CHANNELS"]))
+            .setDescription(message.language.mute.missingPerms(["MANAGE_CHANNELS"],channels))
             return message.channel.send(embed);
-        });
+        }
     });
 
     let count = 0;
