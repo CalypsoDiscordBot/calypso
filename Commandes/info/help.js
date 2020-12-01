@@ -32,7 +32,7 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: message.language.help.fields.fun(),
-             value: `\`${client.prefix}meme\`, \`${client.prefix}dog\`, \`${client.prefix}coinflip\`, \`${client.prefix}rolldice\``
+             value: `\`${client.prefix}meme\`, \`${client.prefix}dog\`, \`${client.prefix}cat\`, \`${client.prefix}coinflip\`, \`${client.prefix}rolldice\``
            },
            {
              name: message.language.help.fields.info(),
