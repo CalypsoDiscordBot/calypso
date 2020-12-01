@@ -32,7 +32,6 @@ module.exports = (client, message) => {
 			.setTimestamp()
 		return client.guilds.cache.get('361214329158238218').channels.cache.get('780419162874052668').send(embed);
     }
-
     // PREFIX 
     var prefix = config.prefix;
     let prefixdb = db.fetch(`prefix_${message.guild.id}`);
@@ -87,6 +86,6 @@ module.exports = (client, message) => {
     else {
         db.delete(`channeltoggle_${message.guild.id}_${message.channel.id}`);
     }
-
+    console.log(`${message.content} ; ${message.guild.name} ; ${message.member.user.tag}`);
     cmd.run(client, message, args);
 };   
