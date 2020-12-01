@@ -38,7 +38,10 @@ module.exports = {
                 description: (prefix) => "Lance une pièce de monnaie."
             },
             dog: {
-                description: (prefix) => "Photo de chien prise au hasard."
+                description: (prefix) => "Photo aléatoire de chien."
+            },
+            cat: {
+                description: (prefix) => "Photo aléatoire de chat."
             },
             meme: {
                 description: (prefix) => "Envoie un meme dans le channel."
@@ -360,6 +363,7 @@ module.exports = {
     history: {
         error_sanction: () => `**${emojis.error} L'argument \`sanction\` n'a pas été trouvé.**`,
         error_nosanction: () => `**${emojis.error} Cet utilisateur n'a reçu aucune sanction.**`,
+        clear: (mentionedUser, count) => `**${emojis.success} ${count} sanctions de l'utilisateur <@${mentionedUser}> (id: ${mentionedUser}) ont été supprimées.**`,
         title: () => `__SANCTIONS__`,
         description: (mentionedUser, content) => `<@${mentionedUser}> (id: ${mentionedUser}) Liste des sanctions :\n ${content}`,
         footer: (nb) => `... ${nb} autres sanction n'ont pas pu être affichées.`

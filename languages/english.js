@@ -40,6 +40,9 @@ module.exports = {
             dog: {
                 description: (prefix) => "Random dog picture."
             },
+            cat: {
+                description: (prefix) => "Random cat picture."
+            },
             meme: {
                 description: (prefix) => "Sends a meme into the channel."
             },
@@ -359,6 +362,7 @@ module.exports = {
     history: {
         error_sanction: () => `**${emojis.error} That \`sanction\` couldn't be found.**`,
         error_nosanction: () => `**${emojis.error} That \`user\` has not received any sanctions.**`,
+        clear: (mentionedUser, count) => `**${emojis.success} ${count} sanctions of the user <@${mentionedUser}> (id: ${mentionedUser}) have been removed.**`,
         title: () => `__HISTORY__ `,
         description: (mentionedUser, content) => `<@${mentionedUser}>'s (id: ${mentionedUser}) sanctions list :\n ${content}`,
         footer: (nb) => `... ${nb} other sanctions could not be displayed.`
