@@ -270,6 +270,9 @@ module.exports = {
     },
 
     channeltoggle: {
+        error_nochannel: () => `**${emojis.error} Il n'y a aucun channel désactivé sur ce Serveur.**`,
+        title: () => `**LISTE DES CHANNELS DESACTIVES**`,
+        list: (content) => `\n${content}`,
         on: () => `**${emojis.success} Les commandes sont maintenant activées dans ce channel.**`,
         off: () => `**${emojis.error} Les commandes sont maintenant désactivées dans ce channel.**`,
         onchannel: (channel) => `**${emojis.success} Les commandes sont maintenant activées dans le channel ${channel}.**`,

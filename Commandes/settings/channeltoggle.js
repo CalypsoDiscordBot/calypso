@@ -19,7 +19,30 @@ module.exports.run = (client, message, args) => {
     }
 
     let channel = message.mentions.channels.first() || message.guild.channels.cache.find((c) => c.name === args[0]);
-    
+
+    if(args[0] === "list"){
+        let content = "";
+        db.all().forEach((element) => {
+            const channeltoggledb = element.ID.startsWith(`channeltoggle_${message.guild.id}`);
+            if (!channeltoggledb) {
+                return;
+            }
+            const channel = client.channels.cache.get(element.ID.split('_')[2]);
+            content += "\n**#"+channel.name+"** - "+db.fetch(`channeltoggle_${message.guild.id}_${channel.id}`);
+        });
+        if(!content){
+            const embed = new Discord.MessageEmbed()
+            .setColor(config.color)
+            .setDescription(message.language.channeltoggle.error_nochannel())
+            return message.channel.send(embed);
+        }
+        const CHANNELTOGGLE_LIST = new Discord.MessageEmbed()
+            .setTitle(message.language.channeltoggle.title()) // 
+            .setColor(config.color)
+            .setDescription(message.language.channeltoggle.list(content)) // 
+        return message.channel.send(CHANNELTOGGLE_LIST)
+    }
+
     if (channel){
         let channeltoggle = db.fetch(`channeltoggle_${message.guild.id}_${channel.id}`);
         if (!channeltoggle || channeltoggle === "Enable"){ // channeltoggle === "Enable" : ancienne version de db

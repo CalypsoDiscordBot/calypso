@@ -269,6 +269,9 @@ module.exports = {
     },
 
     channeltoggle: {
+        error_nochannel: () => `**${emojis.error} There are no disabled channels on this server.**`,
+        title: () => `**LIST OF DISABLED CHANNELS**`,
+        list: (content) => `\n${content}`,
         on: () => `**${emojis.success} Enabled commands in this channel.**`,
         off: () => `**${emojis.error} Disabled commands in this channel.**`,
         onchannel: (channel) => `**${emojis.success} Enabled commands in ${channel}.**`,
