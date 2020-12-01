@@ -59,9 +59,11 @@ module.exports.run = async (client, message, args) => {
 
     if(!muted_role) {
         // console.log("create")
-        muted_role = message.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"))
-        if(!muted_role) {
+        muted_role = message.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"));
+        console.log(muted_role);
+        if(!muted_role || muted_role.id) {
             try {
+                console.log("create muted")
                 await message.guild.roles.create({
                     data: {
                         name: "Muted",
@@ -82,23 +84,24 @@ module.exports.run = async (client, message, args) => {
         }
     }
 
+    console.log(muted_role);
     // CHANNELS SET
-    let channels = "";
-    await message.guild.channels.cache.forEach((channel) => {
-        channel.updateOverwrite(muted_role.id, {
-            SEND_MESSAGES: false,
-            ADD_REACTIONS: false,
-            CONNECT: false
-        }).catch((error) => {
-            channels += `\`${channel.name}\`, `;
-        });
-    });
-    if (channels.length !== 0){
-        const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
-        .setDescription(message.language.mute.missingPerms(["MANAGE_CHANNELS"],channels))
-        return message.channel.send(embed);
-    }
+    // let channels = "";
+    // await message.guild.channels.cache.forEach((channel) => {
+    //     channel.updateOverwrite(muted_role.id, {
+    //         SEND_MESSAGES: false,
+    //         ADD_REACTIONS: false,
+    //         CONNECT: false
+    //     }).catch((error) => {
+    //         channels += `\`${channel.name}\`, `;
+    //     });
+    // });
+    // if (channels.length !== 0){
+    //     const embed = new Discord.MessageEmbed()
+    //     .setColor(config.color)
+    //     .setDescription(message.language.mute.missingPerms(["MANAGE_CHANNELS"],channels))
+    //     message.channel.send(embed);
+    // }
 
     // DB SET
     let count = 0;
@@ -130,6 +133,7 @@ module.exports.run = async (client, message, args) => {
     }
 
     mutedid = db.fetch(`mutedrole_${message.guild.id}`)
+    console.log(mutedid)
     muted_role = message.guild.roles.cache.find(role => role.id = mutedid)
     mentionedUser.roles.add(muted_role.id)
     // message.client.users.fetch(mentionedUser.id).then(user => user.roles.add(muted_role.id))
@@ -146,7 +150,7 @@ module.exports.run = async (client, message, args) => {
         .setColor(config.color)
         .setTitle(message.language.mute.title(mentionedUser, message.author.tag))
         .setDescription(message.language.mute.description(temps, raison))
-    message.channel.send(embed)
+    return message.channel.send(embed)
 
     
 };
