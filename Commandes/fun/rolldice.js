@@ -1,4 +1,5 @@
 const Discord = require("discord.js")
+const config = require('../../config.json');
  
  module.exports.run = async (client, message, args) => {
 
@@ -15,7 +16,7 @@ const Discord = require("discord.js")
     let rolldiceembed = new Discord.MessageEmbed() //MessageEmbed
     .setAuthor(message.author.username, message.author.displayAvatarURL())
     .setTitle('Roll a dice !')
-    .setColor("#000000")
+    .setColor(config.color)
     .setDescription("Rolling...")
     .setImage("https://media.discordapp.net/attachments/716328334560067665/746690192248930414/dice.gif")
     message.channel.send(rolldiceembed).then(msg => {

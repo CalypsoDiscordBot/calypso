@@ -1,5 +1,4 @@
-"use strict";
-
+const config = require('../../config.json');
 const request = require("request");
 
 module.exports.run = (__client, message) => {
@@ -11,7 +10,7 @@ module.exports.run = (__client, message) => {
         var body = JSON.parse(body);
         message.channel.send({
             embed: {
-                color: 0x000000,
+                color: config.color,
                 image: { url: body.message }
             }
         })

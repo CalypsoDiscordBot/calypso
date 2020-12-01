@@ -1,4 +1,5 @@
 const randomPuppy = require('random-puppy');
+const config = require('../../config.json');
 
 module.exports.run = async (bot, message, args) => {
 
@@ -25,10 +26,10 @@ module.exports.run = async (bot, message, args) => {
 
     randomPuppy(subreddit).then(async url => {
             await message.channel.send({
-                files: [{
-                    attachment: url,
-                    name: 'meme.png'
-                }]
+                embed: {
+                    color: config.color,
+                    image: { url: url }
+                }
             }).then(() => message.channel.stopTyping());
     }).catch(err => console.error(err));
 
