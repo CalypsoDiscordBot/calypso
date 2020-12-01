@@ -9,6 +9,7 @@ module.exports = (client, oldState, newState) => {
     // check if the bot is disconnecting
     if (newState.id !== client.user.id) return;
     // clear the queue
+    if(!server) return;
     for(var i = server.queue.length -1; i>= 0; i--){
         server.queue.splice(i, 1);
     }
