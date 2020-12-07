@@ -16,8 +16,6 @@ module.exports = (client, message) => {
         message.channel.messages.fetch(messageid).then(message => {
             // let lastMessage = messages.last();
             if(!message || message.embeds.length == 0 || !message.author.bot) return;
-            console.log(message.embeds[0]);
-            console.log(message.embeds[0].footer.text);
             return client.guilds.cache.get(message.embeds[0].footer.text.split(" ")[0]).channels.cache.get(message.embeds[0].footer.text.split(" ")[2]).send(reponse.join(' '));
         })
     }

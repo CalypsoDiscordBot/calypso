@@ -18,12 +18,13 @@ module.exports.run = async (client, message, args) => {
                         commande.help.aliases.forEach(alias => {
                             client.aliases.set(alias, commande.help.name);
                         })
-                        message.channel.send(`Reload de la commande : ${f}`);
+                        // message.channel.send(`Reload de la commande : ${f}`);
                     } catch (e) {
                         message.channel.send(`Unable to load command ${f}: ${e}`);
                     }
                 });
             });
+            message.channel.send(`Reload terminé !`)
         } else {
             let dir = args[0].toLowerCase();
             let commandName = args[1].toLowerCase();
