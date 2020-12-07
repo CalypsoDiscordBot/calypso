@@ -13,7 +13,7 @@ exports.run = (client, message, args) => {
                 .setTitle(message.language.avatar.title(member.tag))
                 .setDescription(`${message.language.avatar.description()} \n[png](${member.avatarURL({ format: 'png', size: 1024 })})`)
                 .setImage(avatar)
-                .setColor(config.color)
+                .setColor(client.color)
     
                 .setFooter(member.username)
                 .setTimestamp()
@@ -29,7 +29,7 @@ exports.run = (client, message, args) => {
                 .setTitle(message.language.avatar.title(member.user.tag))
                 .setDescription(`${message.language.avatar.description()} \n[png](${member.user.avatarURL({ format: 'png', size: 1024 })}) | [gif](${member.user.avatarURL({ format: 'gif', dynamic: true, size: 1024 })})`)
                 .setImage(avatar)
-                .setColor(config.color)
+                .setColor(client.color)
     
                 .setFooter(member.user.username)
                 .setTimestamp()

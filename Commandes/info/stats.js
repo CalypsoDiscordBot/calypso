@@ -20,7 +20,7 @@ module.exports.run = (client, message, args) => {
         - Play Search : ${playsearch}
         `)
         .setFooter(`Calypso`)
-        .setColor(config.color)
+        .setColor(client.color)
         .setTimestamp()
     return message.channel.send(stats);
 };

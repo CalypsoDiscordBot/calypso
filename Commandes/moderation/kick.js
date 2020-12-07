@@ -8,13 +8,13 @@ module.exports.run = (client, message, args) => {
 
     if(!message.guild.me.hasPermission("KICK_MEMBERS")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.missingPerms(["KICK_MEMBERS"]))
         return message.channel.send(embed);
     }
     if(!message.member.hasPermission("KICK_MEMBERS")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("KICK_MEMBERS"))
         return message.channel.send(embed);
     }
@@ -28,7 +28,7 @@ module.exports.run = (client, message, args) => {
         mentionedUser = args[0];
         if(isNaN(mentionedUser) && args[0]) {
             const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.user())
             return message.channel.send(embed);
         }
@@ -43,7 +43,7 @@ module.exports.run = (client, message, args) => {
     // Check auth
     if(mentionedUser.id === message.author.id || !mentionedUser.kickable) {
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.kick.error_user())
         message.channel.send(embed);
     } else {
@@ -59,12 +59,12 @@ module.exports.run = (client, message, args) => {
         db.set(`sanctions_${message.guild.id}_${mentionedUser.id}_${count+1}`, `Kicked by ${message.author.tag} | Reason: ${raison} | Time: ${formatDate(now, "mm/dd/yy HH:MM:ss")}`);
 
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.kick.description(mentionedUser, message.author.tag, raison))
         message.channel.send(embed)
 
         const kick_embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setTitle(message.language.kick.dm.title(message.guild.name, message.author.tag))
         .setDescription(message.language.kick.dm.description(raison))
         mentionedUser.send(kick_embed)

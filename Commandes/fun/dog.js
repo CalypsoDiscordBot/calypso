@@ -10,7 +10,7 @@ module.exports.run = (__client, message) => {
         var body = JSON.parse(body);
         message.channel.send({
             embed: {
-                color: config.color,
+                color: client.color,
                 image: { url: body.message }
             }
         })

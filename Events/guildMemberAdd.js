@@ -5,6 +5,14 @@ const Discord = require("discord.js");
 
 module.exports = async (client, member) => {
 
+	// COLOR 
+    var color = config.color;
+    let colordb = db.fetch(`color_${member.guild.id}`);
+    if(colordb){
+        var color = colordb;
+    }
+	client.color = color;
+	
 	// AUTOROLE
 	db.all().forEach((element) => {
 		const autoroledb = element.ID.startsWith(`autorole_${member.guild.id}`);
@@ -95,7 +103,7 @@ module.exports = async (client, member) => {
 	}
 	else if(greetingtype == "embed"){
 		const embed = new Discord.MessageEmbed()
-			.setColor(config.color)
+			.setColor(client.color)
             .setThumbnail(member.user.displayAvatarURL())
 			.setTitle(`• ${member.guild.name}`)
 			.setDescription(greetingmessage)

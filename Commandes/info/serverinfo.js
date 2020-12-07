@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args) => {
     let serverembed = new Discord.MessageEmbed()
         .setThumbnail(icon || null)
         .setAuthor(message.guild.name)
-        .setColor(config.color)
+        .setColor(client.color)
 
         .addField(message.language.serverinfo.infos.title(), message.language.serverinfo.infos.content(message.guild.name, message.guild.id, message.guild.owner, formatDate(message.guild.createdAt, "mm/dd/yy")), true)
 

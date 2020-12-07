@@ -6,13 +6,13 @@ module.exports.run = async (client, message, args) => {
 
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
     return message.channel.send(embed);
     }
     if(!message.member.hasPermission("ADMINISTRATOR")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("ADMINISTRATOR"))
         return message.channel.send(embed);
     }
@@ -36,7 +36,7 @@ module.exports.run = async (client, message, args) => {
 				if(!channel){
 					db.delete(element.ID);
 					const embed = new Discord.MessageEmbed()
-					.setColor(config.color)
+					.setColor(client.color)
 					.setDescription(message.language.membercount.error_disable())
 					return message.channel.send(embed);
 				}
@@ -48,14 +48,14 @@ module.exports.run = async (client, message, args) => {
 				db.delete(`membercount_${message.guild.id}_${channel.id}`);
 				channel.delete();
 				const embed = new Discord.MessageEmbed()
-				.setColor(config.color)
+				.setColor(client.color)
 				.setDescription(message.language.membercount.off())
 				return message.channel.send(embed);
 			} 
 			else if(processed >= db.all().length){
 				if(!membercount){
 					const embed = new Discord.MessageEmbed()
-					.setColor(config.color)
+					.setColor(client.color)
 					.setDescription(message.language.membercount.error_disable())
 					return message.channel.send(embed);
 				}
@@ -71,7 +71,7 @@ module.exports.run = async (client, message, args) => {
 				const channel = client.channels.cache.get(element.ID.split('_')[2]);
 				if(channel){
 					const embed = new Discord.MessageEmbed()
-					.setColor(config.color)
+					.setColor(client.color)
 					.setDescription(message.language.membercount.error_previous())
 					return message.channel.send(embed);
 				}
@@ -94,7 +94,7 @@ module.exports.run = async (client, message, args) => {
 						});
 					});
 					const embed = new Discord.MessageEmbed()
-					.setColor(config.color)
+					.setColor(client.color)
 					.setDescription(message.language.membercount.on())
 					return message.channel.send(embed);
 				}

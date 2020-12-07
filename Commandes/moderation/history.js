@@ -8,13 +8,13 @@ module.exports.run = (client, message, args) => {
 
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
     return message.channel.send(embed);
     }
     if(!message.member.hasPermission("MANAGE_MESSAGES")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("MANAGE_MESSAGES"))
         return message.channel.send(embed);
     }
@@ -27,7 +27,7 @@ module.exports.run = (client, message, args) => {
         mentionedUser = args[0];
         if(isNaN(mentionedUser) && args[0]) {
             const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.user())
             return message.channel.send(embed);
         }
@@ -51,13 +51,13 @@ module.exports.run = (client, message, args) => {
                     count++;
                 });
                 const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.history.clear(mentionedUser, count))
                 return message.channel.send(embed);
             }
             else {
                 const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.history.error_sanction())
                 return message.channel.send(embed);
             }
@@ -81,7 +81,7 @@ module.exports.run = (client, message, args) => {
 
         if(count == 0) {
             const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.history.error_nosanction())
             return message.channel.send(embed);
         }
@@ -89,7 +89,7 @@ module.exports.run = (client, message, args) => {
         if(sanction.toString().length < 1800) {
             USERINFO_LIST = new Discord.MessageEmbed()
             .setTitle(message.language.history.title())
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.history.description(mentionedUser, sanction))
             return message.channel.send(USERINFO_LIST)
         } else {

@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args) => {
     randomPuppy(subreddit).then(async url => {
             await message.channel.send({
                 embed: {
-                    color: config.color,
+                    color: client.color,
                     image: { url: url }
                 }
             }).then(() => message.channel.stopTyping());

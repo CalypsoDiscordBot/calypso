@@ -7,7 +7,7 @@ module.exports.run = (client, message, args) => {
 
     if(!server || !server.queue[0]) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.music.error_notplaying())
         return message.channel.send(embed);
     }
@@ -26,7 +26,7 @@ module.exports.run = (client, message, args) => {
 
     message.channel.send({
         embed: {
-            color: config.color,
+            color: client.color,
             description: resp
         }}
     );

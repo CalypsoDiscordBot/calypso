@@ -40,6 +40,14 @@ module.exports = (client, message) => {
     }
     client.prefix = prefix;
 
+    // COLOR 
+    var color = config.color;
+    let colordb = db.fetch(`color_${message.guild.id}`);
+    if(colordb){
+        var color = colordb;
+    }
+    client.color = color;
+
     // LANGUAGE
     var language = config.language;
     let languagedb = db.fetch(`language_${message.guild.id}`);

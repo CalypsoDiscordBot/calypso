@@ -8,13 +8,13 @@ module.exports.run = (client, message, args) => {
     
     if(!message.guild.me.hasPermission("BAN_MEMBERS")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.missingPerms(["BAN_MEMBERS"]))
         return message.channel.send(embed);
     }
     if(!message.member.hasPermission("BAN_MEMBERS")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("BAN_MEMBERS"))
         return message.channel.send(embed);
     }
@@ -30,7 +30,7 @@ module.exports.run = (client, message, args) => {
 
     if(!member){
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.user())
         return message.channel.send(embed);
     }
@@ -38,12 +38,12 @@ module.exports.run = (client, message, args) => {
         if(bans.some(u => u.user.id === member.id || u.user.tag === member.tag)) {
             message.guild.members.unban(member.id).catch((err) => {
                 const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.unban.error_user())
                 return message.channel.send(embed);
             });
             const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.unban.description(member.tag))
             message.channel.send(embed);
             let count = 0;

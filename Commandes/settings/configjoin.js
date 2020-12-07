@@ -6,13 +6,13 @@ module.exports.run = (client, message, args) => {
 
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
     return message.channel.send(embed);
     }
     if(!message.member.hasPermission("ADMINISTRATOR")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("ADMINISTRATOR"))
         return message.channel.send(embed);
     }
@@ -21,7 +21,7 @@ module.exports.run = (client, message, args) => {
 	let greetingtype = db.fetch(`greeting_type_${message.guild.id}`);
 	let greetingmessage = db.fetch(`greeting_message_${message.guild.id}`);
 
-    if(!args[0] || (args[0].toLowerCase() !== "message" && args[0].toLowerCase() !== "embed")){
+    if(!args[0] || (args[0].toLowerCase() !== "message" && args[0].toLowerCase() !== "embed" && args[0].toLowerCase() !== "disable")){
         let content = ["configjoin"];
         return client.commands.get("help").run(client, message, content);
     }
@@ -31,7 +31,7 @@ module.exports.run = (client, message, args) => {
         db.delete(`greeting_message_${message.guild.id}`);
         db.delete(`greeting_type_${message.guild.id}`);
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.configjoin.off())
         return message.channel.send(embed);
     }
@@ -40,7 +40,7 @@ module.exports.run = (client, message, args) => {
         db.set(`greeting_message_${message.guild.id}`, args.slice(2).join(' '));
         db.set(`greeting_type_${message.guild.id}`, args[0].toLowerCase());
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.configjoin.on())
         return message.channel.send(embed);
     }
@@ -48,7 +48,7 @@ module.exports.run = (client, message, args) => {
         let greetingchannel = message.mentions.channels.first() || message.guild.channels.cache.find(channel => channel.name === args[1]);
         if(!greetingchannel){
             const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.errors.channel())
             return message.channel.send(embed);
         }
@@ -56,7 +56,7 @@ module.exports.run = (client, message, args) => {
         db.set(`greeting_message_${message.guild.id}`, args.slice(2).join(' '));
         db.set(`greeting_type_${message.guild.id}`, args[0].toLowerCase());
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.configjoin.on())
         return message.channel.send(embed);
     }

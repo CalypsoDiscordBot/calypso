@@ -8,13 +8,13 @@ module.exports.run = async (client, message, args) => {
 
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
     return message.channel.send(embed);
     }
     if(!message.member.hasPermission("MANAGE_MESSAGES")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("MANAGE_MESSAGES"))
         return message.channel.send(embed);
     }
@@ -31,7 +31,7 @@ module.exports.run = async (client, message, args) => {
         mentionedUser = args[0];
         if(isNaN(mentionedUser) && args[0]) {
             const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.user())
             return message.channel.send(embed);
         }
@@ -48,7 +48,7 @@ module.exports.run = async (client, message, args) => {
 
     if(mentionedUser.id === message.author.id || (moderationPosition < memberPosition)) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.mute.error_user())
         return message.channel.send(embed);
     }
@@ -75,7 +75,7 @@ module.exports.run = async (client, message, args) => {
                 })
             } catch (error) {
                 const embed = new Discord.MessageEmbed()
-                    .setColor(config.color)
+                    .setColor(client.color)
                     .setDescription(message.language.errors.missingPerms(["MANAGE_ROLES"]))
                 return message.channel.send(embed);
             }
@@ -98,7 +98,7 @@ module.exports.run = async (client, message, args) => {
     // });
     // if (channels.length !== 0){
     //     const embed = new Discord.MessageEmbed()
-    //     .setColor(config.color)
+    //     .setColor(client.color)
     //     .setDescription(message.language.mute.missingPerms(["MANAGE_CHANNELS"],channels))
     //     message.channel.send(embed);
     // }
@@ -117,7 +117,7 @@ module.exports.run = async (client, message, args) => {
     if(args[1] && ms(args[1])) {
         if(ms(args[1])< 120000 || ms(args[1])> 63070000000){
             const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.mute.error_time())
             return message.channel.send(embed);
         }
@@ -139,7 +139,7 @@ module.exports.run = async (client, message, args) => {
     // message.client.users.fetch(mentionedUser.id).then(user => user.roles.add(muted_role.id))
 
     const muted_embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setTitle(message.language.mute.dm.title(message.guild.name, message.author.tag))
         .setDescription(message.language.mute.dm.description(temps, raison))
     mentionedUser.send(muted_embed)
@@ -147,7 +147,7 @@ module.exports.run = async (client, message, args) => {
     db.set(`sanctions_${message.guild.id}_${mentionedUser.id}_${count+1}`, `Muted by ${message.author.tag} | Reason: ${raison} | Duration: ${temps} | Time: ${formatDate(now, "mm/dd/yy HH:MM:ss")}`);
     
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setTitle(message.language.mute.title(mentionedUser, message.author.tag))
         .setDescription(message.language.mute.description(temps, raison))
     return message.channel.send(embed)

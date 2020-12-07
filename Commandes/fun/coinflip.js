@@ -10,7 +10,7 @@ const config = require('../../config.json');
     let coinflipembed = new Discord.MessageEmbed() //MessageEmbed
     .setAuthor(message.author.username, message.author.displayAvatarURL())
     .setTitle('Coinflip !')
-    .setColor(config.color)
+    .setColor(client.color)
     .setDescription("Rolling...")
 	.setImage("https://cdn.discordapp.com/attachments/716328334560067665/745462984457060453/coin.gif")
     message.channel.send(coinflipembed).then(msg => {

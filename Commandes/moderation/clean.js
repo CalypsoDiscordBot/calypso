@@ -5,13 +5,13 @@ module.exports.run = (client, message, args) => {
     
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
         return message.channel.send(embed);
     }
     if(!message.member.hasPermission("MANAGE_MESSAGES")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("MANAGE_MESSAGES"))
         return message.channel.send(embed);
     }
@@ -27,7 +27,7 @@ module.exports.run = (client, message, args) => {
         nb = parseInt(args[0])+1;                             
         message.channel.bulkDelete(nb).then((messages) => {
             const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.clean.success(messages.size-1))
             return message.channel.send(embed);
         });

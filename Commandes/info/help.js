@@ -7,7 +7,7 @@ module.exports.run = (client, message, args) => {
       message.channel.send({
         embed: {
           description: message.language.help.description(message.guild.name, client.prefix),
-          color: config.color,
+          color: client.color,
           timestamp: new Date(),
           footer: {
                icon_url: client.user.displayAvatarURL(),
@@ -20,7 +20,7 @@ module.exports.run = (client, message, args) => {
           fields: [
            {
              name: message.language.help.fields.settings(),
-             value: `\`${client.prefix}prefix\`, \`${client.prefix}setlang\`, \`${client.prefix}configjoin\`, \`${client.prefix}configleave\`, \`${client.prefix}testjoin\`, \`${client.prefix}testleave\`, \`${client.prefix}autorole\`, \`${client.prefix}membercount\`,  \`${client.prefix}ticket\`, \`${client.prefix}accessrole\`, \`${client.prefix}channeltoggle\``
+             value: `\`${client.prefix}prefix\`, \`${client.prefix}setlang\`, \`${client.prefix}setcolor\`, \`${client.prefix}configjoin\`, \`${client.prefix}configleave\`, \`${client.prefix}testjoin\`, \`${client.prefix}testleave\`, \`${client.prefix}autorole\`, \`${client.prefix}membercount\`,  \`${client.prefix}ticket\`, \`${client.prefix}accessrole\`, \`${client.prefix}channeltoggle\``
            },
            {
              name: message.language.help.fields.moderation(),
@@ -28,7 +28,7 @@ module.exports.run = (client, message, args) => {
            },
            {
              name: message.language.help.fields.music(),
-             value: `\`${client.prefix}play\`, \`${client.prefix}leave\`, \`${client.prefix}resume\`, \`${client.prefix}pause\`, \`${client.prefix}skip\`, \`${client.prefix}queue\`, \`${client.prefix}volume\``
+             value: `\`${client.prefix}play\`, \`${client.prefix}leave\`, \`${client.prefix}resume\`, \`${client.prefix}pause\`, \`${client.prefix}skip\`, \`${client.prefix}queue\`, \`${client.prefix}clear\`, \`${client.prefix}volume\``
            },
            {
              name: message.language.help.fields.fun(),
@@ -44,7 +44,7 @@ module.exports.run = (client, message, args) => {
     }
     else{
       const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL())
       let command = client.commands.get(client.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase())
       if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${client.prefix}help\` for the list of the commands.`))
@@ -76,7 +76,7 @@ module.exports.help = {
 };
 
 // const embed = new Discord.RichEmbed()
-//         .setColor(config.color)
+//         .setColor(client.color)
 //         .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL)
 
 //       embed.setDescription(`These are the avaliable commands for ${message.guild.me.displayName}\nThe bot prefix is: **${client.prefix}**`)

@@ -3,6 +3,15 @@ const config = require('../config.json');
 const Discord = require("discord.js");
 
 module.exports = async (client, member) => {
+
+	// COLOR 
+    var color = config.color;
+    let colordb = db.fetch(`color_${member.guild.id}`);
+    if(colordb){
+        var color = colordb;
+    }
+	client.color = color;
+
 	let farewellchannel = db.fetch(`farewell_channel_${member.guild.id}`);
 	// const farewellrole = db.fetch(`farewell_role_${member.guild.id}`);
 	let farewellmessage = db.fetch(`farewell_message_${member.guild.id}`);
@@ -36,7 +45,7 @@ module.exports = async (client, member) => {
 	}
 	else if(farewelltype == "embed"){
 		const embed = new Discord.MessageEmbed()
-			.setColor(config.color)
+			.setColor(client.color)
             .setThumbnail(member.user.displayAvatarURL())
 			.setTitle(`• ${member.guild.name}`)
 			.setDescription(farewellmessage)

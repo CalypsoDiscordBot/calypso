@@ -6,13 +6,13 @@ module.exports.run = (client, message, args) => {
 
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES") || !message.guild.me.hasPermission("MANAGE_ROLES")) {
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES","MANAGE_ROLES"]))
     return message.channel.send(embed);
     }
     if(!message.member.hasPermission("ADMINISTRATOR")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("ADMINISTRATOR"))
         return message.channel.send(embed);
     }
@@ -26,7 +26,7 @@ module.exports.run = (client, message, args) => {
     else if (args[0] === "disable"){
         db.delete(`accessrole_${message.guild.id}`);
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.accessrole.off())
         return message.channel.send(embed);
     }
@@ -34,13 +34,13 @@ module.exports.run = (client, message, args) => {
     if (role){
         db.set(`accessrole_${message.guild.id}`, role.id);
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.accessrole.on())
         return message.channel.send(embed);
     }
     else{
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.role())
         return message.channel.send(embed);
     }

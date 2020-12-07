@@ -7,13 +7,13 @@ module.exports.run = (client, message, args) => {
 
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
     return message.channel.send(embed);
     }
     if(!message.member.hasPermission("MANAGE_MESSAGES")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("MANAGE_MESSAGES"))
         return message.channel.send(embed);
     }
@@ -32,7 +32,7 @@ module.exports.run = (client, message, args) => {
                 final += emojis[i++]+" "+element+"\n\n"
             )
             var poll = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setTitle(`📊 **${content[0]}**`)
                 .setDescription(final)
                 .setFooter(`Calypso`)
@@ -46,7 +46,7 @@ module.exports.run = (client, message, args) => {
         }
         else if(content[0]){
             var poll = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setTitle(`📊 **${content[0]}**`)
                 .setFooter(`Calypso`)
                 .setTimestamp()

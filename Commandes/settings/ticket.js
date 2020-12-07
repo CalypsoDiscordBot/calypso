@@ -8,13 +8,13 @@ module.exports.run = async (client, message, args) => {
     
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES") || !message.guild.me.hasPermission("MANAGE_CHANNELS")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES","MANAGE_CHANNELS"]))
         return message.channel.send(embed);
     }
     if(!message.member.hasPermission("MANAGE_GUILD")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("MANAGE_GUILD"))
         return message.channel.send(embed);
     }
@@ -28,7 +28,7 @@ module.exports.run = async (client, message, args) => {
     }
 
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.ticket.role.description(role.name))
     message.channel.send(embed).then (function (data){
         setTimeout(function(){ 
@@ -40,7 +40,7 @@ module.exports.run = async (client, message, args) => {
     //  MESSAGE
     message.channel.send({
         embed: {
-            color: config.color,
+            color: client.color,
             description: message.language.ticket.message.description(),
             title: message.language.ticket.message.title(),
             footer: {

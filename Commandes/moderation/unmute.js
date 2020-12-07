@@ -8,13 +8,13 @@ module.exports.run = (client, message, args) => {
     
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES") || !message.guild.me.hasPermission("MANAGE_ROLES")) {
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES","MANAGE_ROLES"]))
     return message.channel.send(embed);
     }
     if(!message.member.hasPermission("MANAGE_MESSAGES")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("MANAGE_MESSAGES"))
         return message.channel.send(embed);
     }
@@ -30,7 +30,7 @@ module.exports.run = (client, message, args) => {
         mentionedUser = args[0];
         if(isNaN(mentionedUser) && args[0]) {
             const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.user())
             return message.channel.send(embed);
         }
@@ -46,7 +46,7 @@ module.exports.run = (client, message, args) => {
 
     if(mentionedUser.id === message.author.id || (moderationPosition < memberPosition)) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.unmute.error_user())
         return message.channel.send(embed);
     }
@@ -56,19 +56,19 @@ module.exports.run = (client, message, args) => {
 
     if(!muted_role){
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.unmute.error_role())
         return message.channel.send(embed);
     }
     mentionedUser.roles.remove(muted_role).catch((err) => {
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.unmute.error_role())
         return message.channel.send(embed);
     });
 
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.unmute.description(mentionedUser.user.tag))
     message.channel.send(embed);
     let count = 0;

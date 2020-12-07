@@ -6,13 +6,13 @@ module.exports.run = (client, message, args) => {
 
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES") || !message.guild.me.hasPermission("MANAGE_ROLES")) {
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES","MANAGE_ROLES"]))
     return message.channel.send(embed);
     }
     if(!message.member.hasPermission("ADMINISTRATOR")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("ADMINISTRATOR"))
         return message.channel.send(embed);
     }
@@ -47,32 +47,32 @@ module.exports.run = (client, message, args) => {
     else if(args[0].toLowerCase() === "add"){
         if (!role) {
             const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.role())
             return message.channel.send(embed);
         }
         db.set(`autorole_${message.guild.id}_${role.id}`, `join`);
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.autorole.on(role.name))
         return message.channel.send(embed);
     }
     else if(args[0].toLowerCase() === "remove"){
         if (!role) {
             const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.role())
             return message.channel.send(embed);
         }
         db.delete(`autorole_${message.guild.id}_${role.id}`);
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.autorole.off(role.name))
         return message.channel.send(embed);
     }
     else {
         const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.action())
         return message.channel.send(embed);
     }

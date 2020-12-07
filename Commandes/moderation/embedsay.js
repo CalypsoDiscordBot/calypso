@@ -3,15 +3,9 @@ const config = require('../../config.json');
 
 module.exports.run = async (client, message, args) => {
     
-    if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
-    const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
-        .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
-    return message.channel.send(embed);
-    }
     if(!message.member.hasPermission("MANAGE_MESSAGES")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("MANAGE_MESSAGES"))
         return message.channel.send(embed);
     }
@@ -22,12 +16,15 @@ module.exports.run = async (client, message, args) => {
     }
 
     let messageToBot = args.join(' ')
-    message.delete().catch()
     
     let embedsay = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(messageToBot)
     message.channel.send(embedsay)
+
+    if(message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+        message.delete().catch()
+    }
 
 }
 

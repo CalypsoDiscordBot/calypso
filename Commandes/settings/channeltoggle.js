@@ -7,13 +7,13 @@ module.exports.run = (client, message, args) => {
 
     if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
     const embed = new Discord.MessageEmbed()
-        .setColor(config.color)
+        .setColor(client.color)
         .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
     return message.channel.send(embed);
     }
     if(!message.member.hasPermission("ADMINISTRATOR")) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.permLevel("ADMINISTRATOR"))
         return message.channel.send(embed);
     }
@@ -32,13 +32,13 @@ module.exports.run = (client, message, args) => {
         });
         if(!content){
             const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.channeltoggle.error_nochannel())
             return message.channel.send(embed);
         }
         const CHANNELTOGGLE_LIST = new Discord.MessageEmbed()
             .setTitle(message.language.channeltoggle.title()) // 
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.channeltoggle.list(content)) // 
         return message.channel.send(CHANNELTOGGLE_LIST)
     }
@@ -48,14 +48,14 @@ module.exports.run = (client, message, args) => {
         if (!channeltoggle || channeltoggle === "Enable"){ // channeltoggle === "Enable" : ancienne version de db
             db.set(`channeltoggle_${message.guild.id}_${channel.id}`, "Disable");
             const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.channeltoggle.offchannel(channel))
             return message.channel.send(embed);
         }
         else {
             db.delete(`channeltoggle_${message.guild.id}_${channel.id}`);
             const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.channeltoggle.onchannel(channel))
             return message.channel.send(embed);
         }
@@ -65,14 +65,14 @@ module.exports.run = (client, message, args) => {
         if (!channeltoggle || channeltoggle === "Enable"){ // channeltoggle === "Enable" : ancienne version de db
             db.set(`channeltoggle_${message.guild.id}_${message.channel.id}`, "Disable");
             const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.channeltoggle.off())
             return message.channel.send(embed);
         }
         else {
             db.delete(`channeltoggle_${message.guild.id}_${message.channel.id}`);
             const embed = new Discord.MessageEmbed()
-                .setColor(config.color)
+                .setColor(client.color)
                 .setDescription(message.language.channeltoggle.on())
             return message.channel.send(embed);
         }

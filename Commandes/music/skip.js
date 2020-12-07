@@ -7,7 +7,7 @@ module.exports.run = (client, message, args) => {
     var server = client.servers[message.guild.id];
     if(!message.member.voice.channel){
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.music.error_voicechannel())
         return message.channel.send(embed);
     }

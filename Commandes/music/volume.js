@@ -7,20 +7,20 @@ module.exports.run = (client, message, args) => {
 
     if(!server) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.music.error_notplaying())
         return message.channel.send(embed);
     }
     if(message.member.voice.channel !== message.guild.me.voice.channel){
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.music.error_voicechannel())
         return message.channel.send(embed);
     }
 
     if(isNaN(args[0]) || args[0] > 200 || args[0] <0) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.volume.error_volume())
         return message.channel.send(embed);
     }

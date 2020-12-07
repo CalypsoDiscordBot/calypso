@@ -15,14 +15,14 @@ module.exports.run = async(client, message, args) => {
         if (body.status == "fail") {
 
             const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.iplocate.error_getinfos(body.query, body.message))
             return message.channel.send(embed);
 
         } else if (body.status = "success") {
             let embed = new Discord.MessageEmbed()
                 .setTitle(message.language.iplocate.title(args[0], body.query))
-                .setColor(config.color)
+                .setColor(client.color)
                 .addField(message.language.iplocate.owner.title(), message.language.iplocate.owner.content(body.org, body.isp, body.as))
                 .addField(message.language.iplocate.location.title(), message.language.iplocate.location.content(body.country, body.city))
                 .addField(message.language.iplocate.other.title(), message.language.iplocate.other.content(body.mobile, body.proxy, body.hosting))

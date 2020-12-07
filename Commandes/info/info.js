@@ -44,7 +44,7 @@ exports.run = (client, message, args) => {
 
     var info = new Discord.MessageEmbed()
         .setAuthor(client.user.username, client.user.displayAvatarURL())
-        .setColor(config.color)
+        .setColor(client.color)
 
         .setDescription(message.language.info.description(client.prefix))
 

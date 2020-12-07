@@ -40,7 +40,7 @@ module.exports.run = async (client, message, args) => {
 
     if(!message.member.voice.channel){
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.music.error_voicechannel())
         return message.channel.send(embed);
     }
@@ -48,13 +48,13 @@ module.exports.run = async (client, message, args) => {
     const permissions = message.member.voice.channel.permissionsFor(client.user);
     if (!permissions.has('CONNECT')) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.missingPerms(["CONNECT"]))
         return message.channel.send(embed);
     }
     if (!permissions.has('SPEAK')) {
         const embed = new Discord.MessageEmbed()
-            .setColor(config.color)
+            .setColor(client.color)
             .setDescription(message.language.errors.missingPerms(["SPEAK"]))
         return message.channel.send(embed);
     }
@@ -118,7 +118,7 @@ module.exports.run = async (client, message, args) => {
         if(!server.queue[1]) { // 0 musique dans la queue
             await message.member.voice.channel.join().then( function(connection){
                     message.channel.send({embed: {
-                        color:  config.color,
+                        color:  client.color,
                         author:  server.queue[0].author,
                         title:  server.queue[0].title,
                         url:  server.queue[0].url,
@@ -143,7 +143,7 @@ module.exports.run = async (client, message, args) => {
         else {
             message.channel.send(message.language.play.queue())
             message.channel.send({embed: {
-                color: config.color,
+                color: client.color,
                 author: info.videoDetails.author,
                 title: info.videoDetails.title,
                 url: info.videoDetails.url,

@@ -18,40 +18,40 @@ module.exports.run = (client, message, args) => {
     }
 
     if(!args[0]){
-        let content = ["prefix"];
-        client.commands.get("help").run(client, message, content);
+        let content = ["setcolor"];
+        return client.commands.get("help").run(client, message, content);
     }
     else {
         if(args[0] === "disable"){
-            db.delete(`prefix_${message.guild.id}`);
+            db.delete(`color_${message.guild.id}`);
             const embed = new Discord.MessageEmbed()
-                .setColor(client.color)
-                .setDescription(message.language.prefix.disable(client.prefix))
+                .setColor(config.color)
+                .setDescription(message.language.setcolor.disable(config.color))
             return message.channel.send(embed);
         }
         else {
-            db.set(`prefix_${message.guild.id}`, args[0]);
+            // let number = parseInt(args[0], 16);
+            db.set(`color_${message.guild.id}`, args[0]);
 
-            var prefix = config.prefix;
-            let prefixdb = db.fetch(`prefix_${message.guild.id}`);
-            if(prefixdb){
-                var prefix = prefixdb;
+            var color = config.color;
+            let colordb = db.fetch(`color_${message.guild.id}`);
+            if(colordb){
+                var color = colordb;
             }
-            client.prefix = prefix;
+            client.color = color;
             const embed = new Discord.MessageEmbed()
                 .setColor(client.color)
-                .setDescription(message.language.prefix.success(client.prefix))
+                .setDescription(message.language.setcolor.success(client.color))
             return message.channel.send(embed);
         }
     }
 }
 
-
 module.exports.help = {
-    name: 'prefix',
-    description: `Sets the command prefix. \n\nExamples: \n\`%prefix%prefix !\` - Sets the prefix to ! \n\`%prefix%prefix disable\` - Disables the custom command prefix.`,
+    name: 'setcolor',
+    description: "",
     category: "settings",
-    usage:"<prefix>",
-    accessableby: "Admin",
-    aliases: ['setprefix']
-};
+    usage:"",
+    accessableby: "Members",
+    aliases: ["embedcolor", "color"]
+}
