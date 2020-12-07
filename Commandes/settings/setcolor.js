@@ -30,7 +30,12 @@ module.exports.run = (client, message, args) => {
             return message.channel.send(embed);
         }
         else {
-            // let number = parseInt(args[0], 16);
+            if(!/^([0-9A-F]{3}){1,2}$/i.test(args[0]) && !/^#([0-9A-F]{3}){1,2}$/i.test(args[0])){
+                const embed = new Discord.MessageEmbed()
+                    .setColor(config.color)
+                    .setDescription(message.language.setcolor.error(args[0]))
+                return message.channel.send(embed);
+            }
             db.set(`color_${message.guild.id}`, args[0]);
 
             var color = config.color;
@@ -49,9 +54,9 @@ module.exports.run = (client, message, args) => {
 
 module.exports.help = {
     name: 'setcolor',
-    description: "",
+    description: "Change the color of the server's embeds.",
     category: "settings",
-    usage:"",
+    usage:"<hex>",
     accessableby: "Members",
     aliases: ["embedcolor", "color"]
 }

@@ -172,6 +172,9 @@ module.exports = {
             setlang:{
                 description: (prefix) => ""
             },
+            setcolor:{
+                description: (prefix) => "Change the color of the server's embeds."
+            },
             testjoin:{
                 description: (prefix) => "Test welcome messages."
             },
@@ -319,6 +322,7 @@ module.exports = {
     },
 
     setcolor: {
+        error: (color) => `**${emojis.error} The color must be in Hexadecimal format. For example: \`#000000\` or \`000000\`.**`,
         disable: (color) => `**${emojis.success} Custom color disabled. Current color : \`${color}\`.**`,
         success: (color) => `**${emojis.success} Custom color has been updated! Current color : \`${color}\`.**`
     },

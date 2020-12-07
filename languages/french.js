@@ -170,7 +170,10 @@ module.exports = {
                 description: (prefix) => `Définit le préfixe de la commande. \n\nExemples : \n\`${prefix}prefix !\` - Fixe le préfixe à ! \n\`${prefix}prefix disable\` - Désactive le préfixe de commande personnalisé.`
             },
             setlang:{
-                description: (prefix) => ""
+                description: (prefix) => "Permet de changer la langue du bot (`FR`, `EN`)."
+            },
+            setcolor:{
+                description: (prefix) => "Permet de changer la couleur des embeds du serveur."
             },
             testjoin:{
                 description: (prefix) => "Test des messages de bienvenue."
@@ -320,6 +323,7 @@ module.exports = {
     },
 
     setcolor: {
+        error: (color) => `**${emojis.error} La couleur doit être sous le format Hexadecimal. Exemple : \`#000000\` ou \`000000\`.**`,
         disable: (color) => `**${emojis.success} Couleur personnalisée désactivée. Couleur actuelle : \`${color}\`.**`,
         success: (color) => `**${emojis.success} Couleur personnalisée mise à jour ! Couleur actuelle : \`${color}\`.**`
     },
