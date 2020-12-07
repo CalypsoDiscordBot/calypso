@@ -132,6 +132,9 @@ module.exports = {
             },
             volume:{
                 description: (prefix) => "Sets the volume of the music playing."
+            },
+            clear:{
+                description: (prefix) => "Clear the current track queue."
             }
         },
 
@@ -313,6 +316,11 @@ module.exports = {
     setlang: {
         invalid: () => `**${emojis.error} You must write a valid language!\n\n:flag_fr: Français (\`fr\`)\n:flag_gb: English (\`en\`)**`,
         success: () => `**${emojis.success} Language has been updated!**`
+    },
+
+    setcolor: {
+        disable: (color) => `**${emojis.success} Custom color disabled. Current color : \`${color}\`.**`,
+        success: (color) => `**${emojis.success} Custom color has been updated! Current color : \`${color}\`.**`
     },
 
     clean: {

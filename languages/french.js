@@ -134,6 +134,9 @@ module.exports = {
             },
             volume:{
                 description: (prefix) => "Règle le volume de la musique."
+            },
+            clear:{
+                description: (prefix) => "Clear the current track queue."
             }
         },
 
@@ -314,6 +317,11 @@ module.exports = {
     setlang: {
         invalid: () => `**${emojis.error} Vous devez entrer une langue valide !\n\n:flag_fr: Français (\`fr\`)\n:flag_gb: English (\`en\`)**`,
         success: () => `**${emojis.success} Langue mise à jour !**`
+    },
+
+    setcolor: {
+        disable: (color) => `**${emojis.success} Couleur personnalisée désactivée. Couleur actuelle : \`${color}\`.**`,
+        success: (color) => `**${emojis.success} Couleur personnalisée mise à jour ! Couleur actuelle : \`${color}\`.**`
     },
 
     clean: {
