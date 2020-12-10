@@ -29,6 +29,7 @@ module.exports = {
             settings: () => ":wrench: Paramètres",
             moderation: () => ":hammer: Modération",
             music: () => ":notes: Musique",
+            games: () => ":video_game: Jeux",
             fun: () => ":100: Fun",
             info: () => ":information_source: Info"
         },
@@ -137,6 +138,12 @@ module.exports = {
             },
             clear:{
                 description: (prefix) => "Clear the current track queue."
+            }
+        },
+
+        games:{
+            mcprofile:{
+                description: (prefix) => "Affiche les infos d'un profil Minecraft."
             }
         },
 
@@ -417,6 +424,13 @@ module.exports = {
     resume: {
         isnt_paused: () => `**${emojis.error} Cette musique n'est pas en pause.**`,
         success: (title) => `**${emojis.success} Musique reprise : __${title}__**`
+    },
+
+    mcprofile: {
+        title: (pseudo) => `**${emojis.mc}  Profil Minecraft pour ${pseudo}**`,
+        skin: (skinUrl) => `Skin : [Ouvrir](${skinUrl})`,
+        info: (i) => `Modifications du pseudo :\`${i}\``,
+        history: () => `**Historique des pseudos**`
     },
 
     giveaway: {

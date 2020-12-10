@@ -35,6 +35,10 @@ module.exports.run = (client, message, args) => {
              value: `\`${client.prefix}meme\`, \`${client.prefix}dog\`, \`${client.prefix}cat\`, \`${client.prefix}coinflip\`, \`${client.prefix}rolldice\``
            },
            {
+             name: message.language.help.fields.games(),
+             value: `\`${client.prefix}mcprofile\``
+           },
+           {
              name: message.language.help.fields.info(),
              value: `\`${client.prefix}help\`, \`${client.prefix}info\`, \`${client.prefix}whois\`, \`${client.prefix}avatar\`, \`${client.prefix}serverinfo\`, \`${client.prefix}ping\`, \`${client.prefix}iplocate\`, \`${client.prefix}vote\``
            }

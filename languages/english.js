@@ -29,6 +29,7 @@ module.exports = {
             settings: () => ":wrench: Settings",
             moderation: () => ":hammer: Moderation",
             music: () => ":notes: Music",
+            games: () => ":video_game: Games",
             fun: () => ":100: Fun",
             info: () => ":information_source: Info"
         },
@@ -138,6 +139,12 @@ module.exports = {
             }
         },
 
+        games:{
+            mcprofile:{
+                description: (prefix) => "Displays information from a Minecraft profile."
+            }
+        },
+        
         settings:{
             accessrole:{
                 description: (prefix) => `Sets a role that people have to have to use the bot. Use \`${prefix}accessrole disable\` to disable`
@@ -416,6 +423,13 @@ module.exports = {
     resume: {
         isnt_paused: () => `**${emojis.error} This music isn't paused.**`,
         success: (title) => `**${emojis.success} Successfully resumed __${title}__**`
+    },
+
+    mcprofile: {
+        title: (pseudo) => `**${emojis.mc}  Minecraft profile for ${pseudo}**`,
+        skin: (skinUrl) => `Skin: [Open skin](${skinUrl})`,
+        info: (i) => `Username Changes:\`${i}\``,
+        history: () => `**Name History**`
     },
 
     giveaway: {
