@@ -26,7 +26,7 @@ module.exports.run = (client, message, args) => {
 };
 
 module.exports.help = {
-    name: "stats",
+    name: "botstats",
     description: "",
     category: "info",
     usage:"",

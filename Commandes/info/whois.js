@@ -44,5 +44,5 @@ module.exports.help = {
     category: "info",
     usage:"[@user]",
     accessableby: "Members",
-    aliases: ['userinfo','user','who']
+    aliases: ['userinfo','user','who','stats']
 };
