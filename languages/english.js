@@ -50,6 +50,9 @@ module.exports = {
             rolldice: {
                 description: (prefix) => "Rolls a dice."
             },
+            creatememe: {
+                description: (prefix) => "Create and send a meme in the channel."
+            }
         },
         
         info:{
@@ -202,6 +205,11 @@ module.exports = {
     // 
     // COMMANDS 
     // 
+
+    creatememe: {
+        list: () => `**Meme Templates List**`,
+        error: () => `**${emojis.error} No template matches.**`
+    },
 
     info: {
         description: () => `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. 

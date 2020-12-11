@@ -50,6 +50,9 @@ module.exports = {
             rolldice: {
                 description: (prefix) => "Lance un dé."
             },
+            creatememe: {
+                description: (prefix) => "Créer et envoie un meme dans le channel."
+            }
         },
         
         info:{
@@ -202,6 +205,11 @@ module.exports = {
     // 
     // COMMANDS 
     // 
+
+    creatememe: {
+        list: () => `**Liste des templates de meme**`,
+        error: () => `**${emojis.error} Aucun template ne correspond.**`
+    },
 
     info: {
         description: (prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles. 
