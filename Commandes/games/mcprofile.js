@@ -7,7 +7,10 @@ const atob = require('atob');
 
 exports.run = (client, message, args) => {
 
-    if(!args[0]){return;}
+    if(!args[0]){
+        let content = ["mcprofile"];
+        return client.commands.get("help").run(client, message, content);
+    }
 
     let pseudo = args[0];
 
