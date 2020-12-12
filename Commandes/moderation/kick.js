@@ -35,7 +35,7 @@ module.exports.run = (client, message, args) => {
         mentionedUser = message.guild.members.resolve(args[0]);
     }
     if(!args[0] || !mentionedUser) {
-        let content = ["mute"];
+        let content = ["kick"];
         return client.commands.get("help").run(client, message, content);
     }
     const now = new Date();
