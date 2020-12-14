@@ -343,6 +343,8 @@ module.exports = {
     },
 
     clean: {
+        error_limit: () => `**${emojis.error} I can't delete more than 100 messages.**`,
+        error_date: () => `**${emojis.error} I can't delete messages older than 14 days.**`,
         success: (size) => `**${emojis.success} __${size}__ messages have been deleted!**`
     },
 

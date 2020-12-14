@@ -344,6 +344,8 @@ module.exports = {
     },
 
     clean: {
+        error_limit: () => `**${emojis.error} Je ne peux pas supprimer plus de 100 messages.**`,
+        error_date: () => `**${emojis.error} Je ne peux pas supprimer les messages plus vieux que 14 jours**`,
         success: (size) => `**${emojis.success} __${size}__ messages supprimés !**`
     },
 

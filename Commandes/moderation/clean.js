@@ -24,13 +24,26 @@ module.exports.run = (client, message, args) => {
         let content = ["clean"];
         client.commands.get("help").run(client, message, content);
     }    
-        nb = parseInt(args[0])+1;                             
-        message.channel.bulkDelete(nb).then((messages) => {
+        nb = parseInt(args[0])+1;  
+        if(nb > 100){
             const embed = new Discord.MessageEmbed()
                 .setColor(client.color)
-                .setDescription(message.language.clean.success(messages.size-1))
+                .setDescription(message.language.clean.error_limit())
             return message.channel.send(embed);
-        });
+        }
+        try {                           
+            message.channel.bulkDelete(nb).then((messages) => {
+                const embed = new Discord.MessageEmbed()
+                    .setColor(client.color)
+                    .setDescription(message.language.clean.success(messages.size-1))
+                return message.channel.send(embed);
+            });
+        } catch (error) {
+            const embed = new Discord.MessageEmbed()
+                .setColor(client.color)
+                .setDescription(message.language.clean.error_date())
+            return message.channel.send(embed);
+        }
 };
 
 module.exports.help = {
