@@ -20,7 +20,7 @@ module.exports = (client, message) => {
         })
     }
 
-    if (message.mentions.has(client.user)){
+    if (message.mentions.has(client.user) && !message.mentions.has(message.guild.roles.everyone) && !message.mentions.has(message.guild.roles.here)){
         const embed = new Discord.MessageEmbed()
 			.setColor(config.color)
             .setThumbnail(message.member.user.displayAvatarURL())
