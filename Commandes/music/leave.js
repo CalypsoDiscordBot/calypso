@@ -14,14 +14,16 @@ module.exports.run = (client, message, args) => {
 
     if(message.guild.me.voice.channel){
         if(message.guild.me.voice.channel && message.member.voice.channel === message.guild.me.voice.channel){
-            for(var i = server.queue.length -1; i>= 0; i--){
-                server.queue.splice(i, 1);
+            if(server){
+                for(var i = server.queue.length -1; i>= 0; i--){
+                    server.queue.splice(i, 1);
+                }
+                server.dispatcher.emit("finish");
             }
 
-            server.dispatcher.emit("finish");
             message.react('✅');
             // client.leaveVoiceChannel(message.member.voice.channel.id);
-            message.guild.me.voice.kick();
+            message.guild.me.voice.channel.leave();
         }
     }
 
