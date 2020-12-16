@@ -25,6 +25,11 @@ module.exports.run = (client, message, args) => {
             // client.leaveVoiceChannel(message.member.voice.channel.id);
             message.guild.me.voice.channel.leave();
         }
+    } else {
+        const embed = new Discord.MessageEmbed()
+            .setColor(client.color)
+            .setDescription(message.language.music.error_notplaying())
+        return message.channel.send(embed);
     }
 
     
