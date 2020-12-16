@@ -93,5 +93,6 @@ module.exports = (client, message) => {
         db.delete(`channeltoggle_${message.guild.id}_${message.channel.id}`);
     }
     console.log(`${message.content} ; ${message.guild.name} ; ${message.member.user.tag}`);
+    if(!message.guild.me.hasPermission("SEND_MESSAGES")){return;}
     cmd.run(client, message, args);
 };   
