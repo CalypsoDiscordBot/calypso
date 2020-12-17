@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
 const config = require('../../config.json');
 const ytdl = require('ytdl-core');
-const search = require('yt-search');
 const db = require('quick.db');
+
+const Youtube = require('simple-youtube-api');
+const youtube = new Youtube("AIzaSyCEnnfNmurGWy-pu-XQ9QyKKCXrY97iFJ4");
 
 module.exports.run = async (client, message, args) => {
 
@@ -90,29 +92,26 @@ module.exports.run = async (client, message, args) => {
     else {
         // stats play search
         db.push(`stats_playsearch`,new Date());
-        search(args.join(" "), async function (err, res) {
-            if(err){return message.channel.send("Search error...")}
-            if(!res || !res.videos || !res.videos[0]){return message.channel.send("No video found")}
+        const videos = await youtube.searchVideos(args.join(" "), 1);
 
-            let video = res.videos[0].url;
+        let video = videos[0].url;
 
-            let info = await ytdl.getInfo(video).catch((err) => {
-                console.log(err);
-                return message.channel.send(":x: An unknown error occurred.");
-            }); 
+        let info = await ytdl.getInfo(video).catch((err) => {
+            console.log(err);
+            return message.channel.send(":x: An unknown error occurred.");
+        }); 
 
-            if(!info.videoDetails) return message.channel.send(":x: An unknown error occurred.");
+        if(!info.videoDetails) return message.channel.send(":x: An unknown error occurred.");
 
-            await server.queue.push({
-                title: info.videoDetails.title,
-                author: info.videoDetails.author || "None.",
-                url: video,
-                time: sec2time(info.videoDetails.lengthSeconds),
-                requester: message.author.tag,
-                thumbnail: info.videoDetails.thumbnail.thumbnails[0].url
-            });
-            disp(message, server, info);
+        await server.queue.push({
+            title: info.videoDetails.title,
+            author: info.videoDetails.author || "None.",
+            url: video,
+            time: sec2time(info.videoDetails.lengthSeconds),
+            requester: message.author.tag,
+            thumbnail: info.videoDetails.thumbnail.thumbnails[0].url
         });
+        disp(message, server, info);
     }
     async function disp(message, server, info){
         if(!server.queue[1]) { // 0 musique dans la queue
