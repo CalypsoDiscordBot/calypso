@@ -412,13 +412,14 @@ module.exports = {
     },
 
     queue: {
+        title: (server) => `**Queue for ${server}**`,
         nowplaying: (title, url, time, requester) => `__Now Playing :__\n[${title}](${url}) | ${time} - Requested By : *${requester}*\n`,
         upnext: () => `\n__Up Next :__\n`,
         list: (nb, title, url, time, requester) => `${nb}. [${title}](${url}) | ${time} - Requested By : *${requester}*\n`
     },
     
     skip: {
-        skipping: () => "Skipping..."
+        skipping: (author) => `**${emojis.arrow} Skipped by __${author}__**`
     },
 
     volume: {

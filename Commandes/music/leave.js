@@ -13,17 +13,17 @@ module.exports.run = (client, message, args) => {
     }
 
     if(message.guild.me.voice.channel){
-        if(message.guild.me.voice.channel && message.member.voice.channel === message.guild.me.voice.channel){
+        if(message.member.voice.channel === message.guild.me.voice.channel){
             if(server){
                 for(var i = server.queue.length -1; i>= 0; i--){
                     server.queue.splice(i, 1);
                 }
+                console.log("dispatcher");
                 server.dispatcher.emit("finish");
             }
-
-            message.react('✅');
             // client.leaveVoiceChannel(message.member.voice.channel.id);
             message.guild.me.voice.channel.leave();
+            message.react('✅');
         }
     } else {
         const embed = new Discord.MessageEmbed()

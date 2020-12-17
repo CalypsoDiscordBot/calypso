@@ -14,7 +14,10 @@ module.exports.run = (client, message, args) => {
 
     if(message.guild.me.voice.channel){
         if(message.guild.me.voice.channel && message.member.voice.channel === message.guild.me.voice.channel){  
-            message.channel.send(message.language.skip.skipping())
+            const embed = new Discord.MessageEmbed()
+                .setColor(client.color)
+                .setDescription(message.language.skip.skipping(message.author.tag))
+            message.channel.send(embed);
             if(server.dispatcher) server.dispatcher.emit("finish");
         }
     }  
