@@ -9,6 +9,7 @@ module.exports = {
         disabled: () => `${emojis.error} Cette commande est actuellement désactivée !`,
         permLevel: (name) => `${emojis.error} Cette commande nécessite l'autorisation : \`${name}\`!`,
         sendPerm: () => `${emojis.error} Je n'ai pas la permission d'envoyer des messages sur ce channel.`,
+        highestRole: () => `**${emojis.error} J'ai besoins d'un role supérieur au role donné !**`,
 
         user: () => `${emojis.error} Impossible de résoudre l'argument \`user\`.`,
         role: () => `${emojis.error} Impossible de résoudre l'argument \`role\`.`,

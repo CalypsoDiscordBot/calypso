@@ -6,12 +6,6 @@ const ms = require('ms');
 
 module.exports.run = async (client, message, args) => {
 
-    if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
-    const embed = new Discord.MessageEmbed()
-        .setColor(client.color)
-        .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
-    return message.channel.send(embed);
-    }
     if(!message.member.hasPermission("MANAGE_MESSAGES")) {
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)

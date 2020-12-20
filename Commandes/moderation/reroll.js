@@ -3,12 +3,6 @@ const config = require('../../config.json');
 
 module.exports.run = (client, message, args) => {
 
-    if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
-    const embed = new Discord.MessageEmbed()
-        .setColor(client.color)
-        .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
-    return message.channel.send(embed);
-    }
     if(!message.member.hasPermission("ADMINISTRATOR")) {
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
@@ -34,7 +28,9 @@ module.exports.run = (client, message, args) => {
         });
     }
 
-    message.delete();
+    if(message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+        message.delete().catch()
+    }
     
 };
 

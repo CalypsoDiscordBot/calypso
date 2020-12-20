@@ -4,16 +4,16 @@ const config = require('../../config.json');
 
 module.exports.run = async (client, message, args) => {
 
-    if(!message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+    if(!message.guild.me.hasPermission("MANAGE_CHANNELS")) {
     const embed = new Discord.MessageEmbed()
         .setColor(client.color)
-        .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES"]))
+        .setDescription(message.language.errors.missingPerms(["MANAGE_CHANNELS"]))
     return message.channel.send(embed);
     }
-    if(!message.member.hasPermission("ADMINISTRATOR")) {
+    if(!message.member.hasPermission("MANAGE_CHANNELS")) {
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
-            .setDescription(message.language.errors.permLevel("ADMINISTRATOR"))
+            .setDescription(message.language.errors.permLevel("MANAGE_CHANNELS"))
         return message.channel.send(embed);
     }
 

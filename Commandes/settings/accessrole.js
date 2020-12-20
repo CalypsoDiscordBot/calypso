@@ -4,12 +4,6 @@ const db = require('quick.db');
 
 module.exports.run = (client, message, args) => {
 
-    if(!message.guild.me.hasPermission("MANAGE_MESSAGES") || !message.guild.me.hasPermission("MANAGE_ROLES")) {
-    const embed = new Discord.MessageEmbed()
-        .setColor(client.color)
-        .setDescription(message.language.errors.missingPerms(["MANAGE_MESSAGES","MANAGE_ROLES"]))
-    return message.channel.send(embed);
-    }
     if(!message.member.hasPermission("ADMINISTRATOR")) {
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)

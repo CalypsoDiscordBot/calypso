@@ -6,14 +6,15 @@ module.exports = {
 
     errors: {
         missingPerms: (neededPermissions) => `__**${emojis.error} Missing permissions**__\n\nI need the following permissions for this command to work properly: ${neededPermissions.map((p) => "`"+p+"`").join(", ")}`,
-        disabled: () => `${emojis.error} This command is currently disabled!`,
-        permLevel: (name) => `${emojis.error} This command requires the permission : \`${name}\`!`,
-        sendPerm: () => `${emojis.error} I don't have the permission to send messages in this channel.`,
+        disabled: () => `**${emojis.error} This command is currently disabled!**`,
+        permLevel: (name) => `**${emojis.error} This command requires the permission : \`${name}\`!**`,
+        sendPerm: () => `**${emojis.error} I don't have the permission to send messages in this channel.**`,
+        highestRole: () => `**${emojis.error} I need a role that is superior to the given role!**`,
 
-        user: () => `${emojis.error} Unable to resolve the \`user\` argument.`,
-        role: () => `${emojis.error} Unable to resolve the \`role\` argument.`,
-        channel: () => `${emojis.error} Unable to resolve the \`channel\` argument.`,
-        action: () => `${emojis.error} Unable to resolve the \`action\` argument.`
+        user: () => `**${emojis.error} Unable to resolve the \`user\` argument.**`,
+        role: () => `**${emojis.error} Unable to resolve the \`role\` argument.**`,
+        channel: () => `**${emojis.error} Unable to resolve the \`channel\` argument.**`,
+        action: () => `**${emojis.error} Unable to resolve the \`action\` argument.**`
     },
     
     // 
