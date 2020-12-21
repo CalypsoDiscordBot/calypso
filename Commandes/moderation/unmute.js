@@ -51,14 +51,24 @@ module.exports.run = (client, message, args) => {
         return message.channel.send(embed);
     }
 
+    // Check if user have the muted role
+    if(mentioneduser.roles.cache.has(role => role.name.toLowerCase().includes("muted"))){
+        const embed = new Discord.MessageEmbed()
+            .setColor(client.color)
+            .setDescription(message.language.unmute.error_notmuted())
+        return message.channel.send(embed);
+    }
+
+    // delete the muted time in db
     db.delete(`mute_${message.guild.id}_${mentionedUser.id}`);
     let muted_role = db.fetch(`mutedrole_${message.guild.id}`);
 
     if(!muted_role){
-        const embed = new Discord.MessageEmbed()
-        .setColor(client.color)
-        .setDescription(message.language.unmute.error_role())
-        return message.channel.send(embed);
+        muted_role = message.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"));
+        // const embed = new Discord.MessageEmbed()
+        // .setColor(client.color)
+        // .setDescription(message.language.unmute.error_role())
+        // return message.channel.send(embed);
     }
     mentionedUser.roles.remove(muted_role).catch((err) => {
         const embed = new Discord.MessageEmbed()

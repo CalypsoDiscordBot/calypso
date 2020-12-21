@@ -390,6 +390,7 @@ module.exports = {
     unmute: {
         error_user: () => `**${emojis.error} Vous ne pouvez pas unmute cet utilisateur.**`,
         error_role: () => `**${emojis.error} Le rôle \`muted\` n'existe pas.**`,
+        error_notmuted: () => `**${emojis.error} Cet utilisateur ne possède pas de rôle muted.**`,
         description: (membertag) => `**${emojis.success} Le mute de ${membertag} a bien été révoqué !**`
     },
 
