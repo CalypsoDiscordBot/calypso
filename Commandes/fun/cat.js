@@ -1,7 +1,7 @@
 const config = require('../../config.json');
 const request = require("request");
 
-module.exports.run = (__client, message) => {
+module.exports.run = (client, message) => {
     request("https://aws.random.cat/meow", (error, res, body) => {
         if (error) { return message.channel.send("Error-API"); }
         if (res.statusCode !== 200) { 
