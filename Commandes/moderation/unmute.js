@@ -52,7 +52,7 @@ module.exports.run = (client, message, args) => {
     }
 
     // Check if user have the muted role
-    if(mentioneduser.roles.cache.has(role => role.name.toLowerCase().includes("muted"))){
+    if(!mentionedUser.roles.cache.has(role => role.name.toLowerCase().includes("muted"))){
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.unmute.error_notmuted())
