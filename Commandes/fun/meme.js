@@ -22,8 +22,6 @@ module.exports.run = async (client, message, args) => {
 
     let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
 
-    message.channel.startTyping();
-
     randomPuppy(subreddit).then(async url => {
             await message.channel.send({
                 embed: {
@@ -32,7 +30,6 @@ module.exports.run = async (client, message, args) => {
                 }
             });
     }).catch(err => console.error(err));
-    message.channel.stopTyping();
 };
 
 module.exports.help = {
