@@ -87,6 +87,10 @@ module.exports.run = async (client, message, args) => {
 									id: message.guild.roles.everyone,
 									deny: ['CONNECT'],
 									allow:['VIEW_CHANNEL'],
+								},
+								{
+									id: client.user,
+									allow:['VIEW_CHANNEL','MANAGE_CHANNELS','CONNECT'],
 								}
 							]
 						}).then(c => {
