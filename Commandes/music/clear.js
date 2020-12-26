@@ -10,7 +10,8 @@ module.exports.run = (client, message, args) => {
     }
 
     var server = client.servers[message.guild.id];
-
+    if(!server.queue){return;}
+    
     for(var i = server.queue.length -1; i>= 0; i--){
         server.queue.splice(i, 1);
     }
