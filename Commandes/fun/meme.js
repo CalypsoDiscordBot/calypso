@@ -1,5 +1,6 @@
 const randomPuppy = require('random-puppy');
 const config = require('../../config.json');
+const { inlineReply } = require("../../ExtendedMessage");
 
 module.exports.run = async (client, message, args) => {
 
@@ -23,7 +24,7 @@ module.exports.run = async (client, message, args) => {
     let subreddit = reddit[Math.floor(Math.random() * reddit.length)];
 
     randomPuppy(subreddit).then(async url => {
-            await message.channel.send({
+            await message.inlineReply({
                 embed: {
                     color: client.color,
                     image: { url: url }
