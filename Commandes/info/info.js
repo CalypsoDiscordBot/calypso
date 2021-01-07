@@ -17,7 +17,8 @@ exports.run = (client, message, args) => {
     
     // console.log("Memory used in MB", (usedMemory/ Math.pow(1024, 2)).toFixed(2))
 
-    let memory = (usedMemory/ Math.pow(1024, 2)).toFixed(2) // (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2); // getMemoryUsage();
+    let memory = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2);
+    // (usedMemory/ Math.pow(1024, 3)).toFixed(2) // (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2); // getMemoryUsage();
     
     let count = 0;
     client.guilds.cache.forEach(async (guild) => {
