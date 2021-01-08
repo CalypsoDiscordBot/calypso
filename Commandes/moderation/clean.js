@@ -18,11 +18,11 @@ module.exports.run = (client, message, args) => {
     
     if (!args[0]) {
         let content = ["clean"];
-        client.commands.get("help").run(client, message, content);
+        return client.commands.get("help").run(client, message, content);
     }
     else if (isNaN(args[0])) {
         let content = ["clean"];
-        client.commands.get("help").run(client, message, content);
+        return client.commands.get("help").run(client, message, content);
     }    
         nb = parseInt(args[0])+1;  
         if(nb > 100){
