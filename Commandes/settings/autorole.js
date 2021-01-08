@@ -16,17 +16,6 @@ module.exports.run = (client, message, args) => {
             .setDescription(message.language.errors.permLevel("ADMINISTRATOR"))
         return message.channel.send(embed);
     }
-
-    const rolePosition = role.position;
-    const botPosition = message.guild.me.roles.highest.position;
-
-    if(botPosition < rolePosition) {
-        const embed = new Discord.MessageEmbed()
-            .setColor(client.color)
-            .setDescription(message.language.errors.highest())
-        return message.channel.send(embed);
-    }
-
     let role = message.mentions.roles.first() || message.guild.roles.cache.find((c) => c.name === args[1]);
 
     if(!args[0]){
@@ -52,15 +41,27 @@ module.exports.run = (client, message, args) => {
         USERINFO_LIST = new Discord.MessageEmbed()
         .setTitle("__Autoroles List__ ")
         .setDescription(`\n\n ${msg}`)
-        message.channel.send(USERINFO_LIST)
+        return message.channel.send(USERINFO_LIST)
     }
-    else if(args[0].toLowerCase() === "add"){
+
+    if(args[0].toLowerCase() === "add"){
         if (!role) {
             const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.errors.role())
             return message.channel.send(embed);
         }
+
+        let rolePosition = role.position;
+        let botPosition = message.guild.me.roles.highest.position;
+
+        if(botPosition < rolePosition) {
+            const embed = new Discord.MessageEmbed()
+                .setColor(client.color)
+                .setDescription(message.language.errors.highest())
+            return message.channel.send(embed);
+        }
+
         db.set(`autorole_${message.guild.id}_${role.id}`, `join`);
         const embed = new Discord.MessageEmbed()
         .setColor(client.color)
@@ -74,6 +75,17 @@ module.exports.run = (client, message, args) => {
             .setDescription(message.language.errors.role())
             return message.channel.send(embed);
         }
+
+        let rolePosition = role.position;
+        let botPosition = message.guild.me.roles.highest.position;
+
+        if(botPosition < rolePosition) {
+            const embed = new Discord.MessageEmbed()
+                .setColor(client.color)
+                .setDescription(message.language.errors.highest())
+            return message.channel.send(embed);
+        }
+
         db.delete(`autorole_${message.guild.id}_${role.id}`);
         const embed = new Discord.MessageEmbed()
         .setColor(client.color)
