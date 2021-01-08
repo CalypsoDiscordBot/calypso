@@ -3,7 +3,7 @@ const formatDate = require('dateformat');
 
 module.exports = async(client) => {
   
-  	client.user.setActivity("Starting...");
+	client.users.cache.get('334786552964186123').send("Restarting...")
 
   	let count = 0;
 	client.guilds.cache.forEach(async (guild) => {
