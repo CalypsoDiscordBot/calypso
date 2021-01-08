@@ -22,9 +22,7 @@ module.exports = {
     // 
 
     help: {
-        description: (guildName, prefix) => `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. 
-        Do \`${prefix}help <command>\` for extended information on a command.
-        \n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
+        description: (guildName, prefix) => `I'm a multi-purpose, easy-to-use Bot Discord that makes music, moderation, polls, giveaways and other fun and useful things.\nThe default prefix is \`!\`.\nUse \`!help\` to get a list of commands. The prefix can be changed by using the "prefix" command. Do \`!help <command>\` for extended information on a command. \n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
         
         fields:{
             settings: () => ":wrench: Settings",
