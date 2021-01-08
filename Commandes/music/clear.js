@@ -10,7 +10,18 @@ module.exports.run = (client, message, args) => {
     }
 
     var server = client.servers[message.guild.id];
-    if(!server.queue){return;}
+    if(!server){
+        const embed = new Discord.MessageEmbed()
+            .setColor(client.color)
+            .setDescription(message.language.music.error_notplaying())
+        return message.channel.send(embed);
+    }
+    if(!server.queue){
+        const embed = new Discord.MessageEmbed()
+            .setColor(client.color)
+            .setDescription(message.language.music.error_notplaying())
+        return message.channel.send(embed);
+    }
     
     for(var i = server.queue.length -1; i>= 0; i--){
         server.queue.splice(i, 1);
