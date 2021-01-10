@@ -40,6 +40,12 @@ module.exports = async (client, member) => {
 	if(farewellchannel.toLowerCase() === "dm"){
 		member.user.send(farewellmessage);
 	}
+	if(!member.guild.channels.cache.get(farewellchannel)){
+        db.delete(`farewell_channel_${member.guild.id}`);
+        db.delete(`farewell_message_${member.guild.id}`);
+		db.delete(`farewell_type_${member.guild.id}`);
+		return;
+	}
 	if(!farewelltype || farewelltype == "message"){
 		return member.guild.channels.cache.get(farewellchannel).send(farewellmessage);
 	}

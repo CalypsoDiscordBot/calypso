@@ -92,11 +92,17 @@ module.exports = async (client, member) => {
 	};
 	var re = new RegExp(Object.keys(mapObj).join("|"),"gi");
 	greetingmessage = greetingmessage.replace(re, function(matched){
-	return mapObj[matched.toLowerCase()];
+		return mapObj[matched.toLowerCase()];
 	});
 
 	if(greetingchannel.toLowerCase() === "dm"){
 		member.user.send(greetingmessage);
+	}
+	if(!member.guild.channels.cache.get(greetingchannel)){
+        db.delete(`greeting_channel_${member.guild.id}`);
+        db.delete(`greeting_message_${member.guild.id}`);
+		db.delete(`greeting_type_${member.guild.id}`);
+		return;
 	}
 	if(!greetingtype || greetingtype == "message"){
 		return member.guild.channels.cache.get(greetingchannel).send(greetingmessage);
