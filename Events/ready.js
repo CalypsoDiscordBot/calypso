@@ -1,8 +1,27 @@
 const db = require('quick.db');
 const formatDate = require('dateformat');
+const DBL = require('dblapi.js');
+const config = require('../config.json');
+const Discord = require("discord.js");
 
 module.exports = async(client) => {
-  
+
+	const dbl = new DBL(config.DBLToken, { webhookPort: 5000 });
+
+	dbl.webhook.on('ready', hook => {
+		console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+	});
+	dbl.webhook.on('vote', vote => {
+		dbl.getUser(vote.user).then(user => {
+			var desc = `**${user.username}#${user.discriminator}** has just voted for **Calypso**, vote for the bot [here](https://top.gg/bot/740539000615469106/vote)!`;
+
+			const embed = new Discord.MessageEmbed()
+            	.setColor(config.color)
+           		.setDescription(desc)
+       		return client.channels.cache.get('782384076833292350').send(embed);
+		});
+	});
+
 	client.users.cache.get('334786552964186123').send("Restarting...")
 
   	let count = 0;
@@ -25,6 +44,7 @@ module.exports = async(client) => {
 
  	});
   	setInterval(() => {
+		dbl.postStats(client.guilds.cache.size);
 		const activity = `!help | ${client.guilds.cache.size} Servers.`; // ${client.membercount} Members  
 		client.user.setActivity(activity, { type: 'WATCHING' });
 	}, 10000);
