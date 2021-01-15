@@ -56,7 +56,7 @@ module.exports.run = (client, message, args) => {
             });
             db.set(`sanctions_${message.guild.id}_${member.id}_${count+1}`, `Unbanned by ${message.author.tag} | Reason : ${raison} | Time: ${formatDate(now, "mm/dd/yy HH:MM:ss")}`)
 
-            db.delete(`ban_${message.guild.id}_${member.id}`).catch(err => {})
+            db.delete(`ban_${message.guild.id}_${member.id}`);
         }
     })
 
