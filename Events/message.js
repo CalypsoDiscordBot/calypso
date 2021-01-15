@@ -58,7 +58,7 @@ module.exports = (client, message) => {
 
     // PERMISSIONS
     if (!message.channel.permissionsFor(client.user).has('VIEW_CHANNEL')) { return; }
-
+    if(!message.guild.me.hasPermission("SEND_MESSAGES")){return;}
     if (!message.content.startsWith(client.prefix)) { return; }
 
     // COMMANDES
@@ -93,6 +93,5 @@ module.exports = (client, message) => {
         db.delete(`channeltoggle_${message.guild.id}_${message.channel.id}`);
     }
     console.log(`${message.content} ; ${message.guild.name} ; ${message.member.user.tag}`);
-    if(!message.guild.me.hasPermission("SEND_MESSAGES")){return;}
     cmd.run(client, message, args);
 };   
