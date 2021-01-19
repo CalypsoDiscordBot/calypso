@@ -5,7 +5,7 @@ module.exports.run = (client, message, args) => {
 
     let server = client.servers[message.guild.id];
 
-    if(!server) {
+    if(!server || !server.dispatcher) {
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.music.error_notplaying())

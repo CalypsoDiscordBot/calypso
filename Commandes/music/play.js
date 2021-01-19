@@ -94,6 +94,11 @@ module.exports.run = async (client, message, args) => {
         db.push(`stats_playsearch`,new Date());
         const videos = await youtube.searchVideos(args.join(" "), 1);
 
+        if(!videos){
+            let content = ["play"];
+            return client.commands.get("help").run(client, message, content);
+        }
+
         let video = videos[0].url;
 
         let info = await ytdl.getInfo(video).catch((err) => {
