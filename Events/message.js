@@ -58,7 +58,7 @@ module.exports = (client, message) => {
 
     // PERMISSIONS
     if (!message.channel.permissionsFor(client.user).has('VIEW_CHANNEL')) { return; }
-    if(!message.guild.me.hasPermission("SEND_MESSAGES")){return;}
+    if (!message.channel.permissionsFor(client.user).has('SEND_MESSAGES')) { return; }
     if (!message.content.startsWith(client.prefix)) { return; }
 
     // COMMANDES
