@@ -5,6 +5,13 @@ const ytdl = require('ytdl-core');
 module.exports.run = (client, message, args) => {
 
     var server = client.servers[message.guild.id];
+
+    if(!server || !server.dispatcher) {
+        const embed = new Discord.MessageEmbed()
+            .setColor(client.color)
+            .setDescription(message.language.music.error_notplaying())
+        return message.channel.send(embed);
+    }
     if(!message.member.voice.channel){
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
@@ -20,7 +27,7 @@ module.exports.run = (client, message, args) => {
             message.channel.send(embed);
             if(server.dispatcher) server.dispatcher.emit("finish");
         }
-    }  
+    }
 
 };
 

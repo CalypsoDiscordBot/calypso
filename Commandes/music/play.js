@@ -94,7 +94,7 @@ module.exports.run = async (client, message, args) => {
         db.push(`stats_playsearch`,new Date());
         const videos = await youtube.searchVideos(args.join(" "), 1);
 
-        if(!videos){
+        if(!videos || !videos[0]){
             let content = ["play"];
             return client.commands.get("help").run(client, message, content);
         }
