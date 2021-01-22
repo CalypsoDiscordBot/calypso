@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 
 module.exports = async (client, guild) => {
-	let count = 0;
-	client.guilds.cache.forEach(async (guild) => {
+	var count = 0;
+	await client.guilds.cache.forEach(async (guild) => {
 		let users = 0;
 		await guild.members.fetch().then((g) => {
 			users = g.filter((member) => !member.user.bot).size;
@@ -14,12 +14,12 @@ module.exports = async (client, guild) => {
 			`${client.guilds.cache.size} Servers`,
 			`${count} Members`,
     	];
-		console.log(`${count} Members ${client.channels.cache.size} Channels ${client.guilds.cache.size} Servers.`);
 		client.membercount = count;
 		let i = 0;
 		const statut = statuts[i++ % statuts.length];
 
  	});
+	console.log(`${client.membercount} Members ${client.channels.cache.size} Channels ${client.guilds.cache.size} Servers.`);
 
 	const Alex = client.users.cache.get('334786552964186123');
 	const Itek = client.users.cache.get('216607323035009025');
