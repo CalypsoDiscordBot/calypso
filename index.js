@@ -5,10 +5,30 @@ const util = require("util");
 const fs = require("fs");
 const readdir = util.promisify(fs.readdir);
 const { GiveawaysManager } = require('discord-giveaways');
+const DBL = require('dblapi.js');
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.servers = new Map();
+
+const dbl = new DBL(config.DBLToken, { webhookPort: 5000 , webhookAuth: config.DBLPassword });
+
+dbl.webhook.on('ready', hook => {
+	console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+});
+dbl.webhook.on('vote', vote => {
+	dbl.getUser(vote.user).then(user => {
+		var desc = `**${user.username}#${user.discriminator}** has just voted for **Calypso**, vote for the bot [here](https://top.gg/bot/740539000615469106/vote) !`;
+		const embed = new Discord.MessageEmbed()
+        	.setColor(config.color)
+       		.setDescription(desc)
+   		return client.channels.cache.get('782384076833292350').send(embed);
+	});
+});
+    
+setInterval(() => {
+    dbl.postStats(client.guilds.cache.size);
+}, 10000);
 
 const init = async () => {
 //
