@@ -76,7 +76,7 @@ module.exports.help = {
     name: "mcprofile",
     description: "",
     category: "games",
-    usage:"",
+    usage:"<username>",
     accessableby: "Members",
     aliases: ['mc']
 }
