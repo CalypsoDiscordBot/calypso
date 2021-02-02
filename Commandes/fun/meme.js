@@ -4,6 +4,11 @@ const { inlineReply } = require("../../ExtendedMessage");
 
 module.exports.run = async (client, message, args) => {
 
+    if(args[0]){
+        let content = ["meme"];
+        return client.commands.get("help").run(client, message, content);
+    }
+
     let reddit = [
         "meme",
         "animemes",
