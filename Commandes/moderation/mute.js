@@ -126,10 +126,11 @@ module.exports.run = async (client, message, args) => {
         db.set(`mute_${message.guild.id}_${mentionedUser.id}`, `forever`)
     }
 
-    mutedid = db.fetch(`mutedrole_${message.guild.id}`)
-    console.log(mutedid)
-    muted_role = message.guild.roles.cache.find(role => role.id = mutedid)
+    // mutedid = db.fetch(`mutedrole_${message.guild.id}`)
+    // console.log(mutedid)
+    // muted_role = message.guild.roles.cache.find(role => role.id = mutedid)
     mentionedUser.roles.add(muted_role.id)
+    
     // message.client.users.fetch(mentionedUser.id).then(user => user.roles.add(muted_role.id))
 
     const muted_embed = new Discord.MessageEmbed()
