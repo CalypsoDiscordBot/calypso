@@ -1,6 +1,18 @@
 const Discord = require('discord.js');
+const db = require('quick.db');
 
 module.exports =async (client, guild) => {
+
+	let msg = '';
+	db.all().forEach((element) => {
+		const dbguild = element.ID.includes(guild.id);
+		// ${mentionedUser.id}
+		if (!dbguild) {return;}
+		db.delete(element.ID);
+		msg += element.ID+" : "+element.data+"\n";
+	});
+	console.log(msg);
+
 	var count = 0;
 	await client.guilds.cache.forEach(async (guild) => {
 		let users = 0;
