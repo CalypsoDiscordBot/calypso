@@ -9,9 +9,15 @@ exports.run = (client, message, args) => {
     if(!member.user){
         try {
             let avatar = member.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 });
+            let png = member.avatarURL({ format: 'png', size: 1024 });
+            let gif = member.avatarURL({ format: 'gif', dynamic: true, size: 1024 });
+            let content = `[png](${png})`
+            if(member.displayAvatarURL({dynamic: true}).includes('.gif')){
+                content += ` | [gif](${gif})`;
+            }
             const embed = new Discord.MessageEmbed()
                 .setTitle(message.language.avatar.title(member.tag))
-                .setDescription(`${message.language.avatar.description()} \n[png](${member.avatarURL({ format: 'png', size: 1024 })})`)
+                .setDescription(`${message.language.avatar.description()} \n${content}`)
                 .setImage(avatar)
                 .setColor(client.color)
     
@@ -25,9 +31,15 @@ exports.run = (client, message, args) => {
     } else {
         try {
             let avatar = member.user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 });
+            let png = member.user.avatarURL({ format: 'png', size: 1024 });
+            let gif = member.user.avatarURL({ format: 'gif', dynamic: true, size: 1024 });
+            let content = `[png](${png})`
+            if(member.user.displayAvatarURL({dynamic: true}).includes('.gif')){
+                content += ` | [gif](${gif})`;
+            }
             const embed = new Discord.MessageEmbed()
                 .setTitle(message.language.avatar.title(member.user.tag))
-                .setDescription(`${message.language.avatar.description()} \n[png](${member.user.avatarURL({ format: 'png', size: 1024 })}) | [gif](${member.user.avatarURL({ format: 'gif', dynamic: true, size: 1024 })})`)
+                .setDescription(`${message.language.avatar.description()} \n${content}`)
                 .setImage(avatar)
                 .setColor(client.color)
     
