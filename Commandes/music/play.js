@@ -85,7 +85,7 @@ module.exports.run = async (client, message, args) => {
             url: video,
             time: sec2time(info.videoDetails.lengthSeconds),
             requester: message.author.tag,
-            thumbnail: info.videoDetails.thumbnail.thumbnails[0].url
+            thumbnail: info.videoDetails.thumbnails[0].url
         });
         disp(message, server, info);
     }
@@ -93,7 +93,7 @@ module.exports.run = async (client, message, args) => {
         // stats play search
         db.push(`stats_playsearch`,new Date());
         const videos = await youtube.searchVideos(args.join(" "), 1);
-
+        
         if(!videos || !videos[0]){
             let content = ["play"];
             return client.commands.get("help").run(client, message, content);
@@ -114,16 +114,17 @@ module.exports.run = async (client, message, args) => {
             url: video,
             time: sec2time(info.videoDetails.lengthSeconds),
             requester: message.author.tag,
-            thumbnail: info.videoDetails.thumbnail.thumbnails[0].url
+            thumbnail: info.videoDetails.thumbnails[0].url
         });
         disp(message, server, info);
     }
     async function disp(message, server, info){
         if(!server.queue[1]) { // 0 musique dans la queue
             await message.member.voice.channel.join().then( function(connection){
+                if(!server.queue[0]){ return message.channel.send(":x: An unknown error occurred.");}
                     message.channel.send({embed: {
                         color:  client.color,
-                        author:  server.queue[0].author,
+                        author:  server.queue[0].author || "None.",
                         title:  server.queue[0].title,
                         url:  server.queue[0].url,
                         thumbnail: {
@@ -148,11 +149,11 @@ module.exports.run = async (client, message, args) => {
             message.channel.send(message.language.play.queue())
             message.channel.send({embed: {
                 color: client.color,
-                author: info.videoDetails.author,
+                author: info.videoDetails.author || "None.",
                 title: info.videoDetails.title,
-                url: info.videoDetails.url,
+                url: `https://www.youtube.com/watch?v=${info.videoDetails.videoId}`,
                 thumbnail: {
-                    url: info.videoDetails.thumbnail.thumbnails[0].url
+                    url: info.videoDetails.thumbnails[0].url
                 },
                 fields: [
                     {
