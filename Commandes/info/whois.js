@@ -15,7 +15,7 @@ module.exports.run = (client, message, args) => {
     const joined = formatDate(member.joinedAt, "mm/dd/yy");
         const roles = member.roles.cache
             .filter(r => r.id !== message.guild.id)
-            .map(r => r).join(", ") || 'none';
+            .map(r => r).slice(0, 5).join(", ") || 'none';
 
         // User variables
         const created = formatDate(member.user.createdAt, "mm/dd/yy");
@@ -34,7 +34,7 @@ module.exports.run = (client, message, args) => {
 
         if (member.user.presence.game) 
             embed.addField(message.language.whois.game.title(), message.language.whois.game.content(member.user.presence.game.name));
-
+        console.log(embed);
         message.channel.send(embed);
 };
 
