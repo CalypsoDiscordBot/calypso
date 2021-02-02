@@ -5,7 +5,8 @@ const Discord = require("discord.js");
 
 module.exports = async(client) => {
 
-	client.users.cache.get('334786552964186123').send("Restarting...")
+	const alex = await client.guilds.cache.get("740540647756398653").members.fetch("334786552964186123");
+	alex.send("Restarting...");
 
 	let i = 0;
 	var count = 0;
