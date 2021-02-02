@@ -22,9 +22,7 @@ module.exports = {
     // 
 
     help: {
-        description: (guildName, prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles. 
-        Faites \`${prefix}help <command>\` pour obtenir des informations détaillées sur une commande.
-        \n[Ajouter le bot à votre serveur](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Rejoignez notre serveur Discord](https://discord.gg/3y2ByKq)`,
+        description: (guildName, prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles.\nFaites \`${prefix}help <command>\` pour obtenir des informations détaillées sur une commande.\n\n[Ajouter le bot à votre serveur](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Rejoignez notre serveur Support](https://discord.gg/3y2ByKq)`,
          
         fields:{
             settings: () => ":wrench: Paramètres",
@@ -127,9 +125,7 @@ module.exports = {
                 description: (prefix) => "Arrête la musique."
             },
             play:{
-                description: (prefix) => `Joue une musique. \n
-                - Exemples : \n\`${prefix}play pnl blanka\` - Recherche sur youtube de "pnl blanka" 
-                \`${prefix}play https://youtu.be/u8bHjdljyLw\` - Lecture d'une vidéo youtube, en utilisant l'URL.`
+                description: (prefix) => `Joue une musique.\n\n- Exemples : \n\`${prefix}play pnl blanka\` - Recherche sur youtube de "pnl blanka"\n\`${prefix}play https://youtu.be/u8bHjdljyLw\` - Lecture d'une vidéo youtube, en utilisant l'URL.`
             },
             queue:{
                 description: (prefix) => "Affiche la liste d'attente."
@@ -162,17 +158,10 @@ module.exports = {
                 description: (prefix) => "Désactive les commandes du bot dans le channel."
             },
             configjoin:{
-                description: (prefix) => `Définit un message de bienvenue pour le serveur 
-                \nExemples : \n\`${prefix}configjoin message #general Bienvenue %member% sur %server%!\` - Envoie \`Bienvenue @alex sur <votre nom de serveur>!\` dans le channel #general quand Alex rejoint votre serveur. 
-                \`${prefix}configjoin dm Bienvenue %username% !\` - Accueille un utilisateur sur votre serveur en messages privés. 
-                \`${prefix}configjoin disable\` - Désactive les messages de bienvenue. 
-                \nVariables : \n- \`%member%\`\n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
+                description: (prefix) => `Définit un message de bienvenue pour le serveur\n\nExemples : \n\`${prefix}configjoin message #general Bienvenue %member% sur %server%!\` - Envoie \`Bienvenue @alex sur <votre nom de serveur>!\` dans le channel #general quand Alex rejoint votre serveur.\n\`${prefix}configjoin dm Bienvenue %username% !\` - Accueille un utilisateur sur votre serveur en messages privés.\n\`${prefix}configjoin disable\` - Désactive les messages de bienvenue.\n\nVariables : \n- \`%member%\`\n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
             },
             configleave:{
-                description: (prefix) => `Définit un message d'adieu pour le serveur. 
-                \nExemples : \n\`${prefix}configleave message #general %member_name% a quitté %server%... bye bye %member_name%...\` - Envoie \`alex a quitté <votre serveur>... bye bye alex...\` dans le channel #general quand alex quitte votre serveur. 
-                \`${prefix}configleave disable\` - Désactive le message d'adieu.
-                \nVariables : \n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
+                description: (prefix) => `Définit un message d'adieu pour le serveur.\n\nExemples : \n\`${prefix}configleave message #general %member_name% a quitté %server%... bye bye %member_name%...\` - Envoie \`alex a quitté <votre serveur>... bye bye alex...\` dans le channel #general quand alex quitte votre serveur.\n\`${prefix}configleave disable\` - Désactive le message d'adieu.\n\nVariables : \n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
             },
             membercount:{
                 description: (prefix) => `Afficher le nombre de membres dans un channel.\n\nExemples : \n\`${prefix}membercount %count% Membres\` - Affiche \`142 Membres\`\n\`${prefix}membercount disable\` - Désactive le channel Membercount.`
@@ -193,11 +182,7 @@ module.exports = {
                 description: (prefix) => "Test des messages d'adieu."
             },
             ticket:{
-                description: (prefix) => `Créer un panel permettant aux utilisateurs d'ouvrir un ticket en un seul clic.
-                Nécessite de créer un role pour les membres du support.
-                
-                Exemple : 
-                \`!ticket @Support\` - Seul le role \`@Support\` et l'utilisateur concerné auront accès au ticket.`
+                description: (prefix) => `Créer un panel permettant aux utilisateurs d'ouvrir un ticket en un seul clic.\nNécessite de créer un role pour les membres du support.\n\nExemple :\n\`!ticket @Support\` - Seul le role \`@Support\` et l'utilisateur concerné auront accès au ticket.`
             }
 
         }
@@ -213,67 +198,41 @@ module.exports = {
     },
 
     info: {
-        description: (prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles. 
-        Faites \`${prefix}help <command>\` pour obtenir des informations détaillées sur une commande.
-        \n[Ajouter le bot à votre serveur](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Rejoignez notre serveur Discord](https://discord.gg/3y2ByKq)`,
+        description: (prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles.\n\n[Ajouter le bot à votre serveur](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Rejoignez notre serveur Discord](https://discord.gg/3y2ByKq)`,
         
         infos:{
             title: () =>"Informations :",
-            content: (days, hours, minutes, seconds, date) => `
-            **${emojis.arrow} Développeur Principal : ** Alexmdz77#0001
-            **${emojis.arrow} Développeurs : ** IteK#0001, Haz226#4212
-            **${emojis.arrow} Librairie :** [discord.js 12.4.1](https://github.com/discordjs/discord.js)
-            **${emojis.arrow} Uptime :** ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes
-            **${emojis.arrow} Créé le :** ${date}`
+            content: (days, hours, minutes, seconds, date) => `\n**${emojis.arrow} Développeur Principal : ** Alexmdz77#0001\n**${emojis.arrow} Développeurs : ** IteK#0001, Haz226#4212\n**${emojis.arrow} Librairie :** [discord.js 12.5.1](https://github.com/discordjs/discord.js)\n**${emojis.arrow} Uptime :** ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes\n**${emojis.arrow} Créé le :** ${date}`
         },
         stats:{
             title: () => "Statistiques :",
-            content: (servers, memberCount, channels, memory, latency) => `
-            **${emojis.arrow} Serveurs :** ${servers}
-            **${emojis.arrow} Membres :** ${memberCount}
-            **${emojis.arrow} Channels :** ${channels}
-            **${emojis.arrow} RAM :** ${memory} MB
-            **${emojis.arrow} Latence de l'API :** ${latency}ms`
+            content: (servers, memberCount, channels, memory, latency) => `\n**${emojis.arrow} Serveurs :** ${servers}\n**${emojis.arrow} Membres :** ${memberCount}\n**${emojis.arrow} Channels :** ${channels}\n**${emojis.arrow} RAM :** ${memory} MB\n**${emojis.arrow} Latence de l'API :** ${latency}ms`
         }
     },
     
     serverinfo: {
         infos:{
             title: () =>"Informations du serveur :",
-            content: (name, id, owner, date) => `
-            **${emojis.arrow} Nom : ** ${name}
-            **${emojis.arrow} ID : ** ${id}
-            **${emojis.arrow} Propriétaire :** ${owner}
-            **${emojis.arrow} Créé le :** ${date}`
+            content: (name, id, owner, date) => `\n**${emojis.arrow} Nom : ** ${name}\n**${emojis.arrow} ID : ** ${id}\n**${emojis.arrow} Propriétaire :** ${owner}\n**${emojis.arrow} Créé le :** ${date}`
         },
         settings:{
             title: () => "Paramètres du serveur :",
-            content: (region, verlvl) => `
-            **${emojis.arrow} Region :** ${region}
-            **${emojis.arrow} Niveau de vérification :** ${verlvl}`
+            content: (region, verlvl) => `\n**${emojis.arrow} Region :** ${region}\n**${emojis.arrow} Niveau de vérification :** ${verlvl}`
         },
         stats:{
             title: () => "Statistiques du serveur :",
-            content: (memberCount, channels, roles) => `
-            **${emojis.arrow} Membres :** ${memberCount}
-            **${emojis.arrow} Channels :** ${channels}
-            **${emojis.arrow} Roles :** ${roles}`
+            content: (memberCount, channels, roles) => `\n**${emojis.arrow} Membres :** ${memberCount}\n**${emojis.arrow} Channels :** ${channels}\n**${emojis.arrow} Roles :** ${roles}`
         }
     },
 
     whois: {
         member:{
             title: () =>"Informations de membre :",
-            content: (displayName, joined, roles) => `**${emojis.arrow} Pseudo :** ${displayName}
-            **${emojis.arrow} A rejoins le :** ${joined}
-            **${emojis.arrow} Roles :** ${roles}`
+            content: (displayName, joined, roles) => `**${emojis.arrow} Pseudo :** ${displayName}\n**${emojis.arrow} A rejoins le :** ${joined}\n**${emojis.arrow} Roles :** ${roles}`
         },
         user:{
             title: () => "Informations d'utilisateur :",
-            content: (userid, username, usertag, created) => `**${emojis.arrow} ID :** ${userid}
-            **${emojis.arrow} Username :** ${username}
-            **${emojis.arrow} Tag :** ${usertag}
-            **${emojis.arrow} Créé le :** ${created}`
+            content: (userid, username, usertag, created) => `**${emojis.arrow} ID :** ${userid}\n**${emojis.arrow} Username :** ${username}\n**${emojis.arrow} Tag :** ${usertag}\n**${emojis.arrow} Créé le :** ${created}`
         },
         game:{
             title: () => "Joue à",
@@ -478,19 +437,15 @@ module.exports = {
         title: (args, query) => `Informations pour ${args} (${query})`,
         owner:{
             title: () => ":bust_in_silhouette: Propriétaire :",
-            content: (org, isp, as) => `**${emojis.arrow} Organisation:** ${org} 
-            **${emojis.arrow} Fournisseur :** ${isp} (${as})`
+            content: (org, isp, as) => `**${emojis.arrow} Organisation:** ${org} \n**${emojis.arrow} Fournisseur :** ${isp} (${as})`
         },
         location:{
             title: () => ":earth_africa: Emplacement :",
-            content: (country, city) => `**${emojis.arrow} Pays :** ${country}
-            **${emojis.arrow} Ville :** ${city}`
+            content: (country, city) => `**${emojis.arrow} Pays :** ${country}\n**${emojis.arrow} Ville :** ${city}`
         },
         other:{
             title: () => ":zap: Autres :",
-            content: (mobile, proxy, hosting) => `**${emojis.arrow} Mobile :** ${mobile} 
-            **${emojis.arrow} Proxy :** ${proxy}
-            **${emojis.arrow} Hébergement :** ${hosting}`
+            content: (mobile, proxy, hosting) => `**${emojis.arrow} Mobile :** ${mobile} \n**${emojis.arrow} Proxy :** ${proxy}\n**${emojis.arrow} Hébergement :** ${hosting}`
         }
     },
 

@@ -22,7 +22,7 @@ module.exports = {
     // 
 
     help: {
-        description: (guildName, prefix) => `I'm a multi-purpose, easy-to-use Bot Discord that makes music, moderation, polls, giveaways and other fun and useful things.\nThe default prefix is \`!\`.\nUse \`!help\` to get a list of commands. The prefix can be changed by using the "prefix" command. Do \`!help <command>\` for extended information on a command. \n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
+        description: (guildName, prefix) => `I'm a multi-purpose, easy-to-use Bot Discord that makes music, moderation, polls, giveaways and other fun and useful things.\nThe default prefix is \`!\`.\nUse \`!help\` to get a list of commands. The prefix can be changed by using the "prefix" command. Do \`!help <command>\` for extended information on a command. \n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Support server](https://discord.gg/3y2ByKq)`,
         
         fields:{
             settings: () => ":wrench: Settings",
@@ -158,19 +158,10 @@ module.exports = {
                 description: (prefix) => "Disables commands in a channel."
             },
             configjoin:{
-                description: (prefix) => `Sets a welcome message for the server.\n
-                Examples: 
-                \`${prefix}configjoin message #general Welcome %member% to %server%!\` - Sends \`Welcome @alex to <your server name>!\` to #general when alex joins your server. 
-                \`${prefix}greeting dm Welcome %username%!\` - Welcomes a user to your server in direct messages. 
-                \`${prefix}greeting disable\` - Disables the greeting.
-                \nVariables : \n- \`%member%\`\n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
+                description: (prefix) => `Sets a welcome message for the server.\n\nExamples:\n\`${prefix}configjoin message #general Welcome %member% to %server%!\` - Sends \`Welcome @alex to <your server name>!\` to #general when alex joins your server.\n\`${prefix}greeting dm Welcome %username%!\` - Welcomes a user to your server in direct messages. \n\`${prefix}greeting disable\` - Disables the greeting.\n\nVariables : \n- \`%member%\`\n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
             },
             configleave:{
-                description: (prefix) => `Sets a message for when a user leaves the server. 
-                \nExamples: 
-                \`${prefix}configleave message #general %member_name% left %server%... bye bye %member_name%...\` - Sends \`alex left <your server>... bye bye alex...\` to #general when alex leaves your server. 
-                \`${prefix}configleave disable\` - Disables the farewell
-                \nVariables : \n- \`%member%\`\n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
+                description: (prefix) => `Sets a message for when a user leaves the server. \n\nExamples: \n\`${prefix}configleave message #general %member_name% left %server%... bye bye %member_name%...\` - Sends \`alex left <your server>... bye bye alex...\` to #general when alex leaves your server. \n\`${prefix}configleave disable\` - Disables the farewell\n\nVariables : \n- \`%member%\`\n- \`%member_name%\`\n- \`%member_tag%\`\n- \`%membercount%\`\n- \`%server%\``
             },
             membercount:{
                 description: (prefix) => `Display the number of members in a channel.\n\nExemples:\n\`${prefix}membercount %count% Members\` - Display \`142 Members\`\n\`${prefix}membercount disable\` - Disable the membercount.`
@@ -191,11 +182,7 @@ module.exports = {
                 description: (prefix) => "Test leave messages."
             },
             ticket:{
-                description: (prefix) => `Creates a panel to enable users to open a ticket with 1 click.
-                Need to create a role for support members.
-                
-                Exemple:
-                \`!ticket @Support\` - Only the role \`@Support\` and the concerned user will have access to the ticket.`
+                description: (prefix) => `Creates a panel to enable users to open a ticket with 1 click.\nNeed to create a role for support members.\n\nExemple:\n\`!ticket @Support\` - Only the role \`@Support\` and the concerned user will have access to the ticket.`
             }
 
         }
@@ -211,66 +198,41 @@ module.exports = {
     },
 
     info: {
-        description: () => `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things. 
-        [Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
+        description: () => `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things.\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
         
         infos:{
             title: () =>"Informations:",
-            content: (days, hours, minutes, seconds, date) => `
-            **${emojis.arrow} Lead Developer: ** Alexmdz77#0001
-            **${emojis.arrow} Developers: ** IteK#0001, Haz226#4212
-            **${emojis.arrow} Library:** [discord.js 12.4.1](https://github.com/discordjs/discord.js)
-            **${emojis.arrow} Uptime:** ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds
-            **${emojis.arrow} Creation date:** ${date}`
+            content: (days, hours, minutes, seconds, date) => `\n**${emojis.arrow} Lead Developer: ** Alexmdz77#0001\n**${emojis.arrow} Developers: ** IteK#0001, Haz226#4212\n**${emojis.arrow} Library:** [discord.js 12.5.1](https://github.com/discordjs/discord.js)\n**${emojis.arrow} Uptime:** ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds\n**${emojis.arrow} Creation date:** ${date}`
         },
         stats:{
             title: () => "Statistics:",
-            content: (servers, memberCount, channels, memory, latency) => `
-            **${emojis.arrow} Servers:** ${servers}
-            **${emojis.arrow} Members:** ${memberCount}
-            **${emojis.arrow} Channels:** ${channels}
-            **${emojis.arrow} RAM:** ${memory} MB
-            **${emojis.arrow} API Latency:** ${latency}ms`
+            content: (servers, memberCount, channels, memory, latency) => `\n**${emojis.arrow} Servers:** ${servers}\n**${emojis.arrow} Members:** ${memberCount}\n**${emojis.arrow} Channels:** ${channels}\n**${emojis.arrow} RAM:** ${memory} MB\n**${emojis.arrow} API Latency:** ${latency}ms`
         }
     },
     
     serverinfo: {
         infos:{
             title: () =>"Server Informations:",
-            content: (name, id, owner, date) => `
-            **${emojis.arrow} Name: ** ${name}
-            **${emojis.arrow} ID: ** ${id}
-            **${emojis.arrow} Owner:** ${owner}
-            **${emojis.arrow} Created on:** ${date}`
+            content: (name, id, owner, date) => `\n**${emojis.arrow} Name: ** ${name}\n**${emojis.arrow} ID: ** ${id}\n**${emojis.arrow} Owner:** ${owner}\n**${emojis.arrow} Created on:** ${date}`
         },
         settings:{
             title: () => "Server Settings test:",
-            content: (region, verlvl) => `
-            **${emojis.arrow} Region:** ${region}
-            **${emojis.arrow} Verification level:** ${verlvl}`
+            content: (region, verlvl) => `\n**${emojis.arrow} Region:** ${region}\n**${emojis.arrow} Verification level:** ${verlvl}`
         },
         stats:{
             title: () => "Server Stats:",
-            content: (memberCount, channels, roles) => `
-            **${emojis.arrow} Members:** ${memberCount}
-            **${emojis.arrow} Channels:** ${channels}
-            **${emojis.arrow} Roles :** ${roles}`
+            content: (memberCount, channels, roles) => `\n**${emojis.arrow} Members:** ${memberCount}\n**${emojis.arrow} Channels:** ${channels}\n**${emojis.arrow} Roles :** ${roles}`
         }
     },
 
     whois: {
         member:{
             title: () =>"Member Informations:",
-            content: (displayName, joined, roles) => `**${emojis.arrow} Display name:** ${displayName}
-            **${emojis.arrow} Joined at:** ${joined}
-            **${emojis.arrow} Roles:** ${roles}`
+            content: (displayName, joined, roles) => `**${emojis.arrow} Display name:** ${displayName}\n**${emojis.arrow} Joined at:** ${joined}\n**${emojis.arrow} Roles:** ${roles}`
         },
         user:{
             title: () => "User Informations:",
-            content: (userid, username, usertag, created) => `**${emojis.arrow} ID:** ${userid}
-            **${emojis.arrow} Username**: ${username}
-            **${emojis.arrow} Tag**: ${usertag}
-            **${emojis.arrow} Created at**: ${created}`
+            content: (userid, username, usertag, created) => `**${emojis.arrow} ID:** ${userid}\n**${emojis.arrow} Username**: ${username}\n**${emojis.arrow} Tag**: ${usertag}\n**${emojis.arrow} Created at**: ${created}`
         },
         game:{
             title: () => "Currently Playing",
