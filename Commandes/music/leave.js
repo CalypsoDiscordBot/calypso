@@ -19,7 +19,9 @@ module.exports.run = (client, message, args) => {
                     server.queue.splice(i, 1);
                 }
                 console.log("dispatcher");
-                server.dispatcher.emit("finish");
+                if(server && server.dispatcher){
+                    server.dispatcher.emit("finish");
+                }
             }
             // client.leaveVoiceChannel(message.member.voice.channel.id);
             message.guild.me.voice.channel.leave();
