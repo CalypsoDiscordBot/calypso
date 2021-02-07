@@ -1,27 +1,25 @@
 const Discord = require('discord.js');
 const config = require('../../config.json');
 
-module.exports.run = (client, message, args) => {
+module.exports.run = async (client, message, args) => {
 
-    let server = client.servers[message.guild.id];
 
-    if(!server || !server.queue[0]) {
+    let queue = await client.player.getQueue(message.guild.id);
+
+    if(!queue || !queue.songs[0]) {
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.music.error_notplaying())
         return message.channel.send(embed);
     }
 
-    let queue = server.queue;
-    let nowPlaying = queue[0];
+    let resp = message.language.queue.nowplaying(queue.songs[0].name, queue.songs[0].url, queue.songs[0].duration, queue.songs[0].requestedBy);
 
-    let resp = message.language.queue.nowplaying(nowPlaying.title, nowPlaying.url, nowPlaying.time, nowPlaying.requester);
-
-    if(queue[1]){
+    if(queue.songs[1]){
         resp += message.language.queue.upnext();
     }
-    for(var i = 1; i < queue.length; i++){
-        resp += message.language.queue.list(i, queue[i].title, queue[i].url, queue[i].time, queue[i].requester);
+    for(var i = 1; i < queue.songs.length; i++){
+        resp += message.language.queue.list(i, queue.songs[i].name, queue.songs[i].url, queue.songs[i].duration, queue.songs[i].requestedBy);
     }
 
     message.channel.send({

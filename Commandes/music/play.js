@@ -1,40 +1,8 @@
 const Discord = require('discord.js');
-const config = require('../../config.json');
-const ytdl = require('ytdl-core');
-const db = require('quick.db');
-
-const Youtube = require('simple-youtube-api');
-const youtube = new Youtube("AIzaSyCEnnfNmurGWy-pu-XQ9QyKKCXrY97iFJ4");
 
 module.exports.run = async (client, message, args) => {
 
-    function sec2time(timeInSeconds) {
-        var pad = function(num, size) { return ('000' + num).slice(size * -1); },
-        time = parseFloat(timeInSeconds).toFixed(3),
-        hours = Math.floor(time / 60 / 60),
-        minutes = Math.floor(time / 60) % 60,
-        seconds = Math.floor(time - minutes * 60);
-    
-        return pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2);
-    }
-
-    async function playt(connection, message, server){
-
-        server.dispatcher = await connection.play(ytdl(server.queue[0].url, { filter: 'audioonly' }));
-
-        server.dispatcher.once("finish", function(){
-            server.queue.shift();
-            if(server.queue[0]){
-                playt(connection, message, server);
-            }else{
-                server.dispatcher.destroy();
-                // connection.disconnect();
-            }
-
-        })
-    }
-
-
+    // You can define the Player as *client.player* to easly access it.
     if(!args[0]){
         let content = ["play"];
         return client.commands.get("help").run(client, message, content);
@@ -61,114 +29,65 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send(embed);
     }
 
-    if(!client.servers[message.guild.id]) {
-        client.servers[message.guild.id] = {
-            queue : []
-        }
-    }
-    
-    var server = client.servers[message.guild.id]
-    if(args.join(" ").includes("https://youtu")){
-        // stats play url
-        db.push(`stats_playurl`,new Date());
-        let video = args[0];
-        let info = await ytdl.getInfo(video).catch((err) => {
-            console.log(err);
-            return message.channel.send(":x: An unknown error occurred.");
-        }); 
+    let isPlaying = client.player.isPlaying(message.guild.id);
+    // If there's already a song playing
+    if(isPlaying){
+        // Add the song to the queue
+        let song = await client.player.addToQueue(message.guild.id, args.join(' '), {}, message.author.tag);
+        song = song.song;
 
-        if(!info.videoDetails) return message.channel.send(":x: An unknown error occurred.");
-
-        await server.queue.push({
-            title: info.videoDetails.title,
-            author: info.videoDetails.author || "None.",
-            url: video,
-            time: sec2time(info.videoDetails.lengthSeconds),
-            requester: message.author.tag,
-            thumbnail: info.videoDetails.thumbnails[0].url
-        });
-        disp(message, server, info);
-    }
-    else {
-        // stats play search
-        db.push(`stats_playsearch`,new Date());
-        const videos = await youtube.searchVideos(args.join(" "), 1);
-        
-        if(!videos || !videos[0]){
-            let content = ["play"];
-            return client.commands.get("help").run(client, message, content);
-        }
-
-        let video = videos[0].url;
-
-        let info = await ytdl.getInfo(video).catch((err) => {
-            console.log(err);
-            return message.channel.send(":x: An unknown error occurred.");
-        }); 
-
-        if(!info.videoDetails) return message.channel.send(":x: An unknown error occurred.");
-
-        await server.queue.push({
-            title: info.videoDetails.title,
-            author: info.videoDetails.author || "None.",
-            url: video,
-            time: sec2time(info.videoDetails.lengthSeconds),
-            requester: message.author.tag,
-            thumbnail: info.videoDetails.thumbnails[0].url
-        });
-        disp(message, server, info);
-    }
-    async function disp(message, server, info){
-        if(!server.queue[1]) { // 0 musique dans la queue
-            await message.member.voice.channel.join().then( function(connection){
-                if(!server.queue[0]){ return message.channel.send(":x: An unknown error occurred.");}
-                    message.channel.send({embed: {
-                        color:  client.color,
-                        author:  server.queue[0].author || "None.",
-                        title:  server.queue[0].title,
-                        url:  server.queue[0].url,
-                        thumbnail: {
-                            url:  server.queue[0].thumbnail
-                        },
-                        fields: [
-                            {
-                                name: message.language.play.duration(),
-                                value: server.queue[0].time,
-                                inline: true
-                            },
-                            {
-                                name: message.language.play.requested(),
-                                value:  server.queue[0].requester,
-                                inline: true
-                            }]
-                    }});
-                return playt(connection, message, server);
-            })
-        }
-        else {
-            message.channel.send(message.language.play.queue())
+        message.channel.send(message.language.play.queue(),{embed: {
+            color: client.color,
+            author: song.author || "None.",
+            title: song.name,
+            url: song.url,
+            thumbnail: {
+                url: song.thumbnail
+            },
+            fields: [
+                {
+                    name: message.language.play.duration(),
+                    value: song.duration,
+                    inline: true
+                },
+                {
+                    name: message.language.play.requested(),
+                    value: song.requestedBy,
+                    inline: true
+                }]
+        }});
+    } else {
+        // Else, play the song
+        let song = await client.player.play(message.member.voice.channel, args.join(' '), {}, message.author.tag).then(async song => {
+            if(song.error) throw(song.error);
+            song = song.song;
             message.channel.send({embed: {
                 color: client.color,
-                author: info.videoDetails.author || "None.",
-                title: info.videoDetails.title,
-                url: `https://www.youtube.com/watch?v=${info.videoDetails.videoId}`,
+                author: song.author || "None.",
+                title: song.name,
+                url: song.url,
                 thumbnail: {
-                    url: info.videoDetails.thumbnails[0].url
+                    url: song.thumbnail
                 },
                 fields: [
                     {
                         name: message.language.play.duration(),
-                        value: sec2time(info.videoDetails.lengthSeconds),
+                        value: song.duration,
                         inline: true
                     },
                     {
                         name: message.language.play.requested(),
-                        value: message.author.tag,
+                        value: song.requestedBy,
                         inline: true
                     }]
             }});
-        }
+        }).catch(err => {
+            console.log(err);
+        });
+        let queue = await client.player.getQueue(message.guild.id);
+        queue.connection.voice.setSelfDeaf(true);
     }
+        
 };
 
 module.exports.help = {

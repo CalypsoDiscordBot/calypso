@@ -2,30 +2,22 @@ const Discord = require('discord.js');
 const config = require('../../config.json');
 const ytdl = require('ytdl-core');
 
-module.exports.run = (client, message, args) => {
+module.exports.run = async (client, message, args) => {
 
     if(args[0]){
         let content = ["clear"];
         return client.commands.get("help").run(client, message, content);
     }
-
-    var server = client.servers[message.guild.id];
-    if(!server){
-        const embed = new Discord.MessageEmbed()
-            .setColor(client.color)
-            .setDescription(message.language.music.error_notplaying())
-        return message.channel.send(embed);
-    }
-    if(!server.queue){
+    let queue = await client.player.getQueue(message.guild.id);
+    
+    if(!queue || !queue.songs[0]){
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.music.error_notplaying())
         return message.channel.send(embed);
     }
     
-    for(var i = server.queue.length -1; i>= 0; i--){
-        server.queue.splice(i, 1);
-    }
+    client.player.clearQueue(message.guild.id);
     message.react('✅');
 
     

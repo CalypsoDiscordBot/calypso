@@ -2,11 +2,10 @@ const Discord = require('discord.js');
 const config = require('../../config.json');
 const ytdl = require('ytdl-core');
 
-module.exports.run = (client, message, args) => {
+module.exports.run = async (client, message, args) => {
 
-    var server = client.servers[message.guild.id];
-
-    if(!server || !server.dispatcher) {
+    let isPlaying = client.player.isPlaying(message.guild.id);
+    if(!isPlaying){
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.music.error_notplaying())
@@ -21,11 +20,11 @@ module.exports.run = (client, message, args) => {
 
     if(message.guild.me.voice.channel){
         if(message.guild.me.voice.channel && message.member.voice.channel === message.guild.me.voice.channel){  
+            let song = await client.player.skip(message.guild.id);
             const embed = new Discord.MessageEmbed()
                 .setColor(client.color)
                 .setDescription(message.language.skip.skipping(message.author.tag))
             message.channel.send(embed);
-            if(server.dispatcher) server.dispatcher.emit("finish");
         }
     }
 

@@ -4,7 +4,6 @@ const ytdl = require('ytdl-core');
 
 module.exports.run = (client, message, args) => {
 
-    var server = client.servers[message.guild.id];
     if(!message.member.voice.channel){
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
@@ -14,16 +13,7 @@ module.exports.run = (client, message, args) => {
 
     if(message.guild.me.voice.channel){
         if(message.member.voice.channel === message.guild.me.voice.channel){
-            if(server){
-                for(var i = server.queue.length -1; i>= 0; i--){
-                    server.queue.splice(i, 1);
-                }
-                console.log("dispatcher");
-                if(server && server.dispatcher){
-                    server.dispatcher.emit("finish");
-                }
-            }
-            // client.leaveVoiceChannel(message.member.voice.channel.id);
+            client.player.stop(message.guild.id);
             message.guild.me.voice.channel.leave();
             message.react('✅');
         }
@@ -43,5 +33,5 @@ module.exports.help = {
     category: "music",
     usage:"",
     accessableby: "Members",
-    aliases: []
+    aliases: ['stop']
 };
