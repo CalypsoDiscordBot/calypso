@@ -1,5 +1,13 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client({
+	autoReconnect: true,
+	messageCacheMaxSize: 10000,
+	messageCacheLifetime: 86400,
+	messageSweepInterval: 60,
+	retryLimit: 5,
+	disableMentions: 'everyone',
+	fetchAllMembers: false
+});
 const config = require('./config.json');
 const util = require("util");
 const fs = require("fs");
@@ -8,7 +16,15 @@ const { GiveawaysManager } = require('discord-giveaways');
 const DBL = require('dblapi.js');
 const { Player } = require("discord-music-player");
 
-client.player = new Player(client);
+client.player = new Player(
+	client, 
+	{
+		leaveOnEmpty: true,
+		leaveOnEnd: true,
+		timeout: 15000,
+		quality: 'high'
+	}
+);
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.servers = new Map();
