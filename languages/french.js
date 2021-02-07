@@ -124,6 +124,12 @@ module.exports = {
             leave:{
                 description: (prefix) => "Arrête la musique."
             },
+            loop:{
+                description: (prefix) => "Passez en boucle le titre en cours de lecture !"
+            },
+            playlist:{
+                description: (prefix) => `Ajouter une Playlist à la file d'attente du serveur. (Uniquement Youtube supporté)`
+            },
             play:{
                 description: (prefix) => `Joue une musique.\n\n- Exemples : \n\`${prefix}play pnl blanka\` - Recherche sur youtube de "pnl blanka"\n\`${prefix}play https://youtu.be/u8bHjdljyLw\` - Lecture d'une vidéo youtube, en utilisant l'URL.`
             },
@@ -367,6 +373,15 @@ module.exports = {
         error_notplaying: () => `**${emojis.error} Je ne joue pas de musique en ce moment !**`,
     },
     
+    loop: {
+        yes: () => `**${emojis.success} Je vais maintenant répéter le titre en cours.**`,
+        no: () => `**${emojis.success} Je ne vais plus répéter le titre en cours.**`
+    },
+
+    playlist: {
+        add: (videoCount, channel) => `${emojis.success} Ajout d'une Playlist à la file d'attente avec **${videoCount} titres**, elle a été **créée par ${channel}**`
+    },
+
     play: {
         duration: () => "Durée",
         requested: () => "Demandé par",

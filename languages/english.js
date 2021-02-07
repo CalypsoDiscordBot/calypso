@@ -124,6 +124,12 @@ module.exports = {
             leave:{
                 description: (prefix) => "Leaves the voice channel."
             },
+            loop:{
+                description: (prefix) => "Loops the current playing song!"
+            },
+            playlist:{
+                description: (prefix) => "Add a Playlist to the Server Queue. (Only Youtube supported)"
+            },
             play:{
                 description: (prefix) => `Plays a track. \n\nExamples: \n\`${prefix}play pnl blanka\` - Searches youtube for 'pnl blanka' \n\`${prefix}play https://youtu.be/u8bHjdljyLw\` - Plays a youtube video, using the direct URL`
             },
@@ -366,7 +372,16 @@ module.exports = {
         error_voicechannel: () => `**${emojis.error} You are not in a voice channel**`,
         error_notplaying: () => `**${emojis.error} I'm currently not playing music!**`,
     },
-    
+
+    loop: {
+        yes: () => `**${emojis.success} I will now repeat the current playing song.**`,
+        no: () => `**${emojis.success} I will not longer repeat the current playing song.**`
+    },
+
+    playlist: {
+        add: (videoCount, channel) => `${emojis.success} Added a Playlist to the queue with **${videoCount} songs**, that was **made by ${channel}**`
+    },
+
     play: {
         duration: () => "Duration",
         requested: () => "Requested By",
