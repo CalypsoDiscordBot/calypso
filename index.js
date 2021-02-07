@@ -6,7 +6,9 @@ const fs = require("fs");
 const readdir = util.promisify(fs.readdir);
 const { GiveawaysManager } = require('discord-giveaways');
 const DBL = require('dblapi.js');
+const { Player } = require("discord-music-player");
 
+client.player = new Player(client);
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.servers = new Map();
