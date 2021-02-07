@@ -13,7 +13,7 @@ module.exports.run = (client, message, args) => {
             });
 
             nb++;
-            content = `${content}${nb}- \`${guild.name} - ${guild.owner.user.tag} - ${guildusers || guild.members.cache.size}\`\n`
+            content = `${content}${nb}- \`${guild.name} - ${guild.id} - ${guild.owner.user.tag} - ${guildusers || guild.members.cache.size}\`\n`
         });
         message.channel.send(content, { split: true });
     }
