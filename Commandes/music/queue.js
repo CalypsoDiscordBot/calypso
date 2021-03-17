@@ -4,8 +4,11 @@ const config = require('../../config.json');
 module.exports.run = async (client, message, args) => {
 
 
-    let queue = await client.player.getQueue(message.guild.id);
-
+    let queue = await client.player.getQueue(message);
+    let length = queue.songs.length;
+    if(queue.songs.length > 10){
+        length = 10;
+    }
     if(!queue || !queue.songs[0]) {
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
@@ -18,7 +21,7 @@ module.exports.run = async (client, message, args) => {
     if(queue.songs[1]){
         resp += message.language.queue.upnext();
     }
-    for(var i = 1; i < queue.songs.length; i++){
+    for(var i = 1; i <= length; i++){
         resp += message.language.queue.list(i, queue.songs[i].name, queue.songs[i].url, queue.songs[i].duration, queue.songs[i].requestedBy);
     }
 

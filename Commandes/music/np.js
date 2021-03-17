@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports.run = async (client, message, args) => {
 
-    let isPlaying = client.player.isPlaying(message.guild.id);
+    let isPlaying = client.player.isPlaying(message);
     if(!isPlaying){
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
@@ -10,7 +10,7 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send(embed);
     }
     else {
-        const song = await client.player.nowPlaying(message.guild.id);
+        const song = await client.player.nowPlaying(message);
 
         message.channel.send({embed: {
             color: client.color,
@@ -33,7 +33,7 @@ module.exports.run = async (client, message, args) => {
                 },
                 {
                     name: 'Progression',
-                    value: client.player.createProgressBar(message.guild.id,20,'>','='),
+                    value: client.player.createProgressBar(message,20,'>','='),
                     inline: false
                 }]
         }});

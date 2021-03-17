@@ -1,10 +1,5 @@
 const Discord = require('discord.js');
 const client = new Discord.Client({
-	autoReconnect: true,
-	messageCacheMaxSize: 10000,
-	messageCacheLifetime: 86400,
-	messageSweepInterval: 60,
-	retryLimit: 5,
 	disableMentions: 'everyone',
 	fetchAllMembers: false
 });
@@ -25,10 +20,28 @@ client.player = new Player(
 		quality: 'high'
 	}
 );
+
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
 client.servers = new Map();
 
+client.player.on('error', (error) => {
+	console.log(error);
+	switch (error) {
+		case 'QueueIsNull':
+			console.log(`There is no music playing right now.`);
+			break;
+		case 'MessageTypeInvalid':
+			console.log(`The Message object was not provided.`);
+			break;
+		case 'VideoUnavailable':
+			console.log(`Something went wrong while playing the current song, skipping...`);
+			break;
+		default:
+			console.log(`**An Error Ocurred:** ${error}`);
+			break;
+	}
+});
 const dbl = new DBL(config.DBLToken, { webhookPort: 5000 , webhookAuth: config.DBLPassword });
 
 dbl.webhook.on('ready', hook => {

@@ -17,7 +17,7 @@ module.exports.run = (client, message, args) => {
         return message.channel.send(embed);
     }
 
-    client.player.setVolume(message.guild.id, parseInt(args[0]));
+    client.player.setVolume(message, parseInt(args[0]));
 
     message.react('✅');
 };

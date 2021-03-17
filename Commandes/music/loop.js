@@ -3,7 +3,7 @@ const config = require('../../config.json');
 
 module.exports.run = async (client, message, args) => {
 
-    let isPlaying = client.player.isPlaying(message.guild.id);
+    let isPlaying = client.player.isPlaying(message);
     if(!isPlaying){
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
@@ -11,7 +11,7 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send(embed);
     }
     else {
-        let toggle = client.player.toggleLoop(message.guild.id);
+        let toggle = client.player.toggleLoop(message);
 
         // Send a message with the toggle information
         if (toggle) {

@@ -29,12 +29,11 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send(embed);
     }
 
-    let isPlaying = client.player.isPlaying(message.guild.id);
+    let isPlaying = client.player.isPlaying(message);
     // If there's already a song playing
     if(isPlaying){
         // Add the song to the queue
-        let song = await client.player.addToQueue(message.guild.id, args.join(' '), {}, message.author.tag);
-        song = song.song;
+        let song = await client.player.addToQueue(message, {search:args.join(' '), requestedBy: message.author.tag});
 
         message.channel.send(message.language.play.queue(),{embed: {
             color: client.color,
@@ -56,11 +55,12 @@ module.exports.run = async (client, message, args) => {
                     inline: true
                 }]
         }});
+        let queue = await client.player.getQueue(message);
+        queue.connection.voice.setSelfDeaf(true);
     } else {
         // Else, play the song
-        let song = await client.player.play(message.member.voice.channel, args.join(' '), {}, message.author.tag).then(async song => {
+        let song = await client.player.play(message, {search:args.join(' '), requestedBy: message.author.tag}).then(async song => {
             if(song.error) throw(song.error);
-            song = song.song;
             message.channel.send({embed: {
                 color: client.color,
                 author: song.author || "None.",
@@ -84,7 +84,7 @@ module.exports.run = async (client, message, args) => {
         }).catch(err => {
             console.log(err);
         });
-        let queue = await client.player.getQueue(message.guild.id);
+        let queue = await client.player.getQueue(message);
         queue.connection.voice.setSelfDeaf(true);
     }
         

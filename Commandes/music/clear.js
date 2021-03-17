@@ -8,7 +8,7 @@ module.exports.run = async (client, message, args) => {
         let content = ["clear"];
         return client.commands.get("help").run(client, message, content);
     }
-    let queue = await client.player.getQueue(message.guild.id);
+    let queue = await client.player.getQueue(message);
     
     if(!queue || !queue.songs[0]){
         const embed = new Discord.MessageEmbed()
@@ -17,7 +17,7 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send(embed);
     }
     
-    client.player.clearQueue(message.guild.id);
+    client.player.clearQueue(message);
     message.react('✅');
 
     

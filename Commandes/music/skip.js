@@ -4,7 +4,7 @@ const ytdl = require('ytdl-core');
 
 module.exports.run = async (client, message, args) => {
 
-    let isPlaying = client.player.isPlaying(message.guild.id);
+    let isPlaying = client.player.isPlaying(message);
     if(!isPlaying){
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
@@ -20,7 +20,7 @@ module.exports.run = async (client, message, args) => {
 
     if(message.guild.me.voice.channel){
         if(message.guild.me.voice.channel && message.member.voice.channel === message.guild.me.voice.channel){  
-            let song = await client.player.skip(message.guild.id);
+            let song = await client.player.skip(message);
             const embed = new Discord.MessageEmbed()
                 .setColor(client.color)
                 .setDescription(message.language.skip.skipping(message.author.tag))

@@ -28,9 +28,9 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send(embed);
     }
 
-    let isPlaying = client.player.isPlaying(message.guild.id);
+    let isPlaying = client.player.isPlaying(message);
 
-    let { playlist, song } = await client.player.playlist(message.guild.id, args.join(' '), message.member.voice.channel, 10, message.author.tag);
+    let playlist = await client.player.playlist(message, {search: args.join(' '), maxSongs: 10, requestedBy: message.author.tag});
 
     console.log(playlist)
     // Send information about adding the Playlist to the Queue  
