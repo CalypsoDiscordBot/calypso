@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { emojis } = require("../../config");
 
 module.exports.run = async (client, message, args) => {
 
@@ -22,19 +23,18 @@ module.exports.run = async (client, message, args) => {
             },
             fields: [
                 {
-                    name: message.language.play.duration(),
-                    value: song.duration,
-                    inline: true
+                    name: 'Progression',
+                    value: client.player.createProgressBar(message,{
+                        size: 15,
+                        block: '▬',
+                        arrow: '🔵'
+                    }),
+                    inline: false
                 },
                 {
                     name: message.language.play.requested(),
                     value: song.requestedBy,
                     inline: true
-                },
-                {
-                    name: 'Progression',
-                    value: client.player.createProgressBar(message,20,'>','='),
-                    inline: false
                 }]
         }});
     }
