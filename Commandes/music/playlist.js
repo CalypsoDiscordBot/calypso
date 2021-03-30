@@ -30,17 +30,13 @@ module.exports.run = async (client, message, args) => {
 
     let isPlaying = client.player.isPlaying(message);
 
-    let playlist = await client.player.playlist(message, {search: args.join(' '), maxSongs: 10, requestedBy: message.author.tag});
+    let playlist = await client.player.playlist(message, {search: args.join(' '), maxSongs: -1, requestedBy: message.author.tag});
 
     console.log(playlist)
-    // Send information about adding the Playlist to the Queue  
-    const embed = new Discord.MessageEmbed()
-    .setColor(client.color)
-    .setDescription(message.language.playlist.add(playlist.videoCount, playlist.author))
-    message.channel.send(embed);
 
-    // If there was no songs previously playing, send a message about playing one.
-    if(!isPlaying){
+    const song = await playlist.videos[0];
+    // Send information about adding the Playlist to the Queue  
+    if(song){
         return message.channel.send({embed: {
             color: client.color,
             author: song.author || "None.",
@@ -61,6 +57,12 @@ module.exports.run = async (client, message, args) => {
                     inline: true
                 }]
         }});
+    }
+    else {
+        const embed = new Discord.MessageEmbed()
+        .setColor(client.color)
+        .setDescription(message.language.playlist.add(playlist.videos.length, playlist.author))
+        return message.channel.send(embed);
     }
         
 };
