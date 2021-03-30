@@ -52,5 +52,5 @@ module.exports.help = {
     category: "settings",
     usage:"",
     accessableby: "Members",
-    aliases: ["setlanguage", "configlanguage"]
+    aliases: ["setlanguage", "configlanguage", "lang"]
 }
