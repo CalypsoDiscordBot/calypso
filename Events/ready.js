@@ -22,9 +22,9 @@ module.exports = async(client) => {
 			console.log(`${count} Members ${client.channels.cache.size} Channels ${client.guilds.cache.size} Servers.`)
 		}
 	});
-
+	
   	setInterval(() => {
-		const activity = `!help | ${client.guilds.cache.size} Servers.`; // ${client.membercount} Members  
+		const activity = `!help`; // | ${client.guilds.cache.size} Servers. ${client.membercount} Members  
 		client.user.setActivity(activity, { type: 'WATCHING' });
 	}, 10000);
 
