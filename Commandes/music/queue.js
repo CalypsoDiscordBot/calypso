@@ -13,21 +13,6 @@ module.exports.run = async (client, message, args) => {
         return message.channel.send(embed);
     }
     const [current, ...next] = queue.songs;
-    // let length = queue.songs.length;
-    // if(queue.songs.length > 11){
-    //     length = 11;
-    // }
-    
-
-    // let resp = message.language.queue.nowplaying(queue.songs[0].name, queue.songs[0].url, queue.songs[0].duration, queue.songs[0].requestedBy);
-
-    // if(queue.songs[1]){
-    //     resp += message.language.queue.upnext();
-    // }
-    // for(var i = 1; i < length; i++){
-    //     console.log(i);
-    //     resp += message.language.queue.list(i, current.name, current.url, current.duration, current.requestedBy);
-    // }
 
     const string1 = message.language.queue.nowplaying(queue.songs[0].name, queue.songs[0].url, queue.songs[0].duration, queue.songs[0].requestedBy);
         const string12 = next.length && message.language.queue.upnext();
