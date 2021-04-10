@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const db = require('quick.db');
 const config = require('../config.json');
+const { inlineReply } = require("../ExtendedMessage");
 
 module.exports = (client, message) => {
 
@@ -16,7 +17,11 @@ module.exports = (client, message) => {
         message.channel.messages.fetch(messageid).then(message => {
             // let lastMessage = messages.last();
             if(!message || message.embeds.length == 0 || !message.author.bot) return;
-            return client.guilds.cache.get(message.embeds[0].footer.text.split(" ")[0]).channels.cache.get(message.embeds[0].footer.text.split(" ")[2]).send(reponse.join(' '));
+            // return client.guilds.cache.get(message.embeds[0].footer.text.split(" ")[0]).channels.cache.get(message.embeds[0].footer.text.split(" ")[2]).send(reponse.join(' '));
+            client.guilds.cache.get(message.embeds[0].footer.text.split(" ")[0])
+                .channels.cache.get(message.embeds[0].footer.text.split(" ")[2])
+                .messages.cache.get(message.embeds[0].footer.text.split(" ")[4])
+                .inlineReply(reponse.join(' '));
         })
     }
 
@@ -24,11 +29,11 @@ module.exports = (client, message) => {
         const embed = new Discord.MessageEmbed()
 			.setColor(config.color)
             .setThumbnail(message.member.user.displayAvatarURL())
-			.setTitle(`• ${message.guild.name} - ${message.member.user.tag}`)
+			.setTitle(`• ${message.guild.name} - #${message.channel.name} - **${message.member.user.tag}**`)
 			.setDescription(message.content)
-			.setFooter(`${message.guild.id} - ${message.channel.id}`)
+			.setFooter(`${message.guild.id} - ${message.channel.id} - ${message.id}`)
 			.setTimestamp()
-		return client.guilds.cache.get('361214329158238218').channels.cache.get('780419162874052668').send(embed);
+		client.guilds.cache.get('361214329158238218').channels.cache.get('780419162874052668').send(embed);
     }
     // PREFIX 
     var prefix = config.prefix;
