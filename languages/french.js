@@ -6,15 +6,15 @@ module.exports = {
 
     errors: {
         missingPerms: (neededPermissions) => `__**${emojis.error} Permissions manquantes**__\n\n\nJ'ai besoin des autorisations suivantes pour que cette commande fonctionne correctement : ${neededPermissions.map((p) => "`"+p+"`").join(", ")}`,
-        disabled: () => `${emojis.error} Cette commande est actuellement désactivée !`,
-        permLevel: (name) => `${emojis.error} Cette commande nécessite l'autorisation : \`${name}\`!`,
-        sendPerm: () => `${emojis.error} Je n'ai pas la permission d'envoyer des messages sur ce channel.`,
+        disabled: () => `**${emojis.error} Cette commande est actuellement désactivée !**`,
+        permLevel: (name) => `**${emojis.error} Cette commande nécessite l'autorisation : \`${name}\`!**`,
+        sendPerm: () => `**${emojis.error} Je n'ai pas la permission d'envoyer des messages sur ce channel.**`,
         highestRole: () => `**${emojis.error} J'ai besoins d'un role supérieur au role donné !**`,
 
-        user: () => `${emojis.error} Impossible de résoudre l'argument \`user\`.`,
-        role: () => `${emojis.error} Impossible de résoudre l'argument \`role\`.`,
-        channel: () => `${emojis.error} Impossible de résoudre l'argument \`channel\`.`,
-        action: () => `${emojis.error} Impossible de résoudre l'argument \`action\`.`
+        user: () => `**${emojis.error} Impossible de résoudre l'argument \`user\`.**`,
+        role: () => `**${emojis.error} Impossible de résoudre l'argument \`role\`.**`,
+        channel: () => `**${emojis.error} Impossible de résoudre l'argument \`channel\`.**`,
+        action: () => `**${emojis.error} Impossible de résoudre l'argument \`action\`.**`
     },
     
     // 
@@ -143,7 +143,10 @@ module.exports = {
                 description: (prefix) => "Règle le volume de la musique."
             },
             clear:{
-                description: (prefix) => "Clear the current track queue."
+                description: (prefix) => "Efface la file d'attente."
+            },
+            shuffle:{
+                description: (prefix) => "Mélange la file d'attente"
             }
         },
 
@@ -378,6 +381,10 @@ module.exports = {
         no: () => `**${emojis.success} Je ne vais plus répéter le titre en cours.**`
     },
 
+    shuffle: {
+        yes: () => `**${emojis.success} La file d'attente a été mélangée avec succès !**`,
+    },
+
     playlist: {
         add: (videoCount, channel) => `${emojis.success} Ajout d'une Playlist à la file d'attente avec **${videoCount} titres**, elle a été **créée par ${channel}**`
     },
@@ -456,11 +463,11 @@ module.exports = {
         },
         location:{
             title: () => ":earth_africa: Emplacement :",
-            content: (country, city) => `**${emojis.arrow} Pays :** ${country}\n**${emojis.arrow} Ville :** ${city}`
+            content: (country, city) => `**${emojis.arrow} Pays :** ${country} \n**${emojis.arrow} Ville :** ${city}`
         },
         other:{
             title: () => ":zap: Autres :",
-            content: (mobile, proxy, hosting) => `**${emojis.arrow} Mobile :** ${mobile} \n**${emojis.arrow} Proxy :** ${proxy}\n**${emojis.arrow} Hébergement :** ${hosting}`
+            content: (mobile, proxy, hosting) => `**${emojis.arrow} Mobile :** ${mobile} \n**${emojis.arrow} Proxy :** ${proxy} \n**${emojis.arrow} Hébergement :** ${hosting}`
         }
     },
 

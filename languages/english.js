@@ -22,7 +22,7 @@ module.exports = {
     // 
 
     help: {
-        description: (guildName, prefix) => `I'm a multi-purpose, easy-to-use Bot Discord that makes music, moderation, polls, giveaways and other fun and useful things.\nThe default prefix is \`!\`.\nUse \`!help\` to get a list of commands. The prefix can be changed by using the "prefix" command. Do \`!help <command>\` for extended information on a command. \n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Support server](https://discord.gg/3y2ByKq)`,
+        description: (guildName, prefix) => `I'm a multi-purpose, easy-to-use discord bot that makes music, moderation, polls, giveaways and other fun and useful things.\nThe default prefix is \`!\`.\nUse \`!help\` to get a list of commands. The prefix can be changed by using the "prefix" command. Do \`!help <command>\` for extended information on a command. \n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Support server](https://discord.gg/3y2ByKq)`,
         
         fields:{
             settings: () => ":wrench: Settings",
@@ -144,6 +144,9 @@ module.exports = {
             },
             clear:{
                 description: (prefix) => "Clear the current track queue."
+            },
+            shuffle:{
+                description: (prefix) => "Shuffle the queue!"
             }
         },
 
@@ -378,6 +381,10 @@ module.exports = {
         no: () => `**${emojis.success} I will not longer repeat the current playing song.**`
     },
 
+    shuffle: {
+        yes: () => `**${emojis.success} Successfully shuffled the queue!**`
+    },
+
     playlist: {
         add: (videoCount, channel) => `${emojis.success} Added a Playlist to the queue with **${videoCount} songs**, that was **made by ${channel}**`
     },
@@ -452,19 +459,15 @@ module.exports = {
         title: (args, query) => `Informations for ${args} (${query})`,
         owner:{
             title: () => ":bust_in_silhouette: Owner:",
-            content: (org, isp, as) => `**${emojis.arrow} Organisation:** ${org} 
-            **${emojis.arrow} Internet Service Provider:** ${isp} (${as})`
+            content: (org, isp, as) => `**${emojis.arrow} Organisation:** ${org} \n**${emojis.arrow} Internet Service Provider:** ${isp} (${as})`
         },
         location:{
             title: () => ":earth_africa: Location:",
-            content: (country, city) => `**${emojis.arrow} Country:** ${country}
-            **${emojis.arrow} City:** ${city}`
+            content: (country, city) => `**${emojis.arrow} Country:** ${country} \n**${emojis.arrow} City:** ${city}`
         },
         other:{
             title: () => ":zap: Other:",
-            content: (mobile, proxy, hosting) => `**${emojis.arrow} Mobile:** ${mobile} 
-            **${emojis.arrow} Proxy:** ${proxy}
-            **${emojis.arrow} Hosting:** ${hosting}`
+            content: (mobile, proxy, hosting) => `**${emojis.arrow} Mobile:** ${mobile} \n**${emojis.arrow} Proxy:** ${proxy} \n**${emojis.arrow} Hosting:** ${hosting}`
         }
     },
 
@@ -493,6 +496,5 @@ module.exports = {
             }
         }
     }
-
 
 };
