@@ -22,7 +22,7 @@ module.exports = {
     // 
 
     help: {
-        description: (guildName, prefix) => `I'm a multi-purpose, easy-to-use discord bot that makes music, moderation, polls, giveaways and other fun and useful things.\nThe default prefix is \`!\`.\nUse \`!help\` to get a list of commands. The prefix can be changed by using the "prefix" command. Do \`!help <command>\` for extended information on a command. \n\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Support server](https://discord.gg/3y2ByKq)`,
+        description: (guildName, prefix) => `I'm a multi-purpose, easy-to-use discord bot that makes music, moderation, polls, giveaways and other fun and useful things.\nThe default prefix is \`!\`.\nUse \`!help\` to get a list of commands. The prefix can be changed by using the "prefix" command. Do \`!help <command>\` for extended information on a command. \n\n**[Dashboard](https://calypso-bot.xyz/)** - **[Support Server](https://discord.gg/3y2ByKq)** - **[Invite me!](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot)**`,
         
         fields:{
             settings: () => ":wrench: Settings",
@@ -207,11 +207,11 @@ module.exports = {
     },
 
     info: {
-        description: () => `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things.\n[Add to your Discord server](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Join our Discord server](https://discord.gg/3y2ByKq)`,
+        description: () => `I'm a multi-purpose discord bot that does music, moderation and other fun and useful things.\n\n**[Dashboard](https://calypso-bot.xyz/)** - **[Support Server](https://discord.gg/3y2ByKq)** - **[Invite me!](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot)**`,
         
         infos:{
             title: () =>"Informations:",
-            content: (days, hours, minutes, seconds, date) => `\n**${emojis.arrow} Lead Developer: ** Alexmdz77#0001\n**${emojis.arrow} Developers: ** IteK#0001, Haz226#4212\n**${emojis.arrow} Library:** [discord.js 12.5.1](https://github.com/discordjs/discord.js)\n**${emojis.arrow} Uptime:** ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds\n**${emojis.arrow} Creation date:** ${date}`
+            content: (days, hours, minutes, seconds, date) => `\n**${emojis.arrow} Lead Developer: ** Alexmdz77#0001\n**${emojis.arrow} Developers: **Haz226#4212\n**${emojis.arrow} Library:** [discord.js 12.5.1](https://github.com/discordjs/discord.js)\n**${emojis.arrow} Uptime:** ${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds\n**${emojis.arrow} Creation date:** ${date}`
         },
         stats:{
             title: () => "Statistics:",
@@ -225,7 +225,7 @@ module.exports = {
             content: (name, id, owner, date) => `\n**${emojis.arrow} Name: ** ${name}\n**${emojis.arrow} ID: ** ${id}\n**${emojis.arrow} Owner:** ${owner}\n**${emojis.arrow} Created on:** ${date}`
         },
         settings:{
-            title: () => "Server Settings test:",
+            title: () => "Server Settings:",
             content: (region, verlvl) => `\n**${emojis.arrow} Region:** ${region}\n**${emojis.arrow} Verification level:** ${verlvl}`
         },
         stats:{
@@ -342,6 +342,7 @@ module.exports = {
         missingPerms: (neededPermissions, channels) => `__**${emojis.error} Missing permissions**__\n\nI need the following permissions for this command to work properly: ${neededPermissions.map((p) => "`"+p+"`").join(", ")}\nIn the following channels: ${channels}`,
         error_user: () => `**${emojis.error} You cannot mute that \`user\`.**`,
         error_time: () => `**${emojis.error} The specified \`time\` must be between 2 minutes and 2 years.**`,
+        already_muted: () => `**${emojis.error} This \`user\` is already muted**`,
         title: (mentionedUser, authortag) => `<a:Banned:745761570537341029> ${mentionedUser.user.tag} (id: ${mentionedUser.id}) has been muted by ${authortag}`,
         description: (time, reason) => `**Duration:** ${time}\n**Reason:** ${reason}`,
         dm: {

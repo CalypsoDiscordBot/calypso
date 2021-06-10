@@ -22,7 +22,7 @@ module.exports = {
     // 
 
     help: {
-        description: (guildName, prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles.\nFaites \`${prefix}help <command>\` pour obtenir des informations détaillées sur une commande.\n\n[Ajouter le bot à votre serveur](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Rejoignez notre serveur Support](https://discord.gg/3y2ByKq)`,
+        description: (guildName, prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles.\nFaites \`${prefix}help <command>\` pour obtenir des informations détaillées sur une commande.\n\n**[Dashboard](https://calypso-bot.xyz/)** - **[Serveur Support](https://discord.gg/3y2ByKq)** - **[Invitez-moi !](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot)**`,
          
         fields:{
             settings: () => ":wrench: Paramètres",
@@ -207,11 +207,11 @@ module.exports = {
     },
 
     info: {
-        description: (prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles.\n\n[Ajouter le bot à votre serveur](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot) | [Rejoignez notre serveur Discord](https://discord.gg/3y2ByKq)`,
+        description: (prefix) => `Je suis un bot polyvalent qui fait de la musique, de la modération et d'autres choses amusantes et utiles.\n\n**[Dashboard](https://calypso-bot.xyz/)** - **[Serveur Support](https://discord.gg/3y2ByKq)** - **[Invitez-moi !](https://discord.com/api/oauth2/authorize?client_id=740539000615469106&permissions=8&scope=bot)**`,
         
         infos:{
             title: () =>"Informations :",
-            content: (days, hours, minutes, seconds, date) => `\n**${emojis.arrow} Développeur Principal : ** Alexmdz77#0001\n**${emojis.arrow} Développeurs : ** IteK#0001, Haz226#4212\n**${emojis.arrow} Librairie :** [discord.js 12.5.1](https://github.com/discordjs/discord.js)\n**${emojis.arrow} Uptime :** ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes\n**${emojis.arrow} Créé le :** ${date}`
+            content: (days, hours, minutes, seconds, date) => `\n**${emojis.arrow} Développeur Principal : ** Alexmdz77#0001\n**${emojis.arrow} Développeurs : **Haz226#4212\n**${emojis.arrow} Librairie :** [discord.js 12.5.1](https://github.com/discordjs/discord.js)\n**${emojis.arrow} Uptime :** ${days} jours, ${hours} heures, ${minutes} minutes, ${seconds} secondes\n**${emojis.arrow} Créé le :** ${date}`
         },
         stats:{
             title: () => "Statistiques :",
@@ -342,6 +342,7 @@ module.exports = {
         missingPerms: (neededPermissions, channels) => `__**${emojis.error} Permissions manquantes**__\n\nJ'ai besoin des autorisations suivantes pour que cette commande fonctionne correctement : ${neededPermissions.map((p) => "`"+p+"`").join(", ")}\nDans les channels suivants : ${channels}`,
         error_user: () => `**${emojis.error} Vous ne pouvez pas mute cet utilisateur.**`,
         error_time: () => `**${emojis.error} L'argument \`time\` doit être compris entre 2 minutes et 2 ans. (2m et 2y)**`,
+        already_muted: () => `**${emojis.error} L'utilisateur \`user\` est déjà mute**`,
         title: (mentionedUser, authortag) => `<a:Banned:745761570537341029> ${mentionedUser.user.tag} (id: ${mentionedUser.id}) a été mute par ${authortag}`,
         description: (time, reason) => `**Durée :** ${time}\n**Raison :** ${reason}`,
         dm: {
