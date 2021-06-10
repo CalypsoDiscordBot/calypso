@@ -12,55 +12,47 @@ module.exports.run = async (client, message, args) => {
             .setDescription(message.language.errors.permLevel("MANAGE_MESSAGES"))
         return message.channel.send(embed);
     }
-    let muted_role;
 
     const now = new Date();
 
-    // RESOLVE MEMBER
-    let mentionedUser;
+    let member;
     if(message.mentions.members.first()){
-        mentionedUser = message.mentions.members.first();
+        member = message.mentions.members.first();
     }
-    else {
-        mentionedUser = args[0];
-        if(isNaN(mentionedUser) && args[0]) {
+    else if(args[0]){
+        if(isNaN(args[0]) && args[0]) {
             const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.errors.user())
             return message.channel.send(embed);
         }
-        mentionedUser = message.guild.members.resolve(args[0]);
+        member = message.guild.members.cache.get(args[0]);
     }
-    if(!args[0] || !mentionedUser) {
+    if(!args[0] || !member) {
         let content = ["mute"];
         return client.commands.get("help").run(client, message, content);
     }
 
-    // Check role position
-    const memberPosition = mentionedUser.roles.highest.position;
-    const moderationPosition = message.member.roles.highest.position;
 
-    if(mentionedUser.id === message.author.id || (moderationPosition < memberPosition)) {
+    // Check role position
+    if(member.id === message.author.id || member.id === client.user.id || (message.member.roles.highest.position <= member.roles.highest.position)) {
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.mute.error_user())
         return message.channel.send(embed);
     }
 
-    mutedid = db.fetch(`mutedrole_${message.guild.id}`)
-    muted_role = message.guild.roles.cache.find(role => role.id = mutedid)
-    // console.log(muted_role);
+    let mutedid = db.fetch(`mutedrole_${message.guild.id}`)
+    let muted_role = message.guild.roles.cache.get(mutedid)
+    // console.log('mutedrole find 0 : '+muted_role);
 
     if(!muted_role) {
-        // console.log("create")
-        muted_role = message.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"));
-        console.log(muted_role);
-        if(!muted_role || muted_role.id) {
+        if(!muted_role || !muted_role.id) {
             try {
-                console.log("create muted")
+                // console.log("create muted")
                 await message.guild.roles.create({
                     data: {
-                        name: "Muted",
+                        name: "Calypso Muted",
                         color: "#000000",
                         permissions:['VIEW_CHANNEL', 'READ_MESSAGE_HISTORY']
                     }
@@ -78,74 +70,83 @@ module.exports.run = async (client, message, args) => {
         }
     }
 
-    console.log(muted_role);
     // CHANNELS SET
-    // let channels = "";
-    // await message.guild.channels.cache.forEach((channel) => {
-    //     channel.updateOverwrite(muted_role.id, {
-    //         SEND_MESSAGES: false,
-    //         ADD_REACTIONS: false,
-    //         CONNECT: false
-    //     }).catch((error) => {
-    //         channels += `\`${channel.name}\`, `;
-    //     });
-    // });
-    // if (channels.length !== 0){
-    //     const embed = new Discord.MessageEmbed()
-    //     .setColor(client.color)
-    //     .setDescription(message.language.mute.missingPerms(["MANAGE_CHANNELS"],channels))
-    //     message.channel.send(embed);
-    // }
-
-    // DB SET
-    let count = 0;
-    await db.all().forEach((element) => {
-        const sanctionsdb = element.ID.startsWith(`sanctions_${message.guild.id}_${mentionedUser.id}`);
-        if (!sanctionsdb) {
-            return;
+    mutedid = db.fetch(`mutedrole_${message.guild.id}`)
+    muted_role = message.guild.roles.cache.get(mutedid)
+    let channels = "";
+    await message.guild.channels.cache.forEach((channel) => {
+        // console.log(channel.type)
+        if(channel.type == 'text'){
+            channel.updateOverwrite(muted_role, {SEND_MESSAGES: false, ADD_REACTIONS: false }).catch((error) => {
+                channels += `\`${channel.name}\`, `;
+            });
+        } else if (channel.type == 'voice'){
+            channel.updateOverwrite(muted_role, {CONNECT: false}).catch((error) => {
+                channels += `\`${channel.name}\`, `;
+            });
         }
-        count++;
     });
-    let raison = 'Unspecified'
-    let temps = 'Forever'
-    if(args[1] && ms(args[1])) {
-        if(ms(args[1])< 120000 || ms(args[1])> 63070000000){
-            const embed = new Discord.MessageEmbed()
-                .setColor(client.color)
-                .setDescription(message.language.mute.error_time())
-            return message.channel.send(embed);
-        }
-        time = ms(args[1]) + now.getTime() 
-        raison = args.slice(2).join(" ") || "Unspecified";
-        temps = ms(ms(args[1]), { long: true })
-        db.set(`mute_${message.guild.id}_${mentionedUser.id}`, time)
-    } else {
-        if(args[1]) {
-            raison = args.slice(1).join(" ") || "Unspecified";
-        }
-        db.set(`mute_${message.guild.id}_${mentionedUser.id}`, `forever`)
+    if (channels.length !== 0){
+        const embed = new Discord.MessageEmbed()
+        .setColor(client.color)
+        .setDescription(message.language.mute.missingPerms(["MANAGE_CHANNELS"],channels))
+        message.channel.send(embed);
     }
 
-    // mutedid = db.fetch(`mutedrole_${message.guild.id}`)
-    // console.log(mutedid)
-    // muted_role = message.guild.roles.cache.find(role => role.id = mutedid)
-    mentionedUser.roles.add(muted_role.id)
-    
-    // message.client.users.fetch(mentionedUser.id).then(user => user.roles.add(muted_role.id))
+    if(member.roles.cache.has(muted_role.id)){
+        const embed = new Discord.MessageEmbed()
+            .setColor(client.color)
+            .setDescription(message.language.mute.already_muted())
+        return message.channel.send(embed);
+    }
+    member.roles.add(muted_role).then( async () => {
 
-    const muted_embed = new Discord.MessageEmbed()
-        .setColor(client.color)
-        .setTitle(message.language.mute.dm.title(message.guild.name, message.author.tag))
-        .setDescription(message.language.mute.dm.description(temps, raison))
-    mentionedUser.send(muted_embed)
+        // DB SET
+        let count = 0;
+        await db.all().forEach((element) => {
+            const sanctionsdb = element.ID.startsWith(`sanctions_${message.guild.id}_${member.id}`);
+            if (!sanctionsdb) {
+                return;
+            }
+            count++;
+        });
+        let raison = 'Unspecified'
+        let temps = 'Forever'
+        if(args[1] && ms(args[1])) {
+            if(ms(args[1])< 120000 || ms(args[1])> 63070000000){
+                const embed = new Discord.MessageEmbed()
+                    .setColor(client.color)
+                    .setDescription(message.language.mute.error_time())
+                return message.channel.send(embed);
+            }
+            time = ms(args[1]) + now.getTime() 
+            raison = args.slice(2).join(" ") || "Unspecified";
+            temps = ms(ms(args[1]), { long: true })
+            db.set(`mute_${message.guild.id}_${member.id}`, time)
+        } else {
+            if(args[1]) {
+                raison = args.slice(1).join(" ") || "Unspecified";
+            }
+            db.set(`mute_${message.guild.id}_${member.id}`, `forever`)
+        }
+        
+        // message.client.users.fetch(member.id).then(user => user.roles.add(muted_role.id))
+
+        // const muted_embed = new Discord.MessageEmbed()
+        //     .setColor(client.color)
+        //     .setTitle(message.language.mute.dm.title(message.guild.name, message.author.tag))
+        //     .setDescription(message.language.mute.dm.description(temps, raison))
+        // member.send(muted_embed)
+        
+        db.set(`sanctions_${message.guild.id}_${member.id}_${count+1}`, `Muted by ${message.author.tag} | Reason: ${raison} | Duration: ${temps} | Time: ${formatDate(now, "mm/dd/yy HH:MM:ss")}`);
+        
+        const embed = new Discord.MessageEmbed()
+            .setColor(client.color)
+            .setTitle(message.language.mute.title(member, message.author.tag))
+            .setDescription(message.language.mute.description(temps, raison))
+        return message.channel.send(embed)
+    })
     
-    db.set(`sanctions_${message.guild.id}_${mentionedUser.id}_${count+1}`, `Muted by ${message.author.tag} | Reason: ${raison} | Duration: ${temps} | Time: ${formatDate(now, "mm/dd/yy HH:MM:ss")}`);
-    
-    const embed = new Discord.MessageEmbed()
-        .setColor(client.color)
-        .setTitle(message.language.mute.title(mentionedUser, message.author.tag))
-        .setDescription(message.language.mute.description(temps, raison))
-    return message.channel.send(embed)
 
     
 };

@@ -22,29 +22,25 @@ module.exports.run = (client, message, args) => {
     const now = new Date();
     let raison = args.slice(1).join(" ") || "Unspecified";
 
-    let mentionedUser;
+    let member;
     if(message.mentions.members.first()){
-        mentionedUser = message.mentions.members.first();
+        member = message.mentions.members.first();
     }
     else {
-        mentionedUser = args[0];
-        if(isNaN(mentionedUser) && args[0]) {
+        if(isNaN(args[0]) && args[0]) {
             const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.errors.user())
             return message.channel.send(embed);
         }
-        mentionedUser = message.guild.members.resolve(args[0]);
+        member = message.guild.members.cache.get(args[0]);
     }
-    if(!args[0] || !mentionedUser) {
+    if(!args[0] || !member) {
         let content = ["unmute"];
         return client.commands.get("help").run(client, message, content);
     }
-    
-    const memberPosition = mentionedUser.roles.highest.position;
-    const moderationPosition = message.member.roles.highest.position;
 
-    if(mentionedUser.id === message.author.id || (moderationPosition < memberPosition)) {
+    if(member.id === message.author.id || (message.member.roles.highest.position <= member.roles.highest.position)) {
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.unmute.error_user())
@@ -52,25 +48,24 @@ module.exports.run = (client, message, args) => {
     }
 
     // Check if user have the muted role
-    if(!mentionedUser.roles.cache.has(role => role.name.toLowerCase().includes("muted"))){
+    let mutedid = db.fetch(`mutedrole_${message.guild.id}`)
+    let muted_role = message.guild.roles.cache.get(mutedid)
+    // console.log(member.roles.cache);
+    // console.log(member.roles.cache.has(muted_role.id));
+
+    if(!muted_role){
+        const embed = new Discord.MessageEmbed()
+        .setColor(client.color)
+        .setDescription(message.language.unmute.error_role())
+        return message.channel.send(embed);
+    }
+    if(!member.roles.cache.has(muted_role.id)){
         const embed = new Discord.MessageEmbed()
             .setColor(client.color)
             .setDescription(message.language.unmute.error_notmuted())
         return message.channel.send(embed);
     }
-
-    // delete the muted time in db
-    db.delete(`mute_${message.guild.id}_${mentionedUser.id}`);
-    let muted_role = db.fetch(`mutedrole_${message.guild.id}`);
-
-    if(!muted_role){
-        muted_role = message.guild.roles.cache.find(role => role.name.toLowerCase().includes("muted"));
-        // const embed = new Discord.MessageEmbed()
-        // .setColor(client.color)
-        // .setDescription(message.language.unmute.error_role())
-        // return message.channel.send(embed);
-    }
-    mentionedUser.roles.remove(muted_role).catch((err) => {
+    member.roles.remove(muted_role).catch((err) => {
         const embed = new Discord.MessageEmbed()
         .setColor(client.color)
         .setDescription(message.language.unmute.error_role())
@@ -79,19 +74,19 @@ module.exports.run = (client, message, args) => {
 
     const embed = new Discord.MessageEmbed()
         .setColor(client.color)
-        .setDescription(message.language.unmute.description(mentionedUser.user.tag))
+        .setDescription(message.language.unmute.description(member.user.tag))
     message.channel.send(embed);
     let count = 0;
     db.all().forEach((element) => {
-        const sanctionsdb = element.ID.startsWith(`sanctions_${message.guild.id}_${mentionedUser.id}`);
+        const sanctionsdb = element.ID.startsWith(`sanctions_${message.guild.id}_${member.id}`);
         if (!sanctionsdb) {
             return;
         }
         count++;
     });
-    db.set(`sanctions_${message.guild.id}_${mentionedUser.id}_${count+1}`, `Unmuted by ${message.author.tag} | Reason : ${raison} | Time: ${formatDate(now, "mm/dd/yy HH:MM:ss")}`)
+    db.set(`sanctions_${message.guild.id}_${member.id}_${count+1}`, `Unmuted by ${message.author.tag} | Reason : ${raison} | Time: ${formatDate(now, "mm/dd/yy HH:MM:ss")}`)
 
-    db.delete(`mute_${message.guild.id}_${mentionedUser.id}`);
+    db.delete(`mute_${message.guild.id}_${member.id}`);
 
 };
 
