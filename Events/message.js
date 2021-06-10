@@ -5,12 +5,12 @@ const config = require('../config.json');
 const { inlineReply } = require("../ExtendedMessage");
 
 module.exports = (client, message) => {
-
     if (message.author.bot || message.channel.type === 'dm') { return; }
     
     if (message.guild.id === '361214329158238218' && message.channel.id === '780419162874052668'){
-        reponse = message.content.trim().split(/ +/g);
-        messageid = reponse.shift();
+        reponse = message.content;
+        if(!message.reference || !message.reference.messageID) return;
+        messageid = message.reference.messageID;
         if(isNaN(messageid)) return;
         if(!message.channel.messages.fetch(messageid)) return;
 
@@ -21,11 +21,11 @@ module.exports = (client, message) => {
             client.guilds.cache.get(message.embeds[0].footer.text.split(" ")[0])
                 .channels.cache.get(message.embeds[0].footer.text.split(" ")[2])
                 .messages.cache.get(message.embeds[0].footer.text.split(" ")[4])
-                .inlineReply(reponse.join(' '));
+                .inlineReply(reponse).then(message.react('✅'));
         })
     }
 
-    if (message.mentions.has(client.user) && !message.mentions.has(message.guild.roles.everyone) && !message.mentions.has(message.guild.roles.here)){
+    if (message.mentions.has(client.user) && !message.mentions.has(message.guild.roles.everyone) && !message.mentions.has(message.guild.roles.here) && message.channel.id !== '780419162874052668'){
         const embed = new Discord.MessageEmbed()
 			.setColor(config.color)
             .setThumbnail(message.member.user.displayAvatarURL())
