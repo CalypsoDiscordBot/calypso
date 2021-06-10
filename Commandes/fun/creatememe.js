@@ -29,7 +29,7 @@ module.exports.run = async (client, message, args) => {
             var body = JSON.parse(body);
             let content = "";
             await body.forEach(element => {
-                content += `${element.name} - \`${element.key}\`\n`
+                content += `${element.name} - \`${element.id}\`\n`
             });
 
             if(content.toString().split("\n").length < 10) {
