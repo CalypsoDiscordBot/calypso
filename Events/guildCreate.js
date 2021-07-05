@@ -22,7 +22,6 @@ module.exports = async (client, guild) => {
 	console.log(`${client.membercount} Members ${client.channels.cache.size} Channels ${client.guilds.cache.size} Servers.`);
 
 	const Alex = client.users.cache.get('334786552964186123');
-	const Itek = client.users.cache.get('216607323035009025');
 	const Haz = client.users.cache.get('278608007535919115');
 
 	let icon = null;
@@ -48,6 +47,5 @@ module.exports = async (client, guild) => {
 		.addField('Users : ', guildusers || guild.members.cache.size);
 
 	Alex.send(embed);
-	Itek.send(embed);
 	Haz.send(embed);
 };

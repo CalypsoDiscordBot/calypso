@@ -3,6 +3,7 @@ const ms = require("ms");
 const config = require('../../config.json');
 const fs = require('fs');
 const db = require("quick.db");
+const { MessageButton, MessageActionRow } = require('discord-buttons');
 
 module.exports.run = async (client, message, args) => {
     
@@ -20,7 +21,7 @@ module.exports.run = async (client, message, args) => {
     }
     message.delete();
 
-    let role = message.mentions.roles.first();
+    let role = message.guild.roles.cache.find((c) => c.name === args[0] || c.id === args[0]);
 
     if (!role || !role.name) { 
         let content = ["ticket"];
@@ -38,7 +39,13 @@ module.exports.run = async (client, message, args) => {
     });
 
     //  MESSAGE
+    let button = new MessageButton()
+        .setLabel("Ouvrir un ticket")
+        .setStyle("blurple")
+        .setEmoji("📝")
+        .setID("ticket_create")
     message.channel.send({
+        component: button,
         embed: {
             color: client.color,
             description: message.language.ticket.message.description(),
@@ -59,7 +66,7 @@ module.exports.run = async (client, message, args) => {
                 allow: ['VIEW_CHANNEL','SEND_MESSAGES','ADD_REACTIONS']
             }
         ]);
-        data.react('📝')
+        // data.react('📝')
         
         setTimeout(function(){ 
             let messageid = db.fetch(`messageticket_${data.channel.guild.id}`);

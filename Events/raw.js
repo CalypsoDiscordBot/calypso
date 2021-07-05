@@ -10,6 +10,15 @@ module.exports = (client) => {
 
 client.once('raw', payload => {
 
+    if(payload.t === 'clickButton') {
+        console.log('test')
+        messageticket = db.fetch(`messageticket_${payload.d.guild_id}`);
+        categorie = db.fetch(`categorie_${payload.d.guild_id}`);
+
+        rolesupport = db.fetch(`rolesupport_${payload.d.guild_id}`);
+
+        let channel = client.channels.cache.get(payload.d.channel_id) // Get channel object.
+    }
     if(payload.t === 'MESSAGE_REACTION_ADD') {
 
         messageticket = db.fetch(`messageticket_${payload.d.guild_id}`);
